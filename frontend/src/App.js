@@ -1,11 +1,11 @@
-import './App.css';
-import {Box, ChakraProvider, Flex} from '@chakra-ui/react'
+import React from 'react';
+import {Box, Flex} from '@chakra-ui/react'
 import Login from './components/login/Login';
 import Session from './components/session/Session';
 
 function App() {
   return (
-    <ChakraProvider>
+    <Box>
       <Flex w='100%' h='80vh' border='5px solid green' >
         <Box w='50%' h='100%' border='4px solid yellow'  >
           <Session/>
@@ -17,7 +17,7 @@ function App() {
       <Box w='100%' h='30%' border='1px solid blue'>
         chat
       </Box>
-    </ChakraProvider>
+    </Box>  
   );
 }
 

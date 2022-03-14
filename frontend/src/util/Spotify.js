@@ -1,5 +1,6 @@
 const { request } = require('express');
 const express = require('express')
+const querystring = require('query-string')
 require('dotenv').config({ path: '../.env'});
 
 const app = express();
@@ -61,6 +62,7 @@ const Spotify = {
                     },
                     json: true
                 };
+                res.send(authOptions);
             }
         })
     },

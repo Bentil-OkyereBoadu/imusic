@@ -1,9 +1,20 @@
-import React from 'react';
-import {Box, Flex} from '@chakra-ui/react'
+import React, { useState } from 'react';
+import {Box, Flex, Input} from '@chakra-ui/react'
 import Login from './components/login/Login';
 import Session from './components/session/Session';
+// import Spotify from './util/Spotify';
 
 function App() {
+
+    const [searchTerm, setSearchTerm] = useState('')
+    
+    // const search = term =>{
+    // Spotify.search(term).then(searchResult => {
+    //   setSearchTerm({searchResults: searchResult})
+    //   })
+    // }
+
+
   return (
     <Box>
       <Flex w='100%' h='80vh' border='5px solid green' >
@@ -15,7 +26,7 @@ function App() {
         </Flex>
       </Flex>
       <Box w='100%' h='30%' border='1px solid blue'>
-        chat
+        <Input onChange={console.log(searchTerm)}></Input>
       </Box>
     </Box>  
   );

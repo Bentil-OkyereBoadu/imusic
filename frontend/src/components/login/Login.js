@@ -1,11 +1,10 @@
 import { Button, Flex, Heading } from '@chakra-ui/react'
 import React from 'react'
-// import Spotify from '../../util/Spotify'
+
 
 const Login = () => {
 
     const onClickHandler = () => {
-        // Spotify.authRequest();
     }
   return (
     <Flex h='60%' w='60%' flexDirection='column' justifyContent='space-around' alignItems='center' border='2px solid green' bg='gray.300' p={3}>

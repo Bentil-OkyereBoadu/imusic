@@ -34,13 +34,13 @@ function App() {
           <Login/>
         </Route>
         <Route path='/music'>
-          <MusicRoom chats= {chats}/>
+          <MusicRoom/>
         </Route>
         <Route path='/signup'>
           <Signup/>
         </Route>
         <Route path='/' exact>
-          <Home chats= {chats}/> 
+          <Home /> 
         </Route>
       </Switch> 
     </Router>

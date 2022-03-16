@@ -29,7 +29,8 @@ const redirect_uri = process.env.REDIRECT_URI;
 //   },
 //   credentials: true,
 // }
-//generate random string (hash) as code verifier
+
+//generate random string (hash) as code verifier for spotify api
 const generateRandomString = (length) => {
     var text = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -60,6 +61,7 @@ app.get('/api/chat/:id', (req, res) => {
     res.send(singleChat);
 })
 
+//spotify authentication
 app.get('/login', (req, res) =>{
     const state = generateRandomString(16);
     const scope = 'user-read-private user-read-email';

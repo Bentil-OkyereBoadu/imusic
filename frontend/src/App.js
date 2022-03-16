@@ -4,36 +4,26 @@ import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import MusicRoom from './components/musicRoom/MusicRoom';
 import Signup from './components/signup/Signup';
 import Login from './components/login/Login';
+import axios from 'axios';
 
 
 function App() {
 
    const [chats, setChats] = useState([]);
 
-
-  const getChats = async () => {
-    try {
-      const chats = await fetch('http://localhost:4000/api/chat');
-    const chatsJson = await chats.json();
-    // const chatString = JSON.stringify(chatsJson)
-    setChats((prevChat) => [prevChat, ...chatsJson]);
-    } catch (err) {
-      console.error(err.message);
-    }
+  const getChats =()=>{
+    axios({
+      method: 'GET',
+      url: 'http://localhost:4000/api/chat'
+    }).then( res => {
+      setChats(res.data);
+    })
   }
 
   useEffect(()=>{
     getChats();
   }, []);
  
-const authRequest = async () => {
-  try{
-
-  }
-  catch(err){
-    console.error(err);
-  }
-}
 
 
 
@@ -44,13 +34,13 @@ const authRequest = async () => {
           <Login/>
         </Route>
         <Route path='/music'>
-          <MusicRoom chats= {chats}/>
+          <MusicRoom/>
         </Route>
         <Route path='/signup'>
           <Signup/>
         </Route>
         <Route path='/' exact>
-          <Home chats= {chats}/> 
+          <Home /> 
         </Route>
       </Switch> 
     </Router>

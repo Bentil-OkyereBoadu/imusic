@@ -80,7 +80,7 @@ app.get('/callback', (req, res) => {
     let state = req.query.state || null;
 
     if (state === null) {
-        res.redirect('/#' + querystring.stringify({
+        res.redirect('/#' + querystring.stringify({ 
             error: 'state_mismatch'
         }))
     } else {

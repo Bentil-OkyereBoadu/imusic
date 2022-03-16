@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Heading } from '@chakra-ui/react'
 import React from 'react'
-import Login from '../login/Login'
 import Session from '../musicRoom/Session'
+import {NavLink} from 'react-router-dom';
 
 const Home = (props) => {
 
@@ -9,15 +9,19 @@ const Home = (props) => {
 
   return (
     <Box>
-    <Flex w='100%' h='80vh' border='5px solid green' >
-      <Box w='50%' h='100%' border='4px solid yellow'  >
+    <Flex w='100%' h='80vh' >
+      <Box w='50%' h='100%' >
         <Session chats= {chats}/>
       </Box>
-      <Flex justifyContent='center' alignItems='center' w='50%' h='100%' border='1px solid tomato'> 
-        <Flex h='60%' w='60%' flexDirection='column' justifyContent='space-around' alignItems='center' border='2px solid green' bg='gray.300' p={3}>
+      <Flex justifyContent='center' alignItems='center' w='50%' h='100%'> 
+        <Flex h='60%' w='60%' flexDirection='column' justifyContent='space-around' alignItems='center' bg='gray.300' p={3} borderRadius='30px'>
             <Heading fontSize='xl'>CREATE A SESSION</Heading>
-            <Button colorScheme='orange' size='md' w='40%' h='20%' fontSize='md'>Public session</Button>
-            <Button colorScheme='orange' size='md' w='40%'h='20%'fontSize='md' >Private session</Button>
+            <Button colorScheme='orange' size='md' w='40%' h='20%' fontSize='md' borderRadius='30px'>
+                <NavLink to='/login'>Public</NavLink>
+            </Button>
+            <Button colorScheme='orange' size='md' w='40%'h='20%'fontSize='md'borderRadius='30px' >
+                <NavLink to='/login'>Private</NavLink>
+            </Button>
         </Flex>
       </Flex>
     </Flex>

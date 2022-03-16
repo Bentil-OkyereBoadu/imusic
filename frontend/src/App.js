@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import {Box, Flex, Input} from '@chakra-ui/react'
 import Home from './components/landingPage/Home';
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import MusicRoom from './components/musicRoom/MusicRoom';
@@ -16,8 +15,8 @@ function App() {
     try {
       const chats = await fetch('http://localhost:4000/api/chat');
     const chatsJson = await chats.json();
-    const chatString = JSON.stringify(chatsJson)
-    setChats((prevChat) => [prevChat, ...chatString]);
+    // const chatString = JSON.stringify(chatsJson)
+    setChats((prevChat) => [prevChat, ...chatsJson]);
     } catch (err) {
       console.error(err.message);
     }
@@ -41,17 +40,17 @@ const authRequest = async () => {
   return (
     <Router>
       <Switch>
-        <Route path='/' exact>
-          <Home chats= {chats}/> 
-        </Route>
         <Route path='/login'>
           <Login/>
         </Route>
         <Route path='/music'>
-          <MusicRoom/>
+          <MusicRoom chats= {chats}/>
         </Route>
         <Route path='/signup'>
           <Signup/>
+        </Route>
+        <Route path='/' exact>
+          <Home chats= {chats}/> 
         </Route>
       </Switch> 
     </Router>

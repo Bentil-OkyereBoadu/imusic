@@ -7,7 +7,7 @@ const Session = (props) => {
   return (
     <Box>
         <UnorderedList>
-           { chats.map((chat) => <ListItem key={chat._id}>{chat}</ListItem> )}
+           { chats.map((chat) => <ListItem>{chat}</ListItem> )}
         </UnorderedList>
     </Box>
   )

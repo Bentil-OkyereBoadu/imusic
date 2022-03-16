@@ -10,8 +10,8 @@ const Home = (props) => {
   return (
     <Box>
     <Flex w='100%' h='80vh' >
-      <Box w='50%' h='100%' >
-        <Session chats= {chats}/>
+      <Box w='50%' h='100%' bg='orange.400'>
+        {/* <Session chats= {chats}/> */}
       </Box>
       <Flex justifyContent='center' alignItems='center' w='50%' h='100%'> 
         <Flex h='60%' w='60%' flexDirection='column' justifyContent='space-around' alignItems='center' bg='gray.300' p={3} borderRadius='30px'>

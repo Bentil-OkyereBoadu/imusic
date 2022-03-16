@@ -1,4 +1,4 @@
-import { Button, Flex, FormControl, FormLabel, Text, Input } from '@chakra-ui/react';
+import { Button, Flex, FormControl, FormLabel, Text, Input, Heading } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import {NavLink} from 'react-router-dom';
 
@@ -9,33 +9,38 @@ const Login = () => {
 
   const handleInputChange = (e) => setInput(e.target.value) 
   return (
-    <Flex justifyContent='center' alignContent='center'>
-      <FormControl width='30%' >
-        <FormLabel htmlFor='Login'>Login</FormLabel>
+  <Flex justifyContent='center' alignItems='center' alignContent='center'>
+    <Flex w='40%' h='450px' textAlign='center' flexDirection='column' justifyContent='space-around' alignItems='center' alignContent='center' bg='gray.100' p={3} borderRadius='30px'>
+      <FormControl width='80%' >
+        <Heading>Login</Heading>
+        <br/>
         <Input 
           id='username'
           type='text'
           placeholder='Username'
+          _placeholder={{opacity: 0.6, color: 'inherit', color: 'blue.500' }}
           onChange={handleInputChange} 
         />
-        <Input 
+       
+        <Input marginTop='1.5rem'
           id='password'
           type='password'
           placeholder='Password'
+          _placeholder={{ opacity: 0.6, color: 'inherit',  color: 'blue.500' }}
           onChange={handleInputChange} 
         />
-        <Button
+        
+        <Button margin='1rem'
             size='md'
-            height='48px'
-            width='200px'
-            border='2px'
-            color='orange.500'>
-            Submit
+            colorScheme='blue'>
+            Log in
         </Button>
+        
         <Text fontSize='lg'>Don't have an account yet? </Text>
         <NavLink to='/signup'>Sign up</NavLink>
       </FormControl>
     </Flex>
+  </Flex>
   )
 }
 

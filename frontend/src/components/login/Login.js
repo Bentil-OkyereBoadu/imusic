@@ -1,4 +1,4 @@
-import { Button, Flex, Heading } from '@chakra-ui/react'
+import { Button, Flex, Heading, Input } from '@chakra-ui/react'
 import React from 'react'
 
 
@@ -7,10 +7,10 @@ const Login = () => {
     const onClickHandler = () => {
     }
   return (
-    <Flex h='60%' w='60%' flexDirection='column' justifyContent='space-around' alignItems='center' border='2px solid green' bg='gray.300' p={3}>
-        <Heading fontSize='xl'>CREATE A SESSION</Heading>
-        <Button colorScheme='orange' size='md' w='40%' h='20%' fontSize='md'>Public session</Button>
-        <Button colorScheme='orange' size='md' w='40%'h='20%'fontSize='md' onClick={onClickHandler}>Private session</Button>
+    <Flex flexDirection='column'>
+      <Heading>Login</Heading>
+      <Input></Input>
+      <Input></Input>
     </Flex>
   )
 }

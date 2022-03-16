@@ -1,34 +1,60 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Box, Flex, Input} from '@chakra-ui/react'
+import Home from './components/landingPage/Home';
+import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
+import MusicRoom from './components/musicRoom/MusicRoom';
+import Signup from './components/signup/Signup';
 import Login from './components/login/Login';
-import Session from './components/session/Session';
-// import Spotify from './util/Spotify';
+
 
 function App() {
 
-    const [searchTerm, setSearchTerm] = useState('')
-    
-    // const search = term =>{
-    // Spotify.search(term).then(searchResult => {
-    //   setSearchTerm({searchResults: searchResult})
-    //   })
-    // }
+   const [chats, setChats] = useState([]);
+
+
+  const getChats = async () => {
+    try {
+      const chats = await fetch('http://localhost:4000/api/chat');
+    const chatsJson = await chats.json();
+    const chatString = JSON.stringify(chatsJson)
+    setChats((prevChat) => [prevChat, ...chatString]);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  useEffect(()=>{
+    getChats();
+  }, []);
+ 
+const authRequest = async () => {
+  try{
+
+  }
+  catch(err){
+    console.error(err);
+  }
+}
+
 
 
   return (
-    <Box>
-      <Flex w='100%' h='80vh' border='5px solid green' >
-        <Box w='50%' h='100%' border='4px solid yellow'  >
-          <Session/>
-        </Box>
-        <Flex justifyContent='center' alignItems='center' w='50%' h='100%' border='1px solid tomato'> 
-          <Login />
-        </Flex>
-      </Flex>
-      <Box w='100%' h='30%' border='1px solid blue'>
-        <Input onChange={console.log(searchTerm)}></Input>
-      </Box>
-    </Box>  
+    <Router>
+      <Switch>
+        <Route path='/' exact>
+          <Home chats= {chats}/> 
+        </Route>
+        <Route path='/login'>
+          <Login/>
+        </Route>
+        <Route path='/music'>
+          <MusicRoom/>
+        </Route>
+        <Route path='/signup'>
+          <Signup/>
+        </Route>
+      </Switch> 
+    </Router>
   );
 }
 

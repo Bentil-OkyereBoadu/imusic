@@ -1,4 +1,4 @@
-import { Box, ListItem, UnorderedList } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import React from 'react'
 
 const Session = (props) => {
@@ -6,9 +6,9 @@ const Session = (props) => {
   const {chats} = props;
   return (
     <Box>
-        <UnorderedList>
-           { chats.map((chat) => <ListItem>{chat}</ListItem> )}
-        </UnorderedList>
+        <Box>
+           { chats.map((chat) => <Box bg='gray.100' key={chat._id}>{chat.users}</Box> )}
+        </Box>
     </Box>
   )
 }

@@ -1,10 +1,14 @@
 import { Grid, GridItem } from '@chakra-ui/react'
 import React from 'react'
 import Chat from '../chat/Chat';
-import Session from './Session'
+import Session from './Session';
+import axios from 'axios';
 
 const MusicRoom = (props) => {
   const {chats} = props;
+
+  
+
   return (
   <Grid templateColumns='repeat(3, 1fr)' gap={2} w='100%' h='90%'>
     <GridItem w='100%' h='100%' bg='blue.500'>

@@ -2,8 +2,14 @@ import { Box, Button, Flex, Heading } from '@chakra-ui/react'
 import React from 'react'
 import Session from '../musicRoom/Session'
 import {NavLink} from 'react-router-dom';
+import axios from 'axios';
 
 const Home = (props) => {
+
+  const onPublicBtnClick = (e) => {
+    e.preventDefault();
+  }
+
 
     const {chats} = props;
 
@@ -17,7 +23,7 @@ const Home = (props) => {
         <Flex h='60%' w='60%' flexDirection='column' justifyContent='space-around' alignItems='center' bg='gray.300' p={3} borderRadius='30px'>
             <Heading fontSize='xl'>CREATE A SESSION</Heading>
             <Button colorScheme='orange' size='md' w='40%' h='20%' fontSize='md' borderRadius='30px'>
-                <NavLink to='/login'>Public</NavLink>
+                <a href='http://localhost:4000/login'>Public</a>
             </Button>
             <Button colorScheme='orange' size='md' w='40%'h='20%'fontSize='md'borderRadius='30px' >
                 <NavLink to='/login'>Private</NavLink>

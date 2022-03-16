@@ -7,7 +7,7 @@ const Signup = () => {
     const handleInputChange = (e) => setInput(e.target.value)
 
   return (
-    <Flex justifyContent='center' alignContent='center'>
+    <Flex justifyContent='center' alignContent='center' marginTop='10%'>
     <Flex w='40%' h='450px' textAlign='center' flexDirection='column' justifyContent='space-around' alignItems='center' alignContent='center' bg='gray.100' p={3} borderRadius='30px'>
     <FormControl width='80%' >
       <Heading>Sign Up</Heading>

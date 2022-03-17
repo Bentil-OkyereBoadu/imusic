@@ -1,20 +1,50 @@
 import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
-import React from 'react'
-import Session from '../musicRoom/Session'
+import React, { useEffect } from 'react'
 import {NavLink} from 'react-router-dom';
 import axios from 'axios';
-import {bg} from '../../assets/background.jpeg';
 import './styles.css';
+import { useLocalStorage } from '../../useLocalStorage';
 
+  //getting client id and redirect uri from env
+  // const client_secret = process.env.CLIENT_SECRET;
+  const client_id ="ddc7d259bece4112b9df90559ea0e4ff";
+  const redirect_uri = 'http://localhost:3000/music';
 
-const Home = (props) => {
+  const OAUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+  const SCOPES = ["user-read-currently-playing", "user-read-playback-state" ]
+  const SPACE_DELIMITER = "%20";
+  const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
-  const onPublicBtnClick = (e) => {
-    e.preventDefault();
+  const getParamsFromSpotifyAuth = (hash) => {
+    const stringAfterHashtag = hash.substring(1);
+    const paramsInUrl =stringAfterHashtag.split("&");
+
+    const paramsSplitUp = paramsInUrl.reduce((accumulator, currentValue) => {
+      console.log(currentValue);
+      const [key, value] = currentValue.split.split("=");
+      accumulator[key] = value;
+      return accumulator;
+    })
+
+    return paramsSplitUp;  
   }
 
+const Home = () => {
 
-    const {chats} = props;
+  useEffect(() => {
+    if(window.location.hash){
+      const {access_token, expires_in, token_type} = getParamsFromSpotifyAuth(window.location.hash);
+      localStorage.clear()
+      localStorage.setItem("accessToken", access_token);
+      localStorage.setItem("tokenType", token_type);
+      localStorage.setItem("expiresIn", expires_in);
+    }
+  }, [])
+  const handleLogin = () => {
+    window.location = `${OAUTH_ENDPOINT}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;
+  }
+
+  
 
   return (
     <div className='home' >
@@ -31,11 +61,11 @@ const Home = (props) => {
               Public
             </Button>
           </a>
-          <NavLink to='/login' style={{width:'50%', height:'20%'}}>
-            <Button bg='orange' color='white' size='md' w='100%'h='100%'fontSize='lg'borderRadius='30px' >
+          {/* <NavLink to='/login' style={{width:'50%', height:'20%'}}></NavLink> */}
+          
+            <Button bg='orange' color='white' size='md' w='50%'h='20%'fontSize='lg'borderRadius='30px' onClick={handleLogin}>
               Private
             </Button>
-          </NavLink>
         </Flex>
       </Flex>
     </Flex>

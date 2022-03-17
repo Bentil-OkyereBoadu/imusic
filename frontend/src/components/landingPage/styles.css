@@ -13,8 +13,8 @@
     color: azure;
     background: linear-gradient(90deg, rgba(255, 166, 0, 0.883) 0%, rgba(221, 72, 8, 0.863) 100%);
     width:fit-content;
-    padding: 1rem;
+    padding: 2rem;
     margin-top: 25%;
     margin-left: 5%;
-    letter-spacing: 0.2em;
+    background-blend-mode:overlay;
 }

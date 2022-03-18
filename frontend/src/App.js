@@ -9,20 +9,20 @@ import axios from 'axios';
 
 function App() {
 
-   const [chats, setChats] = useState([]);
+  //  const [chats, setChats] = useState([]);
 
-  const getChats =()=>{
-    axios({
-      method: 'GET',
-      url: 'http://localhost:4000/api/chat'
-    }).then( res => {
-      setChats(res.data);
-    })
-  }
+  // const getChats =()=>{
+  //   axios({
+  //     method: 'GET',
+  //     url: 'http://localhost:4000/api/chat'
+  //   }).then( res => {
+  //     setChats(res.data);
+  //   })
+  // }
 
-  useEffect(()=>{
-    getChats();
-  }, []);
+  // useEffect(()=>{
+  //   getChats();
+  // }, []);
  
 
 
@@ -40,7 +40,7 @@ function App() {
           <Signup/>
         </Route>
         <Route path='/' exact>
-          <Home /> 
+          <Home  /> 
         </Route>
       </Switch> 
     </Router>

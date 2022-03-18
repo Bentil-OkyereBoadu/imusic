@@ -10,16 +10,18 @@ import Playlist from './Playlist';
 const USER_ENDPOINT = "https://api.spotify.com/v1/me";
 
 const MusicRoom = () => {
-  const [token, setToken] = useState('BQCottt_BE4z0EQvxtdOVPFCCHJ8iprsMxCrd64CfISZtbpnC7iYmutuJaMNCkeji8Ciey3cKtO7nO5dutlz8-FC73-cATUYNCY1ILh-SILGP6yYfYwZuq8AnvfSA0j-zyR3qA1vf49Ge7euEyR_Nd7ny3V_pBrxvB8azj_uf0P5QaVzGpMgdxBY');
+  const [token, setToken] = useState('');
   const [data, setData] = useState({});
 
   useEffect(()=> {
     if (localStorage.getItem("accessToken")){
       setToken(localStorage.getItem("accessToken"))
     }
-
-    handleGetUser()
   },[])
+
+    useEffect(()=>{
+      handleGetUser()
+    }, [])
 
   const handleGetUser= () =>{
     axios.get(USER_ENDPOINT,{
@@ -33,7 +35,7 @@ const MusicRoom = () => {
       console.log(error);
     })
   }
-  console.log(token);
+
   console.log(data.display_name)
   return (
   <Box overflowY='hidden' overflowX='hidden' position='fixed' w='100%'> 

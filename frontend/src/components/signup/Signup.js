@@ -1,4 +1,4 @@
-import { Button, Flex, FormControl, FormLabel, Heading, Input } from '@chakra-ui/react'
+import { Button, Flex, FormControl, Heading, Input } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ const Signup = () => {
         type='text'
         value={input}
         placeholder='Username'
-        _placeholder={{opacity: 0.6, color: 'inherit', color: 'blue.500' }}
+        _placeholder={{opacity: 0.6, color: 'blue.500' }}
         onChange={handleInputChange} 
       />
       <Input marginTop='1.5rem'
@@ -25,7 +25,7 @@ const Signup = () => {
         type='password'
         value={input}
         placeholder='Password'
-        _placeholder={{opacity: 0.6, color: 'inherit', color: 'blue.500' }}
+        _placeholder={{opacity: 0.6, color: 'blue.500' }}
         onChange={handleInputChange} 
       />
 
@@ -34,7 +34,7 @@ const Signup = () => {
         type='password'
         value={input}
         placeholder='Confirm Password'
-        _placeholder={{opacity: 0.6, color: 'inherit', color: 'blue.500' }}
+        _placeholder={{opacity: 0.6, color: 'blue.500' }}
         onChange={handleInputChange} 
       />
       <NavLink to='/music' >

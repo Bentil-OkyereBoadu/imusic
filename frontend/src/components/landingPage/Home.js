@@ -22,7 +22,7 @@ import './styles.css';
       const [key, value] = currentValue.split("=");
       accumulator[key] = value;
       return accumulator;
-    })
+    }, {});
 
     return paramsSplitUp;  
   }
@@ -35,7 +35,7 @@ const Home = () => {
       localStorage.clear()
       localStorage.setItem("accessToken", access_token);
       localStorage.setItem("tokenType", token_type);
-      localStorage.setItem("expiresIn", expires_in);
+      localStorage.setItem("expiresIn",  expires_in);
     }
   }, [])
   const handleLogin = () => {

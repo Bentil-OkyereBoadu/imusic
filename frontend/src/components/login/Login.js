@@ -1,4 +1,4 @@
-import { Button, Flex, FormControl, FormLabel, Text, Input, Heading } from '@chakra-ui/react';
+import { Button, Flex, FormControl, Text, Input, Heading } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import {NavLink} from 'react-router-dom';
 
@@ -18,7 +18,7 @@ const Login = () => {
           id='username'
           type='text'
           placeholder='Username'
-          _placeholder={{opacity: 0.6, color: 'inherit', color: 'blue.500' }}
+          _placeholder={{opacity: 0.6, color: 'blue.500' }}
           onChange={handleInputChange} 
         />
        
@@ -26,7 +26,7 @@ const Login = () => {
           id='password'
           type='password'
           placeholder='Password'
-          _placeholder={{ opacity: 0.6, color: 'inherit',  color: 'blue.500' }}
+          _placeholder={{ opacity: 0.6, color: 'blue.500' }}
           onChange={handleInputChange} 
         />
         

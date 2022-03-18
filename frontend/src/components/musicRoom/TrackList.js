@@ -1,12 +1,12 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import React from 'react'
 import Track from './Track'
 
 const TrackList = (props) => {
     const {onAdd, isRemoval, onRemove} = props;
-    const tracks = ['manifest','bfafoi', 'eifboi', 'fnhaep4f', 'shir', 'feik', 'rnirns', 'rnrie','','']
+    const tracks = []
   return (
-    <Flex flexDirection='column' h='max-content' w='100%' alignItems='center' overflowY='scroll' overflowX='hidden' position='relative'>
+    <Flex flexDirection='column' h='max-content' w='100%' alignItems='center' overflowY='scroll' overflowX='hidden'>
         {tracks.map( track => {
             return <Track track={track}
                             key={track.id}

@@ -24,7 +24,7 @@ const MusicRoom = () => {
   const handleGetUser= () =>{
     axios.get(USER_ENDPOINT,{
       headers:{
-        Authorization: "Bearer "+"BQDAypBUGtX_0IyhZIxaRxb2YcgsZ7d4OxWmD5MBMTPHswDTcNNfabTfq2ET363KwmgNZRjnZ0cmg6J6QZZuVfwi5bDQViSG1zOD-jmt0wg1dFrGfpfTh1FbzQChfGINrzjW5chMQFVo04e2iY5IREpVtP_MMvOT9aZbUUi9CsStriB7m7ASN5jP"
+        Authorization: "Bearer "+ token
       }
     }).then((response) => {
       setData(response.data)
@@ -33,7 +33,7 @@ const MusicRoom = () => {
       console.log(error);
     })
   }
-  
+  console.log(token);
   console.log(data.display_name)
   return (
   <> 
@@ -43,7 +43,7 @@ const MusicRoom = () => {
         <Session/>
       </GridItem>
       <GridItem w='100%' h='100%' bg='blue.300'>
-        <Playlist/>
+        <Playlist />
       </GridItem>
       <GridItem w='100%' h='100%' bg='blue.100'>
         <Chat/>

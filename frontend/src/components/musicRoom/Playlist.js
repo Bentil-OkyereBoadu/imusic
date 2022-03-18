@@ -1,13 +1,14 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, Input, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { useLocalStorage } from '../../useLocalStorage';
+import TrackList from './TrackList';
+import SearchBar from './SearchBar';
 
 const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
 
-const Playlist = () => {
+const Playlist = (props) => {
 
-  const [token, setToken] = useState("")
+  const [token, setToken] = useState("BQDAypBUGtX_0IyhZIxaRxb2YcgsZ7d4OxWmD5MBMTPHswDTcNNfabTfq2ET363KwmgNZRjnZ0cmg6J6QZZuVfwi5bDQViSG1zOD-jmt0wg1dFrGfpfTh1FbzQChfGINrzjW5chMQFVo04e2iY5IREpVtP_MMvOT9aZbUUi9CsStriB7m7ASN5jP")
   const [data, setData] = useState({})
 
   useEffect(()=> {
@@ -21,7 +22,7 @@ const Playlist = () => {
   const handleGetPlaylists = () => {
     axios.get(PLAYLISTS_ENDPOINT, {
       headers:{
-        Authorization: "Bearer "+ "BQDAypBUGtX_0IyhZIxaRxb2YcgsZ7d4OxWmD5MBMTPHswDTcNNfabTfq2ET363KwmgNZRjnZ0cmg6J6QZZuVfwi5bDQViSG1zOD-jmt0wg1dFrGfpfTh1FbzQChfGINrzjW5chMQFVo04e2iY5IREpVtP_MMvOT9aZbUUi9CsStriB7m7ASN5jP",
+        Authorization: "Bearer "+ token,
       }
     }).then((response) => {
       setData(response.data);
@@ -33,11 +34,28 @@ const Playlist = () => {
   console.log(localStorage.getItem("expiresIn"));
   console.log(data)
  
+  const [playlistName, setPlaylistName] = useState('')
+
+  const handleNameChange = (e) => {
+    setPlaylistName(e.target.value);
+  }
+
+  const {playlistTracks, onRemove, onAdd} = props;
+
   return (
-    <Box>
-        <Text>Playlist</Text>
-        <Text></Text>
-    </Box>
+    <Flex flexDirection='column' alignItems='center'>
+        <Heading>Create a Playlist</Heading>
+        <SearchBar/>
+        <Flex>
+          <Input w='50%' defaultValue='New Playlist' onChange={handleNameChange} />
+          <Text>{playlistName}</Text>
+          <Button>SAVE TO SPOTIFY</Button>
+        </Flex>
+        <TrackList tracks={playlistTracks}
+                    isRemoval={true}
+                    onRemove={onRemove}
+                    onAdd = {onAdd}/>
+    </Flex>
   )
 }
 

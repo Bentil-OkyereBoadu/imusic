@@ -1,9 +1,7 @@
 import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
-import {NavLink} from 'react-router-dom';
-import axios from 'axios';
 import './styles.css';
-import { useLocalStorage } from '../../useLocalStorage';
+
 
   //getting client id and redirect uri from env
   // const client_secret = process.env.CLIENT_SECRET;
@@ -21,7 +19,7 @@ import { useLocalStorage } from '../../useLocalStorage';
 
     const paramsSplitUp = paramsInUrl.reduce((accumulator, currentValue) => {
       console.log(currentValue);
-      const [key, value] = currentValue.split.split("=");
+      const [key, value] = currentValue.split("=");
       accumulator[key] = value;
       return accumulator;
     })
@@ -44,7 +42,7 @@ const Home = () => {
     window.location = `${OAUTH_ENDPOINT}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;
   }
 
-  
+
 
   return (
     <div className='home' >

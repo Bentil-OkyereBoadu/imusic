@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, Img, Text } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import './styles.css';
 
@@ -9,7 +9,10 @@ import './styles.css';
   const redirect_uri = 'http://localhost:3000/music';
 
   const OAUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-  const SCOPES = ["user-read-currently-playing", "user-read-playback-state" ]
+  const SCOPES = [ "user-read-currently-playing", 
+                   "user-read-playback-state", 
+                   "playlist-read-private", 
+                   "user-read-currently-playing" ]
   const SPACE_DELIMITER = "%20";
   const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
@@ -32,12 +35,14 @@ const Home = () => {
   useEffect(() => {
     if(window.location.hash){
       const {access_token, expires_in, token_type} = getParamsFromSpotifyAuth(window.location.hash);
-      localStorage.clear()
-      localStorage.setItem("accessToken", access_token);
-      localStorage.setItem("tokenType", token_type);
-      localStorage.setItem("expiresIn",  expires_in);
+      window.localStorage.clear()
+      window.localStorage.setItem("accessToken", access_token);
+      window.localStorage.setItem("tokenType", token_type);
+      window.localStorage.setItem("expiresIn",  expires_in);
     }
-  }, [])
+  })
+
+
   const handleLogin = () => {
     window.location = `${OAUTH_ENDPOINT}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;
   }
@@ -48,6 +53,7 @@ const Home = () => {
     <div className='home' >
     <Flex w='100%' h='100%' >
       <Box w='50%' h='100%'>
+        <Img marginLeft='5%' src={require('../../assets/logo.svg')}/>
        <Heading className='musicHeading' fontSize='9xl' >Music</Heading>
        <Text color='white' marginLeft='5%' fontSize='2xl'>IS THE UNIVERSAL LANGUAGE OF MANKIND</Text>
       </Box>
@@ -58,9 +64,7 @@ const Home = () => {
             <Button bg='orange' color='white' size='md' w='100%'h='100%' fontSize='lg' borderRadius='30px' >
               Public
             </Button>
-          </a>
-          {/* <NavLink to='/login' style={{width:'50%', height:'20%'}}></NavLink> */}
-          
+          </a>          
             <Button bg='orange' color='white' size='md' w='50%'h='20%'fontSize='lg'borderRadius='30px' onClick={handleLogin}>
               Private
             </Button>

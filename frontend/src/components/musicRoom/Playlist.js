@@ -46,9 +46,9 @@ const Playlist = (props) => {
     <Flex flexDirection='column' alignItems='center'>
         <Heading>Create a Playlist</Heading>
         <SearchBar/>
-        <Flex>
-          <Input w='50%' defaultValue='New Playlist' onChange={handleNameChange} />
-          <Text>{playlistName}</Text>
+        <Flex justifyContent='space-around' w='100%' margin='1em'>
+          <Input w='40%' bg='' placeholder='Playlist name' onChange={handleNameChange} />
+          {/* <Text>{playlistName}</Text> */}
           <Button>SAVE TO SPOTIFY</Button>
         </Flex>
         <TrackList tracks={playlistTracks}

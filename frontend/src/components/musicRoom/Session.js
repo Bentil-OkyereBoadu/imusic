@@ -7,7 +7,7 @@ const Session = (props) => {
   return (
     <Box>
         <Box>
-          <Heading fontSize='larger'>Sessions</Heading>
+          <Heading>Sessions</Heading>
            {/* { chats.map((chat) => <Box bg='gray.100' key={chat._id}>{chat.users}</Box> )} */}
 
         </Box>

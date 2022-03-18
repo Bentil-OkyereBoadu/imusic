@@ -11,8 +11,8 @@ const SearchBar = () => {
         setTerm(event.target.value)
     }
   return (
-    <Flex>
-        <Input placeholder="Enter A Song, Album, or Artist" onChange={handleTermSearch}/>
+    <Flex marginTop='1em' justifyContent='space-around' w='80%'>
+        <Input color='black' bg='' w='70%' placeholder="Search for a Song, Album, or Artist" onChange={handleTermSearch}/>
         {/* initialFocusRef={initialFocusRef} */}
         <Popover
             placement='bottom'

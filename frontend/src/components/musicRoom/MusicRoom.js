@@ -1,4 +1,4 @@
-import { Grid, GridItem } from '@chakra-ui/react'
+import { Box, Grid, GridItem } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import Chat from '../chat/Chat';
 import Session from './Session';
@@ -10,7 +10,7 @@ import Playlist from './Playlist';
 const USER_ENDPOINT = "https://api.spotify.com/v1/me";
 
 const MusicRoom = () => {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState('BQCottt_BE4z0EQvxtdOVPFCCHJ8iprsMxCrd64CfISZtbpnC7iYmutuJaMNCkeji8Ciey3cKtO7nO5dutlz8-FC73-cATUYNCY1ILh-SILGP6yYfYwZuq8AnvfSA0j-zyR3qA1vf49Ge7euEyR_Nd7ny3V_pBrxvB8azj_uf0P5QaVzGpMgdxBY');
   const [data, setData] = useState({});
 
   useEffect(()=> {
@@ -36,7 +36,7 @@ const MusicRoom = () => {
   console.log(token);
   console.log(data.display_name)
   return (
-  <> 
+  <Box overflowY='hidden' overflowX='hidden' position='fixed' w='100%'> 
     <Header data = {data}/>
     <Grid templateColumns='1fr 2fr 3fr' gap={2} w='100%' h='80%'>
       <GridItem w='100%' h='100%' bg='blue.500'>
@@ -50,7 +50,7 @@ const MusicRoom = () => {
       </GridItem> 
     </Grid>
     <Footer/>
-  </>
+  </Box>
   )
 }
 

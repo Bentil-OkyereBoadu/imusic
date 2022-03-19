@@ -55,7 +55,7 @@ app.use(errorHandler)
 // })
 
 app.get('/api/chat', (req, res) => {
-    res.send(chats)
+    res.send(chats);
 })
 
 app.get('/api/chat/:id', (req, res) => {

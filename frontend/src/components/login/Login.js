@@ -1,13 +1,80 @@
-import { Button, Flex, FormControl, Text, Input, Heading } from '@chakra-ui/react';
+import { Button, Flex, FormControl, Text, Input, Heading, toast, useToast } from '@chakra-ui/react';
+import axios from 'axios';
 import React, { useState } from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useHistory} from 'react-router-dom';
 
 
 const Login = () => {
 
-  const [input, setInput] = useState('')
+  const [state, setState] = useState({
+    email: '',
+    password:'', 
+  })
 
-  const handleInputChange = (e) => setInput(e.target.value) 
+  const [loading, setLoading] = useState(false)
+  const toast = useToast();
+  const history = useHistory();
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setState({
+      ...state,
+      [e.target.name]: value
+    })
+  } 
+
+  const email = state.email;
+  const password = state.password;
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    if(!email || !password){
+        toast({
+          title: 'Please fill all the fields',
+          status: 'warning',
+          duration: 2000,
+          isClosable: true,
+          position: 'bottom'
+        })
+        setLoading(false);
+        return;
+    }
+
+    try{
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        }
+      }
+
+      const {data} = await axios.post("/api/user/login", { email, password }, config);
+
+      toast({
+        title: 'Login Successful',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position: 'bottom'
+      });
+
+      localStorage.setItem('userInfo', JSON.stringify(data))
+      setLoading(false);
+      history.push("/chats")
+
+    } catch(error){
+      toast({
+        title: 'Error occured',
+        description: error.response.data.messagee,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position: 'bottom',
+      });
+      setLoading(false);
+    }
+
+  }
+
   return (
   <Flex justifyContent='center' alignItems='center' alignContent='center' marginTop='10%'>
     <Flex w='40%' h='450px' textAlign='center' flexDirection='column' justifyContent='space-around' alignItems='center' alignContent='center' bg='gray.100' p={3} borderRadius='30px'>
@@ -15,14 +82,16 @@ const Login = () => {
         <Heading>Login</Heading>
         <br/>
         <Input 
-          id='username'
+          name='email'
+          id='email'
           type='text'
-          placeholder='Username'
+          placeholder='Email'
           _placeholder={{opacity: 0.6, color: 'blue.500' }}
           onChange={handleInputChange} 
         />
        
         <Input marginTop='1.5rem'
+          name='password'
           id='password'
           type='password'
           placeholder='Password'
@@ -32,7 +101,9 @@ const Login = () => {
         
         <Button margin='1rem'
             size='md'
-            colorScheme='blue'>
+            colorScheme='blue'
+            onClick={handleSubmit}
+            isLoading={loading}>
             Log in
         </Button>
         

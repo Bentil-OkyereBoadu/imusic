@@ -1,39 +1,29 @@
 const http = require('http')
 const express = require("express")
-const app = express();
-const dotenv = require('dotenv');
+const app = express()
+const dotenv = require('dotenv')
 const cors = require('cors')
-const server = http.createServer(app);
+const server = http.createServer(app)
 const querystring = require('query-string')
 const socketio = require('socket.io')
-const io = socketio(server);
-const {chats} = require('./data/data');
+const io = socketio(server)
+const {chats} = require('./data/data')
 const connectDB = require('./config/db')
 const userRoutes = require("./routes/userRoutes")
 
 app.use(cors())
-app.use(express.json)
+app.use(express.json()) //to accept JSON data
 dotenv.config()
+
+//connecting database
 connectDB()
 
 
-//getting client id and redirect uri from env
+//getting client id and redirect uri from .env file
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
 const redirect_uri = process.env.REDIRECT_URI;
 
-//enabling cross origin resource sharing for port 3000
-// const whitelist = ["http://localhost:3000"]
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (!origin || whitelist.indexOf(origin) !== -1) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error("Not allowed by CORS"))
-//     }
-//   },
-//   credentials: true,
-// }
 
 //generate random string (hash) as code verifier for spotify api
 const generateRandomString = (length) => {
@@ -47,15 +37,16 @@ const generateRandomString = (length) => {
   };
 
 //run when user connects
-io.on('connection', socket =>{
-     console.log('New web socket connection...');
-})
+// io.on('connection', socket =>{
+//      console.log('New web socket connection...');
+// })
 
-app.use('/api/user', userRoutes)
+/**getting user routes */
+app.use("/api/user", userRoutes);
 
-app.get('/', (req, res) => {
-    res.send('api is running successfully')
-})
+// app.get('/', (req, res) => {
+//     res.send('api is running successfully')
+// })
 
 app.get('/api/chat', (req, res) => {
     res.send(chats)
@@ -70,7 +61,7 @@ app.get('/api/chat/:id', (req, res) => {
 
 
 //spotify authentication
-app.get('/login', (req, res) =>{
+app.get('/auth', (req, res) =>{
     const state = generateRandomString(16);
     const scope = 'user-read-private user-read-email';
     res.redirect('https://accounts.spotify.com/authorize?' +

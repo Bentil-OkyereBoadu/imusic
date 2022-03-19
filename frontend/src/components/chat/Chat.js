@@ -23,10 +23,10 @@ const Chat = () => {
       </GridItem>
       <GridItem w='100%' h='100%' bg='orange.100'>
       <Heading>Chats</Heading>
+      </GridItem>
        { chats.map((chat) => {
          return <Text key={chat._id}>{chat.chatName}</Text>
        })}
-      </GridItem>
      </Grid>
    </Box>
   )

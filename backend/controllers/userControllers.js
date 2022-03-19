@@ -3,9 +3,9 @@ const User = require("../models/userModel");
 const generateToken = require('../config/generateToken')
 
 const registerUser = asyncHandler (async (req, res) => {
-    const { name, id, password } = req.body;
+    const { name, email, password } = req.body;
 
-    if(!name || !password || !id){
+    if(!name || !password || !email){
         res.status(400)
         throw new Error("Please fill all the fields");
     }
@@ -27,11 +27,12 @@ const registerUser = asyncHandler (async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            password: user.password,
             token: generateToken(user._id),
         });
     } else{
         res.status(400);
-        throw new Error(" Failed to create user")
+        throw new Error(" Failed to create user");
     }
 });
 

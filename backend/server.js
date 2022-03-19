@@ -10,6 +10,8 @@ const io = socketio(server)
 const {chats} = require('./data/data')
 const connectDB = require('./config/db')
 const userRoutes = require("./routes/userRoutes")
+const { notFound, errorHandler } = require('./middleware/errorMiddleware')
+
 
 app.use(cors())
 app.use(express.json()) //to accept JSON data
@@ -43,6 +45,10 @@ const generateRandomString = (length) => {
 
 /**getting user routes */
 app.use("/api/user", userRoutes);
+
+/**Handle error */
+app.use(notFound)
+app.use(errorHandler)
 
 // app.get('/', (req, res) => {
 //     res.send('api is running successfully')

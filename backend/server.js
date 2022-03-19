@@ -8,9 +8,14 @@ const querystring = require('query-string')
 const socketio = require('socket.io')
 const io = socketio(server);
 const {chats} = require('./data/data');
+const connectDB = require('./config/db')
+const userRoutes = require("./routes/userRoutes")
 
 app.use(cors())
+app.use(express.json)
 dotenv.config()
+connectDB()
+
 
 //getting client id and redirect uri from env
 const client_id = process.env.CLIENT_ID;
@@ -46,13 +51,14 @@ io.on('connection', socket =>{
      console.log('New web socket connection...');
 })
 
+app.use('/api/user', userRoutes)
+
 app.get('/', (req, res) => {
     res.send('api is running successfully')
 })
 
 app.get('/api/chat', (req, res) => {
-    res.send(chats);
-
+    res.send(chats)
 })
 
 app.get('/api/chat/:id', (req, res) => {
@@ -60,6 +66,8 @@ app.get('/api/chat/:id', (req, res) => {
     const singleChat = chats.find( chat => chat._id === id)
     res.send(singleChat);
 })
+
+
 
 //spotify authentication
 app.get('/login', (req, res) =>{
@@ -124,7 +132,7 @@ app.get('/refresh_token', (req, res) =>{
 })
 
  
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 server.listen( PORT, ()=> {
     console.log(`Server started on port ${PORT}`)
 })

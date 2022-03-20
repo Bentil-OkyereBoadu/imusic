@@ -5,7 +5,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 
 const Signup = () => {
     const [state, setState] = useState({
-      username: '',
+      name: '',
       email:'',
       password:'',
       confirmPassword: '',
@@ -23,13 +23,13 @@ const Signup = () => {
       })
     }
 
-    let username = state.username;
+    let name = state.name;
     let email = state.email;
     let password = state.password;
 
     const handleSubmit = async () => {
       setLoading(true);
-      if(!state.username || !state.email || !state.password || !state.confirmPassword){
+      if(!state.name || !state.email || !state.password || !state.confirmPassword){
           toast({
             title: 'Please fill all the fields',
             status: 'warning',
@@ -60,20 +60,22 @@ const Signup = () => {
           },
         };
 
-        const {data} = await axios.post('/api/user/', 
-                                        { username, email, password},
+        const {data} = await axios.post('http://localhost:4000/api/user/', 
+                                        { name, email, password},
                                           config );
-        toast({
+        if(data){
+          localStorage.setItem('userInfo', JSON.stringify(data));
+          toast({
           title: 'Account has been created',
-          status: 'Success',
+          status: 'success',
           duration: 2000,
           isClosable: true,
           position: 'bottom'
         }); 
-
-        localStorage.setItem('userInfo', JSON.stringify(data));
         setLoading(false)
         history.push("/music")
+      }
+        
 
       } catch (error) {
         toast({
@@ -95,11 +97,11 @@ const Signup = () => {
       <Heading>Sign Up</Heading>
       <br/>
       <Input 
-        id='username'
+        id='name'
         type='text'
-        value={state.username}
-        name='username'
-        placeholder='Username'
+        value={state.name}
+        name='name'
+        placeholder='name'
         _placeholder={{opacity: 0.6, color: 'blue.500' }}
         onChange={handleInputChange} 
       />

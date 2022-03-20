@@ -6,16 +6,19 @@ const generateToken = require('../config/generateToken');
 const registerUser = asyncHandler (async (req, res) => {
     const { name, email, password } = req.body;
 
-    if(!name || !password || !email){
-        res.status(400)
-        throw new Error("Please fill all the fields");
-    }
+    // if(!name || !password || !email){
+    //     console.log('problem here')
+    //     res.status(400)
+    //     throw new Error("Please fill all the fields");
+    // }
 
     //throws error if user already exists in the db with the same email 
     const userExists = await User.findOne({ email });
     if(userExists){
-        res.status(400);
-        throw new Error("User already exists");
+        console.log('Here')
+        res.json("user already exists")
+        // res.status(400);
+        // throw new Error("User already exists");
     }
 
     const user = await User.create({
@@ -43,7 +46,7 @@ const registerUser = asyncHandler (async (req, res) => {
 //controller for authenticating users/ logins
 const authUser = asyncHandler( async (req, res) => {
     //get email and password from request body
-    const { email, password} = req.body;
+    const { email, password } = req.body;
 
     //search for user email in db
     const user = await User.findOne({email}); 
@@ -65,7 +68,7 @@ const authUser = asyncHandler( async (req, res) => {
 
 /// api/user?search=koo
 const allUsers = asyncHandler( async (req, res) =>{
-    const keyword = req.query.search ? {
+    const keyword = req.query.search? {
         $or: [
             //uses regex for comparison of the search term 
             {name: {$regex: req.query.search, $options: "i"}},

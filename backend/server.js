@@ -14,7 +14,7 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 
 
 app.use(cors())
-app.use(express.json()) //to accept JSON data
+app.use(express.json()) //for the server to accept JSON data
 dotenv.config()
 
 //connecting database
@@ -45,14 +45,15 @@ const generateRandomString = (length) => {
 
 /**getting user routes */
 app.use("/api/user", userRoutes);
+app.use('/api/chat', chatRoutes)
 
 /**Handle error */
 app.use(notFound)
 app.use(errorHandler)
 
-// app.get('/', (req, res) => {
-//     res.send('api is running successfully')
-// })
+app.get('/', (req, res) => {
+    res.send('api is running successfully')
+})
 
 app.get('/api/chat', (req, res) => {
     res.send(chats);
@@ -101,6 +102,7 @@ app.get('/callback', (req, res) => {
             },
             json: true
         };
+        res.send(authOptions);
     }
 })
 
@@ -118,12 +120,13 @@ app.get('/refresh_token', (req, res) =>{
         json: true
     };
 
-    request.post(authOptions, (error, response, body) => {
+    req.post(authOptions, (error, response, body) => {
         if (!error && response.statusCode === 200){
             let access_token = body.access_token;
-            res.send({
+
+            localStorage.setItem('refresh_token', res.send({
                 'access_token': access_token
-            })
+            }))
         }
     })
 })

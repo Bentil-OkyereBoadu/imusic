@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Heading, Img, Text } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import './styles.css';
+import axios from 'axios' ;
 
 
   //getting client id and redirect uri from env
@@ -47,6 +48,12 @@ const Home = () => {
     window.location = `${OAUTH_ENDPOINT}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;
   }
 
+  const handlePublicLogin = async () => {
+    const data = await axios.get('/auth')
+    console.log(data);
+    await axios.get('/callback')
+  }
+
 
 
   return (
@@ -60,11 +67,11 @@ const Home = () => {
       <Flex justifyContent='center' alignItems='center' w='50%' h='100%'> 
         <Flex h='40%' w='45%' flexDirection='column' justifyContent='space-around' alignItems='center' bg='rgba(180,175,173,0.5)' p={3} borderRadius='30px'>
           <Heading fontSize='xl' color='white'>CREATE A SESSION</Heading>
-          <a href='http://localhost:4000/login' style={{width:'50%', height:'20%',}}>
-            <Button bg='orange' color='white' size='md' w='100%'h='100%' fontSize='lg' borderRadius='30px' >
+          {/* <a href='http://localhost:4000/login' style={{width:'50%', height:'20%',}}></a> */}
+            <Button bg='orange' color='white' size='md' w='50%'h='20%' fontSize='lg' borderRadius='30px' onClick={handlePublicLogin} >
               Public
             </Button>
-          </a>          
+                    
             <Button bg='orange' color='white' size='md' w='50%'h='20%'fontSize='lg'borderRadius='30px' onClick={handleLogin}>
               Private
             </Button>

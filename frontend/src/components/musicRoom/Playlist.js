@@ -29,10 +29,22 @@ const Playlist = (props) => {
     })
   }
 
+  const getPlaylistDetails = () => {
+    axios.get(PLAYLISTS_ENDPOINT, {
+      headers: {
+        Authorization: "Bearer "+ token,
+      }
+    }).then((response) => {
+      setPlaylistData(response.data.items);
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
   console.log(playlistData)
 
 
-  const {playlistTracks, onRemove, onAdd} = props;
+  const {playlistTracks, onRemove, onAdd } = props;
 
   return (
     <Flex flexDirection='column' alignItems='center'>
@@ -41,11 +53,11 @@ const Playlist = (props) => {
         <Flex justifyContent='space-around' w='100%' margin='1em'>
           <Input w='40%' bg='' placeholder='Playlist name'  />
           {/* <Text>{playlistName}</Text> */}
-          <Button onClick={handleGetPlaylists}>SAVE TO SPOTIFY</Button>
+          <Button onClick={handleGetPlaylists}>View playlists</Button>
         </Flex>
         <Flex>
           { playlistData? playlistData.map((playlist) => {
-            return <Text key={playlist.id}> {playlist.name} <a href={playlist.href}>Open</a> ||</Text>
+            return <Text key={playlist.id} p='1em'> {playlist.name} <Button href={playlist.href}>Open</Button> ||</Text>
           }): <Heading>Playlist will show here</Heading>}
         </Flex>
         <TrackList tracks={playlistTracks}

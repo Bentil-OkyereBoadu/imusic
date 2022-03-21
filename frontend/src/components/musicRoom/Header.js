@@ -4,7 +4,7 @@ import {VscAccount} from 'react-icons/vsc';
 
 const Header = ({data}) => {
 
-  const name = data.display_name;
+  const name = data.name;
   const id = data.id;
   const userImage = data.images;
   return (

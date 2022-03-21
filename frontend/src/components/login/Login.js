@@ -47,19 +47,22 @@ const Login = () => {
         }
       }
 
-      const {data} = await axios.post("/api/user/login", { email, password }, config);
+      const {data} = await axios.post("http://localhost:4000/api/user/login", { email, password }, config);
 
-      toast({
-        title: 'Login Successful',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-        position: 'bottom'
-      });
+      if(data){
+          localStorage.setItem('loggedinUser', JSON.stringify(data))
+          toast({
+          title: 'Login Successful',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+          position: 'bottom'
+        });
 
-      localStorage.setItem('userInfo', JSON.stringify(data))
-      setLoading(false);
-      history.push("/chats")
+        setLoading(false);
+        history.push("/music")
+      }
+  
 
     } catch(error){
       toast({

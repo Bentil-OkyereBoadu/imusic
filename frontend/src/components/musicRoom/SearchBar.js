@@ -7,7 +7,7 @@ const SearchBar = (props) => {
     const {token} = props;
 
     const [term, setTerm] = useState('');
-    const [searchItems, setSearchItems] = useState({})
+    const [searchItems, setSearchItems] = useState([])
 
     const handleTermSearch = (event) => {
         setTerm(event.target.value)
@@ -19,11 +19,13 @@ const SearchBar = (props) => {
                 Authorization: `Bearer ${token}`
             }
         }).then( response =>{
-            setSearchItems(response.data)
+            setSearchItems(response.data.tracks.items)
         }).catch( error => {
             console.log(error)
         })
     }
+
+    console.log(searchItems);
     
   return (
     <Flex marginTop='1em' justifyContent='space-around' w='80%'>

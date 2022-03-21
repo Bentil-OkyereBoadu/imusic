@@ -41,17 +41,16 @@ const Home = () => {
       window.localStorage.setItem("tokenType", token_type);
       window.localStorage.setItem("expiresIn",  expires_in);
     }
-  })
+  }, [])
 
 
-  const handleLogin = () => {
+  const handlePrivateLogin = () => {
     window.location = `${OAUTH_ENDPOINT}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;
   }
 
   const handlePublicLogin = async () => {
-    const data = await axios.get('/auth')
-    console.log(data);
-    await axios.get('/callback')
+    // const data = await axios.get('http://localhost:4000/auth')
+    // console.log(data);
   }
 
 
@@ -72,7 +71,7 @@ const Home = () => {
               Public
             </Button>
                     
-            <Button bg='orange' color='white' size='md' w='50%'h='20%'fontSize='lg'borderRadius='30px' onClick={handleLogin}>
+            <Button bg='orange' color='white' size='md' w='50%'h='20%'fontSize='lg'borderRadius='30px' onClick={handlePrivateLogin}>
               Private
             </Button>
         </Flex>

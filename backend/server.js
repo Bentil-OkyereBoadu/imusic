@@ -10,9 +10,11 @@ const io = socketio(server)
 const {chats} = require('./data/data')
 const connectDB = require('./config/db')
 const userRoutes = require("./routes/userRoutes")
+const chatRoutes = require("./routes/chatRoutes")
 const { notFound, errorHandler } = require('./middleware/errorMiddleware')
+const morgan = require('morgan');
 
-
+app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json()) //for the server to accept JSON data
 dotenv.config()
@@ -45,19 +47,19 @@ const generateRandomString = (length) => {
 
 /**getting user routes */
 app.use("/api/user", userRoutes);
-app.use('/api/chat', chatRoutes)
+app.use('/api/chat', chatRoutes);
 
 /**Handle error */
 app.use(notFound)
 app.use(errorHandler)
 
-app.get('/', (req, res) => {
-    res.send('api is running successfully')
-})
+// app.get('/', (req, res) => {
+//     res.send('api is running successfully')
+// })
 
-app.get('/api/chat', (req, res) => {
-    res.send(chats);
-})
+// app.get('/api/chats', (req, res) => {
+//     res.send(chats);
+// })
 
 app.get('/api/chat/:id', (req, res) => {
     const id = req.params.id;
@@ -71,21 +73,22 @@ app.get('/api/chat/:id', (req, res) => {
 app.get('/auth', (req, res) =>{
     const state = generateRandomString(16);
     const scope = 'user-read-private user-read-email';
-    res.redirect('https://accounts.spotify.com/authorize?' +
-    querystring.stringify({
-      response_type: 'code',
-      client_id: client_id,
-      scope: scope,
-      redirect_uri: redirect_uri,
-      state: state
-    }));
+    res.redirect(`https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&response_type=token&state=${state}`, 302)
 })
+// querystring.stringify({
+//   response_type: 'code',
+//   client_id: client_id,
+//   scope: scope,
+//   redirect_uri: redirect_uri,
+//   state: state
+// }));
 
 app.get('/callback', (req, res) => {
-    let code = req.query.code || null;
-    let state = req.query.state || null;
+    let access_token = req.query.access_token || null;
+    let expires_in = req.query.expires_in || null;
+    let token_type = req.query.token_type || null;
 
-    if (state === null) {
+    if (access_token === null) {
         res.redirect('/#' + querystring.stringify({ 
             error: 'state_mismatch'
         }))
@@ -93,12 +96,14 @@ app.get('/callback', (req, res) => {
         let authOptions = {
             url: 'https://accounts.spotify.com/api/token',
             form: {
-                code: code,
+                access_token: access_token,
                 redirect_uri: redirect_uri,
-                grant_type: 'authorization_code'
+                grant_type: 'authorization_code',
+                expires_in: expires_in,
+                token_type: token_type,
             },
             headers: {
-                'Authorization' : 'Basic ' + (new Buffer.from(`${client_id}:${client_secret}`).toString('base64'))
+                'Authorization' : 'Bearer ' + (new Buffer.from(`${client_id}:${client_secret}`).toString('base64'))
             },
             json: true
         };

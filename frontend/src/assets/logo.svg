@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="196" height="76" viewBox="0 0 196 76">
+  <g id="Group_15" data-name="Group 15" transform="translate(-1194 -45)">
+    <g id="Group_14" data-name="Group 14" transform="translate(1211.016 52.7)">
+      <line id="Line_6" data-name="Line 6" y2="53.9" transform="translate(12.212)" fill="none" stroke="#f8f5f4" stroke-width="10"/>
+      <line id="Line_7" data-name="Line 7" y2="53.9" transform="translate(26.95)" fill="none" stroke="#f8f5f4" stroke-width="10"/>
+      <line id="Line_8" data-name="Line 8" y2="53.9" transform="translate(41.688)" fill="none" stroke="#f8f5f4" stroke-width="10"/>
+      <line id="Line_9" data-name="Line 9" y2="53.9" transform="translate(53.9 16.844) rotate(90)" fill="none" stroke="#f8f5f4" stroke-width="10"/>
+    </g>
+    <text id="i" transform="translate(1203 107)" fill="#f8f5f4" font-size="57" font-family="Montserrat-SemiBold, Montserrat" font-weight="600"><tspan x="-8.236" y="0">i</tspan></text>
+    <text id="usic" transform="translate(1325 105)" fill="#fff" font-size="62" font-family="Montserrat-SemiBold, Montserrat" font-weight="600"><tspan x="-64.046" y="0">usic</tspan></text>
+  </g>
+</svg>

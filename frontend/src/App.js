@@ -7,25 +7,41 @@ import Login from './components/login/Login';
 import axios from 'axios';
 
 
-function App() {
+  // //getting client id and redirect uri from env
+  // // const client_secret = process.env.CLIENT_SECRET;
+  // const client_id ="ddc7d259bece4112b9df90559ea0e4ff";
+  // const redirect_uri = 'http://localhost:3000/music';
 
-  //  const [chats, setChats] = useState([]);
+  // const OAUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+  // const SCOPES = ["user-read-currently-playing", "user-read-playback-state" ]
+  // const SPACE_DELIMITER = "%20";
+  // const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
-  // const getChats =()=>{
-  //   axios({
-  //     method: 'GET',
-  //     url: 'http://localhost:4000/api/chat'
-  //   }).then( res => {
-  //     setChats(res.data);
-  //   })
+  // const getParamsFromSpotifyAuth = (hash) => {
+  //   const stringAfterHashtag = hash.substring(1);
+  //   const paramsInUrl =stringAfterHashtag.split("&");
+
+  //   const paramsSplitUp = paramsInUrl.reduce((accumulator, currentValue) => {
+  //     console.log(currentValue);
+  //     const [key, value] = currentValue.split("=");
+  //     accumulator[key] = value;
+  //     return accumulator;
+  //   }, {})
+
+  //   return paramsSplitUp;  
   // }
 
-  // useEffect(()=>{
-  //   getChats();
-  // }, []);
- 
+function App() {
 
-
+  // useEffect(() => {
+  //   if(window.location.hash){
+  //     const {access_token, expires_in, token_type} = getParamsFromSpotifyAuth(window.location.hash);
+  //     localStorage.clear()
+  //     localStorage.setItem("accessToken", access_token);
+  //     localStorage.setItem("tokenType", token_type);
+  //     localStorage.setItem("expiresIn", expires_in);
+  //   }
+  // },[])
 
   return (
     <Router>

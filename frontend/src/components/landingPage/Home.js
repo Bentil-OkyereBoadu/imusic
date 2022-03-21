@@ -2,6 +2,7 @@ import { Box, Button, Flex, Heading, Img, Text } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import './styles.css';
 import axios from 'axios' ;
+import { NavLink } from 'react-router-dom';
 
 
   //getting client id and redirect uri from env
@@ -34,13 +35,7 @@ import axios from 'axios' ;
 const Home = () => {
 
   useEffect(() => {
-    if(window.location.hash){
-      const {access_token, expires_in, token_type} = getParamsFromSpotifyAuth(window.location.hash);
-      window.localStorage.clear()
-      window.localStorage.setItem("accessToken", access_token);
-      window.localStorage.setItem("tokenType", token_type);
-      window.localStorage.setItem("expiresIn",  expires_in);
-    }
+    
   }, [])
 
 
@@ -66,14 +61,15 @@ const Home = () => {
       <Flex justifyContent='center' alignItems='center' w='50%' h='100%'> 
         <Flex h='40%' w='45%' flexDirection='column' justifyContent='space-around' alignItems='center' bg='rgba(180,175,173,0.5)' p={3} borderRadius='30px'>
           <Heading fontSize='xl' color='white'>CREATE A SESSION</Heading>
-          {/* <a href='http://localhost:4000/login' style={{width:'50%', height:'20%',}}></a> */}
-            <Button bg='orange' color='white' size='md' w='50%'h='20%' fontSize='lg' borderRadius='30px' onClick={handlePublicLogin} >
+           <Button bg='orange' color='white' size='md' w='50%'h='20%' fontSize='lg' borderRadius='30px' onClick={handlePublicLogin} >
               Public
-            </Button>
-                    
-            <Button bg='orange' color='white' size='md' w='50%'h='20%'fontSize='lg'borderRadius='30px' onClick={handlePrivateLogin}>
+            </Button>         
+            <NavLink to='/login'>
+              <Button bg='orange' color='white' size='md' w='50%'h='20%'fontSize='lg'borderRadius='30px'>
               Private
-            </Button>
+              </Button>
+            </NavLink>
+            
         </Flex>
       </Flex>
     </Flex>

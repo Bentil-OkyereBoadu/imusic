@@ -1,13 +1,14 @@
-import { Box, Flex, useToast } from '@chakra-ui/react';
+import { Box, Flex, Stack, Text, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { IoVolumeHigh } from 'react-icons/io5';
 import { ChatState } from '../../context/ChatProvider';
 import ChatLoading from './ChatLoading';
+import { getSender } from './config/ChatLogics';
 
-const MyChats = () => {
+const MyChats = ({fetchAgain}) => {
     const [loggedUser, setLoggedUser] = useState();
-    const {user, setSelectedChat, chats, setChats} = ChatState();
+    const {user,selectedChat, setSelectedChat, chats, setChats} = ChatState();
     const toast = useToast();
 
     //fetching all chats
@@ -40,7 +41,7 @@ const MyChats = () => {
         setLoggedUser(JSON.parse(localStorage.getItem("loggedinUser")));
         console.log(user)
         fetchChats(); 
-    }, [])
+    }, [ fetchAgain ])
 
   return (
     <Box 
@@ -64,7 +65,23 @@ const MyChats = () => {
             flexDirection='column'
             borderRadius='lg'
             overflowY='hidden'>
-                {/* { chats? () : <ChatLoading/>} */}
+                { chats? (
+                    <Stack overflowY='scroll'>
+                        {chats.map( chat => (
+                            <Box
+                                onClick={() => setSelectedChat(chat)}
+                                cursor='pointer'
+                                bg={selectedChat === chat? '#38B2AC' : '#E8E8E8'}
+                                color={selectedChat === chat? 'white' : 'black'}
+                                px={3}
+                                py={2}
+                                borderRadius='lg'
+                                key={chat._id}>
+                                    <Text>{getSender(loggedUser, chat.users)}</Text>
+                                </Box>
+                        ))}
+                    </Stack>
+                ) : <ChatLoading/>}
         </Flex>
     </Box>
   )

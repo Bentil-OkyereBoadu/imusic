@@ -85,8 +85,8 @@ const allUsers = asyncHandler( async (req, res) =>{
     } : {} ; 
 
     //finds the user from the provided search term with the _id value of the User in the db
-    const users = await (await User.find(keyword)).findIndex({_id:{$ne: req.user._id}});
-    res.send(users)
+    const users = await User.find(keyword).find({_id:{$ne: req.user._id}});
+    res.send(users);
 })
 
 module.exports = {registerUser, authUser, allUsers}

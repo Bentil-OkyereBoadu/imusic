@@ -74,8 +74,18 @@ const Signup = () => {
         const {data} = await axios.post('http://localhost:4000/api/user/', 
                                         { name, email, password},
                                           config );
-        if(data){
-          localStorage.setItem('userInfo', JSON.stringify(data));
+        if(data === 'user already exists'){
+          toast({
+            title: 'User already exists',
+            status: 'warning',
+            duration: 2000,
+            isClosable: true,
+            position: 'bottom'
+          }); 
+          setLoading(false)
+        }
+        else {
+          localStorage.setItem('loggedinUser', JSON.stringify(data));
           toast({
           title: 'Account has been created',
           status: 'success',
@@ -93,7 +103,7 @@ const Signup = () => {
       } catch (error) {
         toast({
           title: 'Error occured',
-          description: error.response.data.message,
+          description: error.message,
           status: 'error',
           duration: 2000,
           isClosable: true,

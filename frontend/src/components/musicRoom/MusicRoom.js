@@ -28,19 +28,20 @@ const MusicRoom = () => {
 
   const history = useHistory();
 
-  useEffect(() =>{
-    const user = JSON.parse(localStorage.getItem("loggedinUser"));
+  // useEffect(() =>{
+  //   const user = JSON.parse(localStorage.getItem("loggedinUser"));
     
-    if(user){ 
-      history.push('/music')
-    }
-  }, [])
+  //   if(user){ 
+  //     history.push('/music')
+  //   }
+  // }, [])
 
   const [token, setToken] = useState('');
   const [data, setData] = useState({});
 
   useEffect(()=> {
-
+    const user = JSON.parse(localStorage.getItem("loggedinUser"));
+    if(user){ 
     if(window.location.hash){
       const {access_token, expires_in, token_type} = getParamsFromSpotifyAuth(window.location.hash);
       // window.localStorage.clear()
@@ -51,6 +52,8 @@ const MusicRoom = () => {
     
     setToken(localStorage.getItem('accessToken'))
     handleGetUser();
+      // history.push('/music')
+    }
   },[])
 
 

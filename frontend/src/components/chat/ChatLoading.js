@@ -4,9 +4,11 @@ import React from 'react'
 const ChatLoading = () => {
   return (
     <Stack>
-        <Skeleton height='20px' />
-        <Skeleton height='20px' />
-        <Skeleton height='20px' />
+        <Skeleton height='50px' />
+        <Skeleton height='50px' />
+        <Skeleton height='50px' />
+        <Skeleton height='50px' />
+        <Skeleton height='50px' />
     </Stack>
   )
 }

@@ -1,4 +1,4 @@
-import { Button, Flex, FormControl, Text, Input, Heading, toast, useToast } from '@chakra-ui/react';
+import { Button, Flex, FormControl, Text, Input, Heading, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
@@ -81,7 +81,7 @@ const Login = () => {
     } catch(error){
       toast({
         title: 'Error occured',
-        description: error.response.data.message,
+        description: error.message,
         status: 'error',
         duration: 2000,
         isClosable: true,

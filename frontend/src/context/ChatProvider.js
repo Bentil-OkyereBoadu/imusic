@@ -8,14 +8,22 @@ const ChatProvider = ({children}) => {
 
     const [user, setUser] = useState();
     const [selectedChat, setSelectedChat] = useState();
-    const [chats, setChats] = useState();
+    const [chats, setChats] = useState([]);
 
+   const guest = JSON.stringify({
+        "_id": "6239a82e7c876ca0080f61eb",
+        "name": "guest",
+        "email": "guest@example.com",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMzlhODJlN2M4NzZjYTAwODBmNjFlYiIsImlhdCI6MTY0Nzk0NTc3NSwiZXhwIjoxNjQ4Mzc3Nzc1fQ.cimZOkHj5h2t980fZk-bMiQlq7kBHHvKnbul6wGrGvQ"
+    })
+
+    localStorage.setItem("userInfo", guest )
     useEffect(()=>{
-        const userInfo = JSON.parse(localStorage.getItem("loggedinUser"));
-        setUser(userInfo)
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        setUser(userInfo);
 
         if(!userInfo){
-            history.push('/login')
+            history.push('/login');
         }
     }, [history])
 

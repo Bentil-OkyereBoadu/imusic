@@ -1,4 +1,4 @@
-import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, Text, useToast, Tooltip, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, Text, useToast, Tooltip, useDisclosure, Spinner } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useState } from 'react'
 import { ChatState } from '../../context/ChatProvider';
@@ -65,6 +65,9 @@ const SearchBox = () => {
             }
 
             const { data } = await axios.post('http://localhost:4000/api/chat', {userId}, config); 
+            if(!chats.find( (chat) => chat._id === data._id)){
+                setChats([data, ...chats])
+            }
 
             setSelectedChat(data);
             setLoading(false);
@@ -107,7 +110,6 @@ const SearchBox = () => {
                     onChange = {(e) => setSearch(e.target.value)} /> 
                 </Box>
                 <Button onClick={handleSearch}>Go</Button>
-                <UserListItem user={user}/>
                 { loading? <ChatLoading/> : (
                    searchResult.map( user =>   <UserListItem
                                                     key={user._id}
@@ -115,7 +117,7 @@ const SearchBox = () => {
                                                     handleFunction = {() => accessChat(user._id)}/>
                    )
                 )}
-                
+                { loadingChat && <Spinner ml='auto' d='flex'/> }
             </DrawerBody>
 
             <DrawerFooter>

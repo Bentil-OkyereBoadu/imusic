@@ -81,7 +81,7 @@ const Login = () => {
     } catch(error){
       toast({
         title: 'Error occured',
-        description: error.response.data.messagee,
+        description: error.response.data.message,
         status: 'error',
         duration: 2000,
         isClosable: true,
@@ -125,7 +125,7 @@ const Login = () => {
         </Button>
         
         <Text fontSize='lg'>Don't have an account yet? </Text>
-        <NavLink to='/signup'>Sign up</NavLink>
+        <NavLink to='/signup' style={{textDecoration: 'underline'}}>Sign up</NavLink>
       </FormControl>
     </Flex>
   </Flex>

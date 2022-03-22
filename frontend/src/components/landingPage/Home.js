@@ -8,9 +8,9 @@ import { NavLink } from 'react-router-dom';
   //getting client id and redirect uri from env
   // const client_secret = process.env.CLIENT_SECRET;
   const client_id ="ddc7d259bece4112b9df90559ea0e4ff";
-  const redirect_uri = 'http://localhost:3000/music';
+  const redirect_uri = 'http://localhost:3000/publicmusic';
 
-  const OAUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+  const OAUTH_ENDPOINT = "https://accounts.spotify.com/api/token"
   const SCOPES = [ "user-read-currently-playing", 
                    "user-read-playback-state", 
                    "playlist-read-private", 
@@ -44,8 +44,7 @@ const Home = () => {
   }
 
   const handlePublicLogin = async () => {
-    // const data = await axios.get('http://localhost:4000/auth')
-    // console.log(data);
+    
   }
 
 
@@ -54,7 +53,7 @@ const Home = () => {
     <div className='home' >
     <Flex w='100%' h='100%' >
       <Box w='50%' h='100%'>
-        <Img marginLeft='5%' src={require('../../assets/logo.svg')}/>
+       <Img marginLeft='5%' src={require('../../assets/logo.svg')}/>
        <Heading className='musicHeading' fontSize='9xl' >Music</Heading>
        <Text color='white' marginLeft='5%' fontSize='2xl'>IS THE UNIVERSAL LANGUAGE OF MANKIND</Text>
       </Box>
@@ -64,12 +63,11 @@ const Home = () => {
            <Button bg='orange' color='white' size='md' w='50%'h='20%' fontSize='lg' borderRadius='30px' onClick={handlePublicLogin} >
               Public
             </Button>         
-            <NavLink to='/login'>
-              <Button bg='orange' color='white' size='md' w='50%'h='20%'fontSize='lg'borderRadius='30px'>
+            <NavLink to='/login' style={{width:'50%', height:'20%'}} >
+              <Button bg='orange' color='white' size='md' w='100%'h='100%'fontSize='lg'borderRadius='30px'>
               Private
               </Button>
             </NavLink>
-            
         </Flex>
       </Flex>
     </Flex>

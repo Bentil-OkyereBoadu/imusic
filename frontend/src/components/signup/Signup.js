@@ -93,7 +93,7 @@ const Signup = () => {
       } catch (error) {
         toast({
           title: 'Error occured',
-          description: error.response.data.messagee,
+          description: error.response.data.message,
           status: 'error',
           duration: 2000,
           isClosable: true,
@@ -114,7 +114,7 @@ const Signup = () => {
         type='text'
         value={state.name}
         name='name'
-        placeholder='name'
+        placeholder='Username'
         _placeholder={{opacity: 0.6, color: 'blue.500' }}
         onChange={handleInputChange} 
       />

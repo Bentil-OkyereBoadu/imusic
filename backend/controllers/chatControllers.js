@@ -49,4 +49,24 @@ const accessChat = asyncHandler( async (req, res) => {
 
 });
 
-module.exports = { accessChat };
+const fetchChat = asyncHandler( async (req, res) =>{
+    try{
+        Chat.find({ users: {$eleMatch: { $eq: req.user._id } } })
+        .populate("users", "-password")
+        .populate("latestMessage")
+        .sort({updateAt: -1})
+        .then( async (results) => {
+            results = await User.populate( results, {
+                path: "latestMessage.sender",
+                select: "name email",
+            })
+
+            res.status(200).send(results);
+        })
+    } catch(error){
+        res.status(400);
+        throw new Error(error.message);
+    }  
+});
+
+module.exports = { accessChat, fetchChat };

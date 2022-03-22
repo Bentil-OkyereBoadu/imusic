@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require('../config/generateToken');
+const bcrypt =  require('bcryptjs')
+const saltRounds = 10;
 
 //controller to register/signup users
 const registerUser = asyncHandler (async (req, res) => {
@@ -11,7 +13,8 @@ const registerUser = asyncHandler (async (req, res) => {
     //     res.status(400)
     //     throw new Error("Please fill all the fields");
     // }
-
+    const salt = await bcrypt.genSalt(saltRounds)
+    const hashedPassword = await bcrypt.hash( password, salt);
     //throws error if user already exists in the db with the same email 
     const userExists = await User.findOne({ email });
     if(userExists){
@@ -24,7 +27,7 @@ const registerUser = asyncHandler (async (req, res) => {
     const user = await User.create({
         name,
         email,
-        password,
+        password: hashedPassword,
     });
 
     //if user data is ok, create user
@@ -50,9 +53,14 @@ const authUser = asyncHandler( async (req, res) => {
 
     //search for user email in db
     const user = await User.findOne({email}); 
+    if(!user) {
+        return res.status(404).json(`No user with email ${email} exists`);
+    }
+
+    const existingPassword = await bcrypt.compare( password, user.password);
 
     //if there is an email and the password matches, return user info
-    if( user && (await user.matchPassword(password))){
+    if( user && existingPassword){
     res.json({
         _id: user._id,
         name: user.name,
@@ -61,7 +69,7 @@ const authUser = asyncHandler( async (req, res) => {
     })
     } else {
     res.status(401);
-    throw new Error("Invalid Email or Password");
+    throw new Error("Invalid Password");
     }
 });
 

@@ -1,8 +1,20 @@
 import { Button, Flex, FormControl, Text, Input, Heading, toast, useToast } from '@chakra-ui/react';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
 
+  //getting client id and redirect uri from env
+  // const client_secret = process.env.CLIENT_SECRET;
+  const client_id ="ddc7d259bece4112b9df90559ea0e4ff";
+  const redirect_uri = 'http://localhost:3000/music';
+
+  const OAUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+  const SCOPES = [ "user-read-currently-playing", 
+                   "user-read-playback-state", 
+                   "playlist-read-private", 
+                   "user-read-currently-playing" ]
+  const SPACE_DELIMITER = "%20";
+  const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
 const Login = () => {
 
@@ -10,6 +22,8 @@ const Login = () => {
     email: '',
     password:'', 
   })
+
+  
 
   const [loading, setLoading] = useState(false)
   const toast = useToast();
@@ -60,14 +74,14 @@ const Login = () => {
         });
 
         setLoading(false);
-        history.push("/music")
+       window.location = `${OAUTH_ENDPOINT}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;
       }
   
 
     } catch(error){
       toast({
         title: 'Error occured',
-        description: error.response.data.messagee,
+        description: error.response.data.message,
         status: 'error',
         duration: 2000,
         isClosable: true,
@@ -111,7 +125,7 @@ const Login = () => {
         </Button>
         
         <Text fontSize='lg'>Don't have an account yet? </Text>
-        <NavLink to='/signup'>Sign up</NavLink>
+        <NavLink to='/signup' style={{textDecoration: 'underline'}}>Sign up</NavLink>
       </FormControl>
     </Flex>
   </Flex>

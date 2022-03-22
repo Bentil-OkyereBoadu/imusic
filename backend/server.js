@@ -53,14 +53,6 @@ app.use('/api/chat', chatRoutes);
 app.use(notFound)
 app.use(errorHandler)
 
-// app.get('/', (req, res) => {
-//     res.send('api is running successfully')
-// })
-
-// app.get('/api/chats', (req, res) => {
-//     res.send(chats);
-// })
-
 app.get('/api/chat/:id', (req, res) => {
     const id = req.params.id;
     const singleChat = chats.find( chat => chat._id === id)

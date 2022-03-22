@@ -5,7 +5,6 @@ import MusicRoom from './components/musicRoom/MusicRoom';
 import Signup from './components/signup/Signup';
 import Login from './components/login/Login';
 import PublicMusicRoom from './components/musicRoom/PublicMusicRoom';
-import ChatProvider from './context/ChatProvider';
 
 function App() {
 

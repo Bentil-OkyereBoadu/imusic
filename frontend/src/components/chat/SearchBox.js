@@ -9,7 +9,7 @@ const SearchBox = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
 
-    const {user} = ChatState();
+    const {user, setSelectedChat, chats, setChats} = ChatState();
 
     const [search, setSearch] = useState("");
     const [searchResult, setSearchResult] = useState([]);
@@ -37,7 +37,7 @@ const SearchBox = () => {
                 }
             }
 
-            const {data} = await axios.get(`/api/user?search=${search}`, config);
+            const {data} = await axios.get(`http://localhost:4000/api/user?search=${search}`, config);
 
             setLoading(false);
             setSearchResult(data); 
@@ -54,8 +54,32 @@ const SearchBox = () => {
         }
     }
 
-    const accessChat = (userId) => {
+    const accessChat = async (userId) => {
+        try{
+            setLoadingChat(true)
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                    Authorization: `Bearer ${user.token}`
+                }
+            }
 
+            const { data } = await axios.post('http://localhost:4000/api/chat', {userId}, config); 
+
+            setSelectedChat(data);
+            setLoading(false);
+            onClose();
+ 
+        } catch (error) {
+            toast({
+                title: 'Error fetching chat',
+                description: error.message,
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+                position: 'top-right',
+              });
+        }
     }
 
 

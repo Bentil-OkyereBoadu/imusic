@@ -15,10 +15,8 @@ function App() {
         <Route path='/login'>
           <Login/>
         </Route>
-        <Route path='/music'>
-          <ChatProvider>
+        <Route path='/music'>     
             <MusicRoom/>
-          </ChatProvider>
         </Route>
         <Route path='/publicmusic'>
           <PublicMusicRoom/>

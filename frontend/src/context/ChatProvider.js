@@ -9,7 +9,7 @@ const ChatProvider = ({children}) => {
     const [user, setUser] = useState();
 
     useEffect(()=>{
-        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        const userInfo = JSON.parse(localStorage.getItem("loggedinUser"));
         setUser(userInfo)
 
         if(!userInfo){

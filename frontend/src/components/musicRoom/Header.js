@@ -10,8 +10,7 @@ const Header = ({data}) => {
 
   // const { user } = ChatState();
   const user = JSON.parse(localStorage.getItem("loggedinUser"))
-  const name = data.name;
-  const id = data.id;
+  
 
   const logoutHandler = () => {
     localStorage.removeItem("loggedinUser");

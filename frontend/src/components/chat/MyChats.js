@@ -1,7 +1,6 @@
 import { Box, Flex, Stack, Text, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { IoVolumeHigh } from 'react-icons/io5';
 import { ChatState } from '../../context/ChatProvider';
 import ChatLoading from './ChatLoading';
 import { getSender } from './config/ChatLogics';
@@ -39,7 +38,7 @@ const MyChats = ({fetchAgain}) => {
 
     useEffect(()=> {
         setLoggedUser(JSON.parse(localStorage.getItem("loggedinUser")));
-        console.log(user)
+
         fetchChats(); 
     }, [ fetchAgain ])
 
@@ -52,21 +51,23 @@ const MyChats = ({fetchAgain}) => {
         bg='white'
         borderRadius='lg'
         borderWidth='1px'
+        w='100%'
     >
-        <Box 
+        {/* <Box 
             pb={3}
             px={3}
             d='flex'
             w='100%'
             justifyContent='space-between'
             alignItems='center'>   
-        </Box>   
+        </Box>    */}
         <Flex 
             flexDirection='column'
             borderRadius='lg'
-            overflowY='hidden'>
+            overflowY='scroll'
+            w='100%'>
                 { chats? (
-                    <Stack overflowY='scroll'>
+                    <Stack>
                         {chats.map( chat => (
                             <Box
                                 onClick={() => setSelectedChat(chat)}
@@ -75,9 +76,10 @@ const MyChats = ({fetchAgain}) => {
                                 color={selectedChat === chat? 'white' : 'black'}
                                 px={3}
                                 py={2}
+                                width='100%'
                                 borderRadius='lg'
                                 key={chat._id}>
-                                    <Text>{getSender(loggedUser, chat.users)}</Text>
+                                    <Text >{getSender(loggedUser, chat.users)}</Text>
                                 </Box>
                         ))}
                     </Stack>

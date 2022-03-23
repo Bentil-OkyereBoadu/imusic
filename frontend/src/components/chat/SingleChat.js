@@ -2,6 +2,7 @@ import { Box, FormControl, Input, Spinner, Text, useToast } from '@chakra-ui/rea
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { ChatState } from '../../context/ChatProvider'
+import ScrollableChat from './ScrollableChat';
 
 const SingleChat = ({fetchAgain, setfetchAgain}) => {
 
@@ -94,7 +95,9 @@ const SingleChat = ({fetchAgain, setfetchAgain}) => {
                 margin="auto"
                 />
         ) : (
-            <></>
+            <div className='messages'>
+              <ScrollableChat messages={messages} />   
+            </div>
         )}
 
         <FormControl onKeyDown={sendMessage}>

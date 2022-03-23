@@ -1,6 +1,5 @@
 import { Box, Flex, Heading } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { ChatState } from '../../context/ChatProvider';
 import MyChats from './MyChats';
 import SearchBox from './SearchBox';
@@ -17,7 +16,6 @@ const ChatPage = () => {
         <SearchBox/>
         { user && <MyChats fetchAgain={fetchAgain} />}
         { user && <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>}
-        <MyChats/>
       </Box>
      </Flex>
    </Box>

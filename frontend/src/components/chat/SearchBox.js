@@ -1,4 +1,4 @@
-import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, Text, useToast, Tooltip, useDisclosure, Spinner } from '@chakra-ui/react';
+import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, Text, useToast, Tooltip, useDisclosure, Spinner, Flex } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useState } from 'react'
 import { ChatState } from '../../context/ChatProvider';
@@ -89,7 +89,7 @@ const SearchBox = () => {
   return (
     <>
         <Tooltip label="Search Users To Chat" hasArrow placement='bottom-end'>
-            <Button variant="ghost" onClick={onOpen}>
+            <Button variant="ghost" onClick={onOpen} marginY='0.6em'>
                 <i className="fa fa-search" aria-hidden="true"></i>
                 <Text d={{base:"none", md:"flex"}} px='4'>Search User</Text>
             </Button>
@@ -102,14 +102,17 @@ const SearchBox = () => {
                 Search User
             </DrawerHeader>
             <DrawerBody>
+                <Flex marginY='0.7em'>
                 <Box>
                    <Input 
                     placeholder='Search by name or email'
                     mr={2}
                     value={search}
+                    w='90%'
                     onChange = {(e) => setSearch(e.target.value)} /> 
                 </Box>
                 <Button onClick={handleSearch}>Go</Button>
+                </Flex>
                 { loading? <ChatLoading/> : (
                    searchResult.map( user =>   <UserListItem
                                                     key={user._id}

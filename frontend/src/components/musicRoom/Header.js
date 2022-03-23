@@ -22,13 +22,13 @@ const Header = ({data}) => {
         <Flex justifyContent='space-between'>
             {/* <Heading w='30%'>iMusic</Heading> */}
             <Img marginLeft='5%' src={require('../../assets/logo.svg')}/>
-            <Text w='30%' fontSize='xl'>Welcome { user.name }!</Text>
+            <Text w='30%' fontSize='2xl'>Welcome { user.name }!</Text>
             <Flex justifyContent='center' w='20%'>
                 <Box m='10px 20px 0px' cursor='pointer'> 
                   {/* <VscAccount style={{width:25, height:25}}/>  */}
                   <Avatar size="sm" cursor="pointer" name={user.name} />
                 </Box>
-                <Button colorScheme='red' onClick={logoutHandler} >Leave</Button>
+                <Button colorScheme='red' onClick={logoutHandler} >Logout</Button>
             </Flex>
         </Flex>
     </Box>

@@ -7,14 +7,14 @@ import SearchBox from './SearchBox';
 
 const ChatPage = () => {
   const { user }  = ChatState();
-  const [fetchAgain, setFetchAgain] = useState()
+  const [fetchAgain, setFetchAgain] = useState(false);
   return (
    <Box>
      <Flex  textAlign='center'>
       <Box w='100%' h='100%' >
         <Heading fontSize='2rem' p='0.4rem' bg='orange.300'>Active users</Heading>
         <SearchBox/>
-        { user && <MyChats fetchAgain={fetchAgain} />}
+        { user && <MyChats fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>}
       </Box>
      </Flex>
    </Box>

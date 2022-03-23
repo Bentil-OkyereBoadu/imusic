@@ -1,4 +1,17 @@
-import { Box, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useDisclosure, useToast } from '@chakra-ui/react';
+import { 
+    Box, 
+    Flex, 
+    Modal, 
+    ModalBody, 
+    ModalCloseButton, 
+    ModalContent, 
+    ModalFooter,
+    ModalHeader, 
+    ModalOverlay, 
+    Stack, 
+    Text, 
+    useDisclosure, 
+    useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { ChatState } from '../../context/ChatProvider';
@@ -13,6 +26,7 @@ const MyChats = ({fetchAgain, setFetchAgain}) => {
     const {user,selectedChat, setSelectedChat, chats, setChats} = ChatState();
     const toast = useToast();
 
+    
     //fetching all chats
     const fetchChats = async () =>{
         try{
@@ -40,7 +54,7 @@ const MyChats = ({fetchAgain, setFetchAgain}) => {
     };
 
     useEffect(()=> {
-        setLoggedUser(JSON.parse(localStorage.getItem("loggedinUser")));
+        setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
 
         fetchChats(); 
     }, [ fetchAgain ])
@@ -74,15 +88,15 @@ const MyChats = ({fetchAgain, setFetchAgain}) => {
                                 width='100%'
                                 borderRadius='lg'
                                 key={chat._id}>
-                                    <Text >{getSender(loggedUser, chat.users)}</Text>
+                                    <Text fontSize='1.4em'>{getSender(loggedUser, chat.users)}</Text>
                                     {chat.latestMessage && (
                                         <Text fontSize="xs">
                                         <b>{chat.latestMessage.sender.name} : </b>
                                         {chat.latestMessage.content.length > 50
                                         ? chat.latestMessage.content.substring(0, 51) + "..."
                                             : chat.latestMessage.content}
-                  </Text>
-                )}
+                                    </Text>
+                                    )}
                                 </Box>
                         ))}
                     </Stack>

@@ -5,9 +5,10 @@ const UserListItem = ({user, handleFunction }) => {
 
   return (
     <Box
-        p='0.5em' 
+        p='0.8em' 
         w='100%'
         h='10%'
+        m='10px 0'
         border='1px solid green'
       onClick={handleFunction}
       cursor='pointer'

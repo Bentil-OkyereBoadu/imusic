@@ -17,16 +17,6 @@ const SearchBox = () => {
     const [loadingChat, setLoadingChat] = useState();
 
     const handleSearch = async () => {
-        if(!search){
-            toast({
-                title: 'Nothing to search. Please enter something to search',
-                status: 'warning',
-                duration: 2000,
-                isClosable: true,
-                position: 'top-right',
-              });
-            return;
-        }
 
         try{
             setLoading(true)
@@ -66,7 +56,7 @@ const SearchBox = () => {
 
             const { data } = await axios.post('http://localhost:4000/api/chat', {userId}, config); 
             if(!chats.find( (chat) => chat._id === data._id)){
-                setChats([data, ...chats])
+                setChats([data, ...chats]);
             }
 
             setSelectedChat(data);
@@ -108,10 +98,12 @@ const SearchBox = () => {
                     placeholder='Search by name or email'
                     mr={2}
                     value={search}
-                    w='90%'
-                    onChange = {(e) => setSearch(e.target.value)} /> 
+                    w='100%'
+                    onChange = {(e) =>{ 
+                        setSearch(e.target.value);
+                        handleSearch();
+                    }} /> 
                 </Box>
-                <Button onClick={handleSearch}>Go</Button>
                 </Flex>
                 { loading? <ChatLoading/> : (
                    searchResult.map( user =>   <UserListItem
@@ -122,9 +114,6 @@ const SearchBox = () => {
                 )}
                 { loadingChat && <Spinner ml='auto' d='flex'/> }
             </DrawerBody>
-
-            <DrawerFooter>
-            </DrawerFooter>
             </DrawerContent>
         </Drawer>
     </>

@@ -2,9 +2,9 @@ import { Button, Flex, FormControl, Text, Input, Heading, useToast } from '@chak
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
+import { ChatState } from '../../context/ChatProvider';
 
-  //getting client id and redirect uri from env
-  // const client_secret = process.env.CLIENT_SECRET;
+
   const client_id ="ddc7d259bece4112b9df90559ea0e4ff";
   const redirect_uri = 'http://localhost:3000/music';
 
@@ -17,6 +17,8 @@ import {NavLink, useHistory} from 'react-router-dom';
   const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
 const Login = () => {
+
+  const {user, setUser} = ChatState();
 
   const [state, setState] = useState({
     email: '',
@@ -65,6 +67,8 @@ const Login = () => {
 
       if(data){
           localStorage.setItem('loggedinUser', JSON.stringify(data))
+         setUser(data)
+         
           toast({
           title: 'Login Successful',
           status: 'success',

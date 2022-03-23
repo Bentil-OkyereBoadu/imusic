@@ -26,7 +26,7 @@ const getParamsFromSpotifyAuth = (hash) => {
 
 const MusicRoom = () => {
 
-  const history = useHistory();
+  // const history = useHistory();
 
   // useEffect(() =>{
   //   const user = JSON.parse(localStorage.getItem("loggedinUser"));

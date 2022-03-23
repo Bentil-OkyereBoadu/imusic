@@ -51,7 +51,7 @@ const accessChat = asyncHandler( async (req, res) => {
 
 const fetchChat = asyncHandler( async (req, res) =>{
     try{
-        Chat.find({ users: {$eleMatch: { $eq: req.user._id } } })
+        Chat.find({ users: {$elemMatch: { $eq: req.user._id } } })
         .populate("users", "-password")
         .populate("latestMessage")
         .sort({updateAt: -1})

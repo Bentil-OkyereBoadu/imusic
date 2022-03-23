@@ -5,12 +5,11 @@ const dotenv = require('dotenv')
 const cors = require('cors')
 const server = http.createServer(app)
 const querystring = require('query-string')
-const socketio = require('socket.io')
-const io = socketio(server)
 const {chats} = require('./data/data')
 const connectDB = require('./config/db')
 const userRoutes = require("./routes/userRoutes")
 const chatRoutes = require("./routes/chatRoutes")
+const messageRoutes = require("./routes/messageRoutes")
 const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 const morgan = require('morgan');
 
@@ -40,14 +39,11 @@ const generateRandomString = (length) => {
      return text;
   };
 
-//run when user connects
-// io.on('connection', socket =>{
-//      console.log('New web socket connection...');
-// })
 
 /**getting user routes */
 app.use("/api/user", userRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/message', messageRoutes)
 
 /**Handle error */
 app.use(notFound)
@@ -130,6 +126,48 @@ app.get('/refresh_token', (req, res) =>{
 
  
 const PORT = process.env.PORT || 5000;
-server.listen( PORT, ()=> {
+const service = server.listen( PORT, ()=> {
     console.log(`Server started on port ${PORT}`)
+})
+
+const io = require('socket.io')(service, {
+    pingTimeout: 60000,
+    cors: {
+        origin: 'http://localhost:3000',
+    }
+})
+
+io.on('connection', (socket) => {
+    console.log('connected to socket.io');
+
+    socket.on('setup', (userData)=> {
+        socket.join(userData._id);
+        socket.emit('connected')
+    })
+
+    socket.on('join chat', (room) => {
+        socket.join(room);
+        console.log('user joined room: '+ room)
+    })
+
+    socket.on('typing', (room) => socket.in(room).emit("typing"));
+    socket.on('stop typing', (room) => socket.in(room).emit("stop typing"));
+
+
+    socket.on('new message', (newMessage) => {
+        let chat = newMessage.chat;
+
+        if(!chat.users) return console.log('chat.users not defined');
+
+        chat.users.forEach( user => {
+            if(user._id == newMessage.sender._id) return;
+
+            socket.in(user._id).emit('message received', newMessage);
+        })
+    })
+
+    socket.off("setup", () => {
+        console.log("USER DISCONNECTED");
+        socket.leave(userData._id);
+      });
 })

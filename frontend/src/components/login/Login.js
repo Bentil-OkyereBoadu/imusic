@@ -18,7 +18,7 @@ import { ChatState } from '../../context/ChatProvider';
 
 const Login = () => {
 
-  const {user, setUser} = ChatState();
+  
 
   const [state, setState] = useState({
     email: '',
@@ -29,7 +29,7 @@ const Login = () => {
 
   const [loading, setLoading] = useState(false)
   const toast = useToast();
-  const history = useHistory();
+  
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -66,8 +66,8 @@ const Login = () => {
       const {data} = await axios.post("http://localhost:4000/api/user/login", { email, password }, config);
 
       if(data){
-          localStorage.setItem('loggedinUser', JSON.stringify(data))
-         setUser(data)
+          localStorage.setItem('userInfo', JSON.stringify(data))
+         
          
           toast({
           title: 'Login Successful',

@@ -5,6 +5,7 @@ import MusicRoom from './components/musicRoom/MusicRoom';
 import Signup from './components/signup/Signup';
 import Login from './components/login/Login';
 import PublicMusicRoom from './components/musicRoom/PublicMusicRoom';
+import ChatProvider from './context/ChatProvider';
 
 function App() {
 
@@ -14,8 +15,10 @@ function App() {
         <Route path='/login'>
           <Login/>
         </Route>
-        <Route path='/music'>     
+        <Route path='/music'> 
+          <ChatProvider>
             <MusicRoom/>
+          </ChatProvider>    
         </Route>
         <Route path='/publicmusic'>
           <PublicMusicRoom/>

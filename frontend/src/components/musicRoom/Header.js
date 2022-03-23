@@ -3,16 +3,13 @@ import React from 'react'
 import { useHistory } from 'react-router-dom';
 import { ChatState } from '../../context/ChatProvider';
 
-const Header = () => {
+const Header = ({user}) => {
 
   const history = useHistory()
-
-  // const { user } = ChatState();
-  const user = JSON.parse(localStorage.getItem("loggedinUser"))
   
 
   const logoutHandler = () => {
-    localStorage.removeItem("loggedinUser");
+    localStorage.removeItem("userInfo");
     history.push("/");
   }
   
@@ -25,7 +22,7 @@ const Header = () => {
             <Flex justifyContent='center' w='20%'>
                 <Box m='10px 20px 0px' cursor='pointer'> 
                   
-                  <Avatar size="sm" cursor="pointer" name={user.name} />
+                  <Avatar size="sm" name={user.name} />
                 </Box>
                 <Button colorScheme='red' onClick={logoutHandler} >Logout</Button>
             </Flex>

@@ -20,6 +20,11 @@ const Track = ({track, addTrack, removeTrack, isRemoval}) => {
       removeTrack(track);
     }
 
+    const displayPlayButton = () => {
+        let uri = `https://open.spotify.com/embed?uri=${track.uri}`
+    }
+
+
   return (
     <Box w='70%' margin='0.3em 0em'>
         <Flex flexDirection='column' bg='orange.100' justifyContent='space-around'p='1em' borderRadius='0.7em' color='black' w='100%'>

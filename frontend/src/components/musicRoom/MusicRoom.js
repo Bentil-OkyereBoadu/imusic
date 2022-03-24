@@ -165,7 +165,7 @@ const MusicRoom = () => {
       },
       body: JSON.stringify({uris: trackURIs})
     });
-    }
+  }
 
   const savePlaylist = () => {
     let trackURIs = state.playlistTracks.map( track => track.uri);
@@ -179,6 +179,7 @@ const MusicRoom = () => {
       }
       tracks.push(track);
       setState({playlistTracks: tracks});
+      console.log(state.playlistTracks)
   }
 
   const removeTrack = (track) => {

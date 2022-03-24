@@ -1,4 +1,4 @@
-import { Flex, Input, Popover, PopoverArrow, Button, PopoverCloseButton, PopoverContent, PopoverTrigger } from '@chakra-ui/react'
+import { Flex, Input, Popover, Button, PopoverCloseButton, PopoverContent, PopoverTrigger } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import SearchResults from './SearchResults';
 import axios from 'axios';
@@ -27,9 +27,6 @@ const SearchBar = ({token, addTrack, removeTrack}) => {
        
     }
 
-
-    console.log(searchItems);
-    
   return (
     <Flex marginTop='1em' justifyContent='space-around' w='80%'>
         <Input color='black' bg='' w='70%' placeholder="Search for a Song, Album, or Artist" onChange={handleTermSearch}/>

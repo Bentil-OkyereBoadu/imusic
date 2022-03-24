@@ -1,15 +1,18 @@
 import { Avatar, Box, Button, Flex, Img, Text } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
-import { ChatState } from '../../context/ChatProvider';
 
 const Header = ({user}) => {
+
+  const [loading, setLoading] = useState(false)
 
   const history = useHistory()
   
 
   const logoutHandler = () => {
-    localStorage.removeItem("userInfo");
+    setLoading(true)
+    localStorage.clear();
+    setLoading(false)
     history.push("/");
   }
   
@@ -24,7 +27,7 @@ const Header = ({user}) => {
                   
                   <Avatar size="sm" name={user.name} />
                 </Box>
-                <Button colorScheme='red' onClick={logoutHandler} >Logout</Button>
+                <Button colorScheme='red' onClick={logoutHandler} isLoading={loading}>Logout</Button>
             </Flex>
         </Flex>
     </Box>

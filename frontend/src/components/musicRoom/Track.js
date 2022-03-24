@@ -1,14 +1,14 @@
 import { Box, Button, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 
-const Track = (props) => {
+const Track = ({track, onAdd, isRemoval, onRemove}) => {
 
-  const {track, onAdd, isRemoval, onRemove} = props;
+  
     const renderAction = () =>{
       if(isRemoval){
-        return <Button colorScheme='blue' onClick={removeTrack}>+</Button>
+        return <Button colorScheme='blue' onClick={removeTrack}>-</Button>
       } else {
-        return <Button colorScheme='blue' onClick={addTrack}>-</Button>
+        return <Button colorScheme='blue' onClick={addTrack}>+</Button>
       }
     }
 
@@ -16,15 +16,15 @@ const Track = (props) => {
       onAdd(track);
     }
     
-    const removeTrack =() => {
+    const removeTrack = () => {
       onRemove(track);
     }
 
   return (
     <Box w='70%' margin='0.3em 0em'>
         <Flex bg='orange.100' justifyContent='space-around'p='1em' borderRadius='0.7em'>
-            <Text>Track name</Text>
-            <Text>Artist name || Album</Text>
+            <Text>{track.name}</Text>
+            <Text>{track.artist} || {track.album.name}</Text>
             {renderAction()}
         </Flex>
     </Box>

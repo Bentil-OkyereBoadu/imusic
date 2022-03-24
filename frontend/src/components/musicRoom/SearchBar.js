@@ -25,11 +25,17 @@ const SearchBar = (props) => {
         })
     }
 
+    const handleKeyPress = (event) => {
+		if (event.key === 'Enter') {
+			handleSearchTerm();
+		}
+	}
+
     console.log(searchItems);
     
   return (
     <Flex marginTop='1em' justifyContent='space-around' w='80%'>
-        <Input color='black' bg='' w='70%' placeholder="Search for a Song, Album, or Artist" onChange={handleTermSearch}/>
+        <Input color='black' bg='' w='70%' placeholder="Search for a Song, Album, or Artist" onChange={handleTermSearch} onKeyDown={handleKeyPress}/>
         {/* initialFocusRef={initialFocusRef} */}
         <Popover
             placement='bottom'
@@ -38,8 +44,8 @@ const SearchBar = (props) => {
             <PopoverTrigger>
                 <Button onClick={handleSearchTerm}>Search</Button>
             </PopoverTrigger>
-            <PopoverContent color='blue' bg='white' borderColor='blue.800'>
-                <SearchResults results={searchItems}/>
+            <PopoverContent color='blue' bg='white' borderColor='blue.800' h="20%" overflowY='scroll' overflowX='hidden'>
+                <SearchResults tracks={searchItems} />
                 <PopoverArrow />
                 <PopoverCloseButton />
 

@@ -25,11 +25,14 @@ const getParamsFromSpotifyAuth = (hash) => {
 }
 
 const MusicRoom = () => {
-    // const {user} = ChatState();
 
   const [token, setToken] = useState('');
   const [data, setData] = useState({});
   const user = JSON.parse(localStorage.getItem("userInfo"));
+
+  if(!user){
+   window.location = ('/');
+  }  
 
   useEffect(()=> {
     if(user){ 
@@ -47,13 +50,14 @@ const MusicRoom = () => {
   },[])
 
 
-  const handleGetUser = () =>{
-    axios.get(USER_ENDPOINT, {
+  const handleGetUser = async () =>{
+    await axios.get(USER_ENDPOINT, {
       headers: {
-        Authorization: "Bearer "+ token,
+        Authorization: `Bearer ${token}`,
       }
     }).then((response) => {
       setData(response.data);
+      console.log(data)
     }).catch(error => {
       console.log(error);
     })

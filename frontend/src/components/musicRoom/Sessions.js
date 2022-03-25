@@ -1,7 +1,7 @@
 import { Box, Heading } from '@chakra-ui/react'
 import React from 'react'
 
-const Session = (props) => {
+const Sessions = () => {
 
   
   return (
@@ -15,4 +15,4 @@ const Session = (props) => {
   )
 }
 
-export default Session
+export default Sessions

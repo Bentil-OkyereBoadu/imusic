@@ -1,25 +1,14 @@
 import { Button, Flex, FormControl, Text, Input, Heading, useToast } from '@chakra-ui/react';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
 import { ChatState } from '../../context/ChatProvider';
 
 
-  const client_id ="ddc7d259bece4112b9df90559ea0e4ff";
-  const redirect_uri = 'http://localhost:3000/music';
-
-  const OAUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-  const SCOPES = [ "user-read-currently-playing", 
-                   "user-read-playback-state", 
-                   "playlist-read-private", 
-                   "user-read-currently-playing" ]
-  const SPACE_DELIMITER = "%20";
-  const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
-
 const Login = () => {
 
   const history = useHistory()  
-
+  const {user, setUser} = ChatState();
   const [state, setState] = useState({
     email: '',
     password:'', 
@@ -66,9 +55,7 @@ const Login = () => {
       const {data} = await axios.post("http://localhost:4000/api/user/login", { email, password }, config);
 
       if(data){
-          localStorage.setItem('userInfo', JSON.stringify(data))
-         
-         
+          setUser(localStorage.setItem('userInfo', JSON.stringify(data)));
           toast({
           title: 'Login Successful',
           status: 'success',
@@ -78,7 +65,7 @@ const Login = () => {
         });
 
         setLoading(false);
-       
+        history.push('/music');
       }
   
 

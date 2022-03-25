@@ -8,6 +8,7 @@ import ChatPage from '../chat/ChatPage';
 import Sessions from './Sessions';
 
 
+
 const USER_ENDPOINT = "https://api.spotify.com/v1/me";
 const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
 
@@ -17,6 +18,8 @@ const MusicRoom = () => {
   const toast = useToast();
   const [token, setToken] = useState('');
   const [data, setData] = useState();
+
+  
   const [state, setState]= useState({
     playlistTracks: [],
     playlistName: 'New PLaylist',
@@ -25,7 +28,7 @@ const MusicRoom = () => {
   });
 
   if(!token){
-   window.location = ('/');
+    setToken(localStorage.getItem("accessToken"))
   }  
 
   
@@ -86,9 +89,6 @@ const MusicRoom = () => {
   }
 
   const savePlaylistToSpotify = async (name, trackURIs) => {
-    if(!token){
-      setToken(localStorage.getItem("accessToken"))
-    }
   
     if( !name || !trackURIs){
       return;

@@ -1,8 +1,6 @@
 import { Box, Button, Flex, Heading, Img, Text } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import './styles.css';
-import axios from 'axios' ;
-import { NavLink } from 'react-router-dom';
 
 
   //getting client id and redirect uri from env

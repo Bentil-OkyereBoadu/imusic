@@ -7,24 +7,23 @@ import Login from './components/login/Login';
 import PublicMusicRoom from './components/musicRoom/PublicMusicRoom';
 import ChatProvider from './context/ChatProvider';
 import Session from './components/sessions/Session';
-import SessionProvider from './context/sessionProvider';
+import SessionProvider from './context/SessionProvider';
 
 function App() {
 
   return (
     <Router>
       <SessionProvider>
+        <ChatProvider>
         <Switch>
           <Route path='/session'>
             <Session/>
           </Route>
           <Route path='/login'>
-            <Login/>
+              <Login/>
           </Route>
           <Route path='/music'> 
-            <ChatProvider>
               <MusicRoom/>
-            </ChatProvider>    
           </Route>
           <Route path='/publicmusic'>
             <PublicMusicRoom/>
@@ -36,6 +35,7 @@ function App() {
             <Home  /> 
           </Route>
         </Switch>
+        </ChatProvider>    
       </SessionProvider> 
     </Router>
   );

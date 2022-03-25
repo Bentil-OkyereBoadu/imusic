@@ -1,27 +1,74 @@
-import { Box, Button, Flex, Heading, Input } from '@chakra-ui/react'
-import React from 'react'
+import { Button, Flex, Heading, Input } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
+
+const getParamsFromSpotifyAuth = (hash) => {
+  const stringAfterHashtag = hash.substring(1);
+  const paramsInUrl =stringAfterHashtag.split("&");
+
+  const paramsSplitUp = paramsInUrl.reduce((accumulator, currentValue) => {
+    const [key, value] = currentValue.split("=");
+    accumulator[key] = value;
+    return accumulator;
+  }, {});
+
+  return paramsSplitUp;  
+}
+
+
 const Session = () => {
+
+    const [token, setToken] = useState('');
+    // const user = JSON.parse(localStorage.getItem("userInfo"));
+    // const [state, setState]= useState({
+    //   playlistTracks: [],
+    //   playlistName: 'New PLaylist',
+    //   searchResults: [],
+    //   privatePlaylist: false,
+    // });
+  
+  
+    useEffect(()=> {
+      
+      if(window.location.hash){
+        const {access_token, expires_in, token_type} = getParamsFromSpotifyAuth(window.location.hash);
+       
+        localStorage.setItem("accessToken", access_token);
+        localStorage.setItem("tokenType", token_type);
+        localStorage.setItem("expiresIn",  expires_in);
+
+        setToken(localStorage.getItem('accessToken'))
+
+      } else{
+        window.location = ('/');
+      }
+      
+    }, []);
+
 
    const handlePublicLogin = () => {
 
    }
   return (
-    <Flex w='100%' h='100%' justifyContent='center' marginTop='10%'>
-        <Flex w='30%' h='50vh' flexDirection='column' justifyContent='space-around' alignItems='center' bg='rgba(180,175,173,0.5)' p={3} borderRadius='30px'>
-            <Heading fontSize='xl' color='white'>CREATE A SESSION</Heading>
-            <Input placeholder='Session Name'></Input>
-            <Button bg='orange' color='white' size='md' w='50%'h='20%' fontSize='lg' borderRadius='30px' onClick={handlePublicLogin} >
-                Public
-            </Button>         
-            <NavLink to='/login' style={{width:'50%', height:'20%'}} >
-            <Button bg='orange' color='white' size='md' w='100%'h='100%'fontSize='lg'borderRadius='30px'>
-                Private
-            </Button>
-            </NavLink>
+    <div className='home'>      
+        <Flex  w='100%' h='100%' justifyContent='center'>
+            <Flex w='30%' h='50vh' marginTop='10%' flexDirection='column' justifyContent='space-around' alignItems='center' bg='rgba(180,175,173,0.6)' p={3} borderRadius='30px'>
+                <Heading fontSize='xl' color='white'>CREATE A SESSION</Heading>
+                <Input placeholder='Session name' variant='flushed' w='70%' color='white'></Input>
+                <NavLink to='/publicmusic' style={{width:'50%', height:'20%'}} >
+                    <Button bg='orange' color='white' size='md' w='100%'h='100%'fontSize='lg'borderRadius='30px'>
+                        Public
+                    </Button>
+                </NavLink>         
+                <NavLink to='/login' style={{width:'50%', height:'20%'}} >
+                    <Button bg='orange' color='white' size='md' w='100%'h='100%'fontSize='lg'borderRadius='30px'>
+                        Private
+                    </Button>
+                </NavLink>
+            </Flex>
         </Flex>
-    </Flex>
+    </div>
   )
 }
 

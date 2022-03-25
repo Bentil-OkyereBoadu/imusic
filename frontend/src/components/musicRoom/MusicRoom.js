@@ -1,35 +1,22 @@
 import { Box, Grid, GridItem, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import Session from './Session';
 import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
 import Playlist from './Playlist'; 
 import ChatPage from '../chat/ChatPage';
+import Sessions from './Sessions';
 
 
 const USER_ENDPOINT = "https://api.spotify.com/v1/me";
 const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
 
-const getParamsFromSpotifyAuth = (hash) => {
-  const stringAfterHashtag = hash.substring(1);
-  const paramsInUrl =stringAfterHashtag.split("&");
 
-  const paramsSplitUp = paramsInUrl.reduce((accumulator, currentValue) => {
-    // console.log(currentValue);
-    const [key, value] = currentValue.split("=");
-    accumulator[key] = value;
-    return accumulator;
-  }, {});
-
-  return paramsSplitUp;  
-}
 
 const MusicRoom = () => {
   const toast = useToast();
   const [token, setToken] = useState('');
   const [data, setData] = useState();
-  const user = JSON.parse(localStorage.getItem("userInfo"));
   const [state, setState]= useState({
     playlistTracks: [],
     playlistName: 'New PLaylist',
@@ -37,23 +24,11 @@ const MusicRoom = () => {
     privatePlaylist: false,
   });
 
-  if(!user){
+  if(!token){
    window.location = ('/');
   }  
 
-  useEffect(()=> {
-    if(user){ 
-    if(window.location.hash){
-      const {access_token, expires_in, token_type} = getParamsFromSpotifyAuth(window.location.hash);
-     
-      localStorage.setItem("accessToken", access_token);
-      localStorage.setItem("tokenType", token_type);
-      localStorage.setItem("expiresIn",  expires_in);
-    }
-    
-    setToken(localStorage.getItem('accessToken'))
-    }
-  },[]);
+  
 
   useEffect(() =>{
     handleGetUser();
@@ -190,10 +165,10 @@ const MusicRoom = () => {
   
   return (
   <Box overflowY='hidden' overflowX='hidden' position='fixed' w='100%'> 
-    <Header user = {user}/>
+    <Header />
     <Grid templateColumns='1fr 2fr 1fr' gap={2} w='100%' h='80vh'>
-      <GridItem w='100%' h='100%' bg='blue.500'>
-        <Session/>
+      <GridItem w='100%' h='100%' bg='blue.400'>
+        <Sessions/>
       </GridItem>
       <GridItem w='100%' h='100%' bg='blue.300'>
         <Playlist 

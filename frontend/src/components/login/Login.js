@@ -18,7 +18,7 @@ import { ChatState } from '../../context/ChatProvider';
 
 const Login = () => {
 
-  
+  const history = useHistory()  
 
   const [state, setState] = useState({
     email: '',
@@ -78,7 +78,7 @@ const Login = () => {
         });
 
         setLoading(false);
-       window.location = `${OAUTH_ENDPOINT}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;
+       
       }
   
 

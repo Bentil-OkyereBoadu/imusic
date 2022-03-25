@@ -6,12 +6,16 @@ import Signup from './components/signup/Signup';
 import Login from './components/login/Login';
 import PublicMusicRoom from './components/musicRoom/PublicMusicRoom';
 import ChatProvider from './context/ChatProvider';
+import Session from './components/sessions/Session';
 
 function App() {
 
   return (
     <Router>
       <Switch>
+        <Route path='/session'>
+          <Session/>
+        </Route>
         <Route path='/login'>
           <Login/>
         </Route>

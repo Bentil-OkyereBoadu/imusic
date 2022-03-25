@@ -169,12 +169,12 @@ const MusicRoom = () => {
 
   const savePlaylist = () => {
     let trackURIs = state.playlistTracks.map( track => track.uri);
-    savePlaylistToSpotify(state.playlistName, trackURIs, state.privatePlaylist).then(() => clearPlaylist());
+    savePlaylistToSpotify(state.playlistName, trackURIs).then(() => clearPlaylist());
     }
 
   const addTrack = (track) => {
       let tracks = state.playlistTracks;
-      if(tracks.find(savedTrack => savedTrack.id == track.id)){
+      if(tracks.find(savedTrack => savedTrack.id === track.id)){
         return;
       }
       tracks.push(track);
@@ -191,11 +191,11 @@ const MusicRoom = () => {
   return (
   <Box overflowY='hidden' overflowX='hidden' position='fixed' w='100%'> 
     <Header user = {user}/>
-    <Grid templateColumns='1fr 2fr 1fr' gap={2} w='100%' h='80%'>
+    <Grid templateColumns='1fr 2fr 1fr' gap={2} w='100%' h='80vh'>
       <GridItem w='100%' h='100%' bg='blue.500'>
         <Session/>
       </GridItem>
-      <GridItem w='100%' h='80%' bg='blue.300'>
+      <GridItem w='100%' h='100%' bg='blue.300'>
         <Playlist 
           savePlaylist={savePlaylist} 
           addTrack={addTrack}

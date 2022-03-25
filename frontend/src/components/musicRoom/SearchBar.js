@@ -38,7 +38,7 @@ const SearchBar = ({token, addTrack, removeTrack}) => {
             <PopoverTrigger>
                 <Button onClick={handleSearchTerm}>Search</Button>
             </PopoverTrigger>
-            <PopoverContent color='blue' bg='white' borderColor='blue.800' h="20%">
+            <PopoverContent color='blue' bg='white' borderColor='blue.800' h="60vh">
                 <SearchResults tracks={searchItems} addTrack={addTrack} removeTrack={removeTrack}/>
                 
                 <PopoverCloseButton />

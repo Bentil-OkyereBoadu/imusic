@@ -3,7 +3,7 @@ import TrackList from './TrackList'
 
 const SearchResults = ({tracks , addTrack, removeTrack}) => {
   return (
-    <div>
+    <div style={{height:'100%'}}>
        <TrackList 
         tracks={tracks}
         addTrack={addTrack}

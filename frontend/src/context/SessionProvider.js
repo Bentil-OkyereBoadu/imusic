@@ -12,10 +12,12 @@ const SessionProvider = ({children}) => {
         attendees: [],
         id: '',
     });
-    
+
+    const [token, setToken] = useState('');
+    const [data, setData] = useState('');    
 
   return (
-    <SessionContext.Provider value={{session, setSession}}>
+    <SessionContext.Provider value={{session, setSession, token, setToken, data, setData}}>
         {children}
     </SessionContext.Provider>
   )

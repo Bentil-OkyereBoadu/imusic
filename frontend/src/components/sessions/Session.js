@@ -1,7 +1,10 @@
 import { Button, Flex, Heading, Input, useToast } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
+import { SessionState } from '../../context/SessionProvider';
 
+const USER_ENDPOINT = "https://api.spotify.com/v1/me";
 
 const getParamsFromSpotifyAuth = (hash) => {
   const stringAfterHashtag = hash.substring(1);
@@ -18,8 +21,8 @@ const getParamsFromSpotifyAuth = (hash) => {
 
 
 const Session = () => {
+  const {token, setToken, setData} = SessionState();
 
-    const [token, setToken] = useState('');
   const toast = useToast();
 
     useEffect(()=> {   
@@ -45,7 +48,25 @@ const Session = () => {
     }, []);
 
 
-   const handlePublicLogin = () => {}
+    useEffect(() =>{
+      handleGetUser();
+    },[token]);
+  
+  
+    const handleGetUser = async () =>{
+      try{
+        const {data} = await axios.get(USER_ENDPOINT, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      setData(data);
+  
+      } catch (error){
+        console.log('Couldnt get user');
+        console.log(error.message);
+      }
+    }
 
   return (
     <div className='home'>      

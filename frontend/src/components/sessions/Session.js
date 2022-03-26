@@ -22,9 +22,7 @@ const Session = () => {
     const [token, setToken] = useState('');
   const toast = useToast();
 
-  
-    useEffect(()=> {
-      
+    useEffect(()=> {   
       if(window.location.hash){
         const {access_token, expires_in, token_type} = getParamsFromSpotifyAuth(window.location.hash);
        
@@ -44,13 +42,11 @@ const Session = () => {
           position: 'top'
         })
       }
-      
     }, []);
 
 
-   const handlePublicLogin = () => {
+   const handlePublicLogin = () => {}
 
-   }
   return (
     <div className='home'>      
         <Flex  w='100%' h='100%' justifyContent='center'>

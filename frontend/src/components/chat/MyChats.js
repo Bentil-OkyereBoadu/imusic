@@ -69,11 +69,12 @@ const MyChats = ({fetchAgain, setFetchAgain}) => {
         borderRadius='lg'
         borderWidth='1px'
         w='100%'
+        overflowY='scroll'
     >
         <Flex 
             flexDirection='column'
             borderRadius='lg'
-            overflowY='scroll'
+            
             w='100%'>
                 { chats? (
                     <Stack>

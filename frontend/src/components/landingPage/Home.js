@@ -1,10 +1,7 @@
-import { Box, Button, Flex, Heading, Img, Text } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
+import { Box, Button, Flex, Heading, Img, Text } from '@chakra-ui/react';
+import React from 'react';
 import './styles.css';
 
-
-  //getting client id and redirect uri from env
-  // const client_secret = process.env.CLIENT_SECRET;
   const client_id ="ddc7d259bece4112b9df90559ea0e4ff";
   const redirect_uri = 'http://localhost:3000/session';
 
@@ -17,11 +14,6 @@ import './styles.css';
   const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
 const Home = () => {
-
-  useEffect(() => {
-    
-  }, [])
-
 
   const spotifyLogin = () => {
     window.location = `${OAUTH_ENDPOINT}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;

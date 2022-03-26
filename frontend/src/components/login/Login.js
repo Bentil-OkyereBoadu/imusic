@@ -14,12 +14,9 @@ const Login = () => {
     password:'', 
   })
 
-  
-
   const [loading, setLoading] = useState(false)
   const toast = useToast();
   
-
   const handleInputChange = (e) => {
     const value = e.target.value;
     setState({

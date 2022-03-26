@@ -3,6 +3,16 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom';
 
+const client_id ="ddc7d259bece4112b9df90559ea0e4ff";
+  const redirect_uri = 'http://localhost:3000/music';
+
+  const OAUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+  const SCOPES = [ "user-read-currently-playing", 
+                   "user-read-playback-state", 
+                   "playlist-read-private", 
+                   "user-read-currently-playing" ]
+  const SPACE_DELIMITER = "%20";
+  const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
 const Signup = () => {
     const [state, setState] = useState({
@@ -83,8 +93,9 @@ const Signup = () => {
           isClosable: true,
           position: 'bottom'
         }); 
-        setLoading(false); 
-        history.push('/music');
+        setLoading(false)
+        
+        window.location = `${OAUTH_ENDPOINT}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;
        
       }
         
@@ -108,54 +119,47 @@ const Signup = () => {
     <FormControl width='80%' >
       <Heading>Sign Up</Heading>
       <br/>
-      <Input
-        variant='flushed' 
+      <Input 
         id='name'
         type='text'
         value={state.name}
         name='name'
         placeholder='Username'
-        _placeholder={{opacity: 0.6, color: 'orange' }}
+        _placeholder={{opacity: 0.6, color: 'blue.500' }}
         onChange={handleInputChange} 
       />
-      <Input 
-        variant='flushed'
-        marginTop='1.5rem'
+      <Input marginTop='1.5rem'
         id='email'
         type='text'
         value={state.email}
         name='email'
         placeholder='Email'
-        _placeholder={{opacity: 0.6, color: 'orange' }}
+        _placeholder={{opacity: 0.6, color: 'blue.500' }}
         onChange={handleInputChange} 
       />
-      <Input 
-        variant='flushed'
-        marginTop='1.5rem'
+      <Input marginTop='1.5rem'
         id='password'
         type='password'
         value={state.password}
         name='password'
         placeholder='Password'
-        _placeholder={{opacity: 0.6, color: 'orange' }}
+        _placeholder={{opacity: 0.6, color: 'blue.500' }}
         onChange={handleInputChange} 
       />
 
-      <Input 
-        variant='flushed'
-        marginTop='1.5rem'
+      <Input marginTop='1.5rem'
         id='confirmPassword'
         type='password'
         value={state.confirmPassword}
         name='confirmPassword'
         placeholder='Confirm Password'
-        _placeholder={{opacity: 0.6, color: 'orange' }}
+        _placeholder={{opacity: 0.6, color: 'blue.500' }}
         onChange={handleInputChange} 
       />
       <NavLink to='/music' ></NavLink>
         <Button marginTop='1.5rem'
             size='md'
-            colorScheme='orange'
+            colorScheme='blue'
             isLoading={loading}
             onClick={handleSubmit}>
             Sign up

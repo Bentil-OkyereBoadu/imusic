@@ -16,16 +16,13 @@ function App() {
       <SessionProvider>
         <ChatProvider>
         <Switch>
-          <Route path='/' exact>
-            <Home/> 
-          </Route>
           <Route path='/session'>
             <Session/>
           </Route>
           <Route path='/login'>
-              <Login/>           
+              <Login/>
           </Route>
-          <Route path='/music'>
+          <Route path='/music'> 
               <MusicRoom/>
           </Route>
           <Route path='/publicmusic'>
@@ -34,7 +31,9 @@ function App() {
           <Route path='/signup'>
             <Signup/>
           </Route>
-          
+          <Route path='/' exact>
+            <Home  /> 
+          </Route>
         </Switch>
         </ChatProvider>    
       </SessionProvider> 

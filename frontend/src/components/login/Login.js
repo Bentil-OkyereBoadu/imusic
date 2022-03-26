@@ -8,7 +8,7 @@ import { ChatState } from '../../context/ChatProvider';
 const Login = () => {
 
   const history = useHistory()  
-  const {user, setUser} = ChatState();
+  const {setUser} = ChatState();
   const [state, setState] = useState({
     email: '',
     password:'', 
@@ -87,26 +87,29 @@ const Login = () => {
         <Heading>Login</Heading>
         <br/>
         <Input 
+          variant='flushed'
           name='email'
           id='email'
           type='text'
           placeholder='Email'
-          _placeholder={{opacity: 0.6, color: 'blue.500' }}
+          _placeholder={{opacity: 0.6, color: 'orange' }}
           onChange={handleInputChange} 
         />
        
-        <Input marginTop='1.5rem'
+        <Input 
+          variant='flushed'
+          marginTop='1.5rem'
           name='password'
           id='password'
           type='password'
           placeholder='Password'
-          _placeholder={{ opacity: 0.6, color: 'blue.500' }}
+          _placeholder={{ opacity: 0.6, color: 'orange' }}
           onChange={handleInputChange} 
         />
         
         <Button margin='1rem'
             size='md'
-            colorScheme='blue'
+            colorScheme='orange'
             onClick={handleSubmit}
             isLoading={loading}>
             Log in

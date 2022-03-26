@@ -12,7 +12,7 @@ const ChatPage = () => {
    <Box>
      <Flex  textAlign='center'>
       <Box w='100%' h='100%' >
-        <Heading fontSize='2rem' p='0.4rem' bg='orange.300'>Active users</Heading>
+        <Heading fontSize='2rem' p='0.4rem' bg='gray.300' color='white'>Active users</Heading>
         <SearchBox/>
         { user && <MyChats fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>}
       </Box>

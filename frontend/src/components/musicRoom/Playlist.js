@@ -1,69 +1,38 @@
-import {  Box, Button, Flex, Heading, Input, Text } from '@chakra-ui/react'
+import {  Box, Button, Flex, Heading, Input } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
 import TrackList from './TrackList';
 import SearchBar from './SearchBar';
 
-const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
-
-const Playlist = (props) => {
+const Playlist = ({tracks, savePlaylist, removeTrack, addTrack, updateName}) => {
 
   const [token, setToken] = useState('');
-  const [playlistData, setPlaylistData] = useState([]);
 
   useEffect(()=> {
     if(localStorage.getItem("accessToken")){
       setToken(localStorage.getItem("accessToken"));
     }
   }, [])
-  
-  const handleGetPlaylists = () => {
-    axios.get(PLAYLISTS_ENDPOINT, {
-      headers: {
-        Authorization: "Bearer "+ token,
-      }
-    }).then((response) => {
-      setPlaylistData(response.data.items);
-    }).catch(error => {
-      console.log(error);
-    })
-  }
-
-  const getPlaylistDetails = () => {
-    axios.get(PLAYLISTS_ENDPOINT, {
-      headers: {
-        Authorization: "Bearer "+ token,
-      }
-    }).then((response) => {
-      setPlaylistData(response.data.items);
-    }).catch(error => {
-      console.log(error);
-    })
-  }
-
-  console.log(playlistData)
 
 
-  const {playlistTracks, onRemove, onAdd } = props;
 
   return (
-    <Flex flexDirection='column' alignItems='center'>
+    <Flex flexDirection='column' alignItems='center' >
         <Heading>Create a Playlist</Heading>
-        <SearchBar token={token}/>
+        <SearchBar 
+            token={token}
+            removeTrack={removeTrack}
+            addTrack = {addTrack} />
         <Flex justifyContent='space-around' w='100%' margin='1em'>
-          <Input w='40%' bg='' placeholder='Playlist name'  />
-          {/* <Text>{playlistName}</Text> */}
-          <Button onClick={handleGetPlaylists}>View playlists</Button>
+          <Input w='40%' bg='' placeholder='Playlist name' onChange={(e) => updateName(e.target.value)} />
+          <Button onClick={savePlaylist}>Save playlist</Button>
         </Flex>
-        <Flex>
-          { playlistData? playlistData.map((playlist) => {
-            return <Text key={playlist.id} p='1em'> {playlist.name} <Button href={playlist.href}>Open</Button> ||</Text>
-          }): <Heading>Playlist will show here</Heading>}
-        </Flex>
-        <TrackList tracks={playlistTracks}
+        <Box h='55vh' w='100%'>
+          <TrackList tracks={tracks}
                     isRemoval={true}
-                    onRemove={onRemove}
-                    onAdd = {onAdd}/>
+                    removeTrack={removeTrack}
+                    addTrack = {addTrack}/>
+        </Box>
+        
     </Flex>
   )
 }

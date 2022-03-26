@@ -1,12 +1,14 @@
-import { Text } from '@chakra-ui/react'
 import React from 'react'
 import TrackList from './TrackList'
 
-const SearchResults = ({results}) => {
+const SearchResults = ({tracks , addTrack, removeTrack}) => {
   return (
-    <div>
-        <Text>Results</Text>
-        <TrackList tracks={results}/>
+    <div style={{height:'100%'}}>
+       <TrackList 
+        tracks={tracks}
+        addTrack={addTrack}
+        removeTrack={removeTrack}
+        />
     </div>
   )
 }

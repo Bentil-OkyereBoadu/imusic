@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react'
 import Footer from './Footer'
 import Header from './Header'
 import Playlist from './Playlist'
-import Session from './Session'
+import Sessions from './Sessions'
+
 
 const USER_ENDPOINT = "https://api.spotify.com/v1/me";
 
@@ -59,7 +60,7 @@ const PublicMusicRoom = () => {
     <Header data = {data}/>
     <Grid templateColumns='1fr 2fr' gap={2} w='100%' h='80%'>
       <GridItem w='100%' h='100%' bg='blue.500'>
-        <Session/>
+        <Sessions/>
       </GridItem>
       <GridItem w='100%' h='100%' bg='blue.300'>
         <Playlist />

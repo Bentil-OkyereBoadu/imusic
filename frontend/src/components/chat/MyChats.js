@@ -69,11 +69,12 @@ const MyChats = ({fetchAgain, setFetchAgain}) => {
         borderRadius='lg'
         borderWidth='1px'
         w='100%'
+        overflowY='scroll'
     >
         <Flex 
             flexDirection='column'
             borderRadius='lg'
-            overflowY='scroll'
+            
             w='100%'>
                 { chats? (
                     <Stack>
@@ -102,10 +103,11 @@ const MyChats = ({fetchAgain, setFetchAgain}) => {
                     </Stack>
                 ) : <ChatLoading/>}
         </Flex>
-        <Modal isOpen={isOpen} onClose={onClose}>
+
+        <Modal isOpen={isOpen} onClose={onClose} >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{user.name}</ModalHeader>
+          <ModalHeader></ModalHeader>
           <ModalCloseButton />
           <ModalBody>
           { user && <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>}

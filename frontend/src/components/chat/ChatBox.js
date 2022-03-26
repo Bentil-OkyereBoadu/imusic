@@ -11,8 +11,11 @@ const ChatBox = ({fetchAgain, setFetchAgain}) => {
     p={3}
     bg="white"
     w='100%'
+    h='max-content'
+    maxH='60vh'
     borderRadius="lg"
     borderWidth="1px"
+    overflowY='scroll'
     >
         <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/> 
     </Box>

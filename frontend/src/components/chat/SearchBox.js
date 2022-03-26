@@ -1,4 +1,4 @@
-import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, Text, useToast, Tooltip, useDisclosure, Spinner, Flex } from '@chakra-ui/react';
+import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Input, Text, useToast, Tooltip, useDisclosure, Spinner, Flex } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useState } from 'react'
 import { ChatState } from '../../context/ChatProvider';

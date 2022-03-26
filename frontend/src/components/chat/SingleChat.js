@@ -35,7 +35,7 @@ const SingleChat = ({fetchAgain, setfetchAgain}) => {
                 setNewMessage("");
                 const { data } = await axios.post('http://localhost:4000/api/message',{
                     content: newMessage,
-                    chatId: selectedChat._id,
+                    chatId: selectedChat,
                 },
                    config 
                 )

@@ -5,7 +5,7 @@ const dotenv = require('dotenv')
 const cors = require('cors')
 const server = http.createServer(app)
 const querystring = require('query-string')
-const {chats} = require('./data/data')
+// const {chats} = require('./data/data')
 const connectDB = require('./config/db')
 const userRoutes = require("./routes/userRoutes")
 const chatRoutes = require("./routes/chatRoutes")
@@ -49,11 +49,11 @@ app.use('/api/message', messageRoutes)
 app.use(notFound)
 app.use(errorHandler)
 
-app.get('/api/chat/:id', (req, res) => {
-    const id = req.params.id;
-    const singleChat = chats.find( chat => chat._id === id)
-    res.send(singleChat);
-})
+// app.get('/api/chat/:id', (req, res) => {
+//     const id = req.params.id;
+//     const singleChat = chats.find( chat => chat._id === id)
+//     res.send(singleChat);
+// })
 
 
 

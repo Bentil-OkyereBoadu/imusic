@@ -102,10 +102,11 @@ const MyChats = ({fetchAgain, setFetchAgain}) => {
                     </Stack>
                 ) : <ChatLoading/>}
         </Flex>
-        <Modal isOpen={isOpen} onClose={onClose}>
+
+        <Modal isOpen={isOpen} onClose={onClose} >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{user.name}</ModalHeader>
+          <ModalHeader></ModalHeader>
           <ModalCloseButton />
           <ModalBody>
           { user && <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>}

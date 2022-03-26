@@ -139,7 +139,7 @@ const SingleChat = ({fetchAgain, setfetchAgain}) => {
     }
 
   return (
-    <Box>
+    <Box >
         { loading? (
             <Spinner 
                 size='x1'

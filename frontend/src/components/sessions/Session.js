@@ -1,6 +1,6 @@
 import { Button, Flex, Heading, Input, useToast } from '@chakra-ui/react'
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { SessionState } from '../../context/SessionProvider';
 
@@ -36,6 +36,8 @@ const Session = () => {
 
         setToken(localStorage.getItem('accessToken'))
 
+        handleGetUser();
+
       } else{
         window.location = ('/');
         toast({
@@ -48,9 +50,9 @@ const Session = () => {
       }
     }, []);
 
-    useEffect(() =>{
-      handleGetUser();
-    },[]);
+    // useEffect(() =>{
+    //   handleGetUser();
+    // },[]);
   
   
     const handleGetUser = async () =>{

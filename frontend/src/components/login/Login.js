@@ -91,7 +91,7 @@ const Login = () => {
           id='email'
           type='text'
           placeholder='Email'
-          _placeholder={{opacity: 0.6, color: 'blue.500' }}
+          _placeholder={{opacity: 0.6, color: 'orange' }}
           onChange={handleInputChange} 
         />
        
@@ -100,13 +100,13 @@ const Login = () => {
           id='password'
           type='password'
           placeholder='Password'
-          _placeholder={{ opacity: 0.6, color: 'blue.500' }}
+          _placeholder={{ opacity: 0.6, color: 'orange' }}
           onChange={handleInputChange} 
         />
         
         <Button margin='1rem'
             size='md'
-            colorScheme='blue'
+            colorScheme='orange'
             onClick={handleSubmit}
             isLoading={loading}>
             Log in

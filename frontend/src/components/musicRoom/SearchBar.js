@@ -3,12 +3,13 @@ import React, { useState } from 'react'
 import SearchResults from './SearchResults';
 import axios from 'axios';
 import { MdSearch } from 'react-icons/md';
+import { SessionState } from '../../context/SessionProvider';
 
-const SearchBar = ({token, addTrack, removeTrack}) => {
+const SearchBar = ({addTrack, removeTrack}) => {
 
     const [term, setTerm] = useState('');
     const [searchItems, setSearchItems] = useState([])
-
+    const {token} = SessionState;
     const handleTermSearch = (event) => {
         setTerm(event.target.value)
     }

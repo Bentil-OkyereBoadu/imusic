@@ -125,7 +125,7 @@ const Signup = () => {
         value={state.name}
         name='name'
         placeholder='Username'
-        _placeholder={{opacity: 0.6, color: 'blue.500' }}
+        _placeholder={{opacity: 0.6, color: 'orange' }}
         onChange={handleInputChange} 
       />
       <Input marginTop='1.5rem'
@@ -134,7 +134,7 @@ const Signup = () => {
         value={state.email}
         name='email'
         placeholder='Email'
-        _placeholder={{opacity: 0.6, color: 'blue.500' }}
+        _placeholder={{opacity: 0.6, color: 'orange' }}
         onChange={handleInputChange} 
       />
       <Input marginTop='1.5rem'
@@ -143,7 +143,7 @@ const Signup = () => {
         value={state.password}
         name='password'
         placeholder='Password'
-        _placeholder={{opacity: 0.6, color: 'blue.500' }}
+        _placeholder={{opacity: 0.6, color: 'orange' }}
         onChange={handleInputChange} 
       />
 
@@ -153,13 +153,13 @@ const Signup = () => {
         value={state.confirmPassword}
         name='confirmPassword'
         placeholder='Confirm Password'
-        _placeholder={{opacity: 0.6, color: 'blue.500' }}
+        _placeholder={{opacity: 0.6, color: 'orange' }}
         onChange={handleInputChange} 
       />
       <NavLink to='/music' ></NavLink>
         <Button marginTop='1.5rem'
             size='md'
-            colorScheme='blue'
+            colorScheme='orange'
             isLoading={loading}
             onClick={handleSubmit}>
             Sign up

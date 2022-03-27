@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Heading, Img, Text } from '@chakra-ui/react';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './styles.css';
 
   const client_id ="ddc7d259bece4112b9df90559ea0e4ff";
@@ -15,8 +16,14 @@ import './styles.css';
 
 const Home = () => {
 
+  const history = useHistory();
+
   const spotifyLogin = () => {
     window.location = `${OAUTH_ENDPOINT}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;
+  }
+
+  const navigateToSessionPage = () => {
+    history.push('/')
   }
 
 
@@ -31,7 +38,10 @@ const Home = () => {
       <Flex justifyContent='center' alignItems='center' w='50%' h='100%'> 
         <Flex h='40%' w='45%' flexDirection='column' justifyContent='space-around' alignItems='center' bg='rgba(180,175,173,0.5)' p={3} borderRadius='30px'>
               <Button bg='orange' color='white' size='md' w='60%'h='25%'fontSize='lg'borderRadius='30px' onClick={spotifyLogin}>
-              Create a session.
+              Create a session
+              </Button>
+              <Button bg='orange' color='white' size='md' w='60%'h='25%'fontSize='lg'borderRadius='30px' onClick={navigateToSessionPage}>
+              Join a session
               </Button>   
         </Flex>
       </Flex>

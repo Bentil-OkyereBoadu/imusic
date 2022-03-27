@@ -166,19 +166,14 @@ const MusicRoom = () => {
   return (
   <Box overflowY='hidden' overflowX='hidden' position='fixed' w='100%'> 
     <Header />
-    <Grid templateColumns='1fr 2fr 1fr' gap={2} w='100%' h='80vh'>
-      <GridItem w='100%' h='100%' bg='blue.400'>
+    <Grid templateColumns='1fr 2fr 1fr' w='100%' h='80vh'>
+      <GridItem w='100%' h='100%' border='1px solid orange'>
         <Sessions/>
       </GridItem>
-      <GridItem w='100%' h='100%' bg='blue.300'>
-        <Playlist 
-          savePlaylist={savePlaylist} 
-          addTrack={addTrack}
-          removeTrack ={removeTrack}
-          updateName = {updatePlaylistName}
-          tracks={state.playlistTracks}/>
+      <GridItem w='100%' h='100%' border='1px solid orange'>
+        <Playlist />
       </GridItem>
-      <GridItem w='100%' h='100%' bg='blue.100'>
+      <GridItem w='100%' h='100%' border='1px solid orange'>
         <ChatPage/>
       </GridItem> 
     </Grid>

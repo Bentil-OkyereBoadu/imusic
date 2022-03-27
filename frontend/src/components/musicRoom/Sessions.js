@@ -7,7 +7,7 @@ const Sessions = () => {
   return (
     <Box>
         <Box>
-          <Heading>Sessions</Heading>
+          <Heading fontSize='2rem' p='0.4rem' bg='gray.500' textAlign='center' color='white'>Sessions</Heading>
            {/* { chats.map((chat) => <Box bg='gray.100' key={chat._id}>{chat.users}</Box> )} */}
 
         </Box>

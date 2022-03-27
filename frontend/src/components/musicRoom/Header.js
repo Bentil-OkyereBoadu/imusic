@@ -17,15 +17,15 @@ const Header = () => {
   }
   
   return (
-    <Box w='100%' h='10%' p='0.6rem' textAlign='center' bg='gray.300'>
+    <Box w='100%' h='10%' p='0.6rem' textAlign='center' bg='white'>
         <Flex justifyContent='space-between'>  
           <Img marginLeft='5%' src={require('../../assets/logo.svg')}/>
-          <Text w='30%' fontSize='2xl'>Welcome {user.name}!</Text>
+          <Text w='30%' fontSize='2xl' color='orange'>Welcome {data.display_name} !</Text>
           <Flex justifyContent='center' w='20%'>
-            <Box m='10px 20px 0px' cursor='pointer'>   
-              <Avatar size="sm" name={user.name} />
+            <Box m='10px 20px 0px'>   
+              <Avatar size="sm" name={data.display_name} />
             </Box>
-            <Button colorScheme='red' onClick={logoutHandler} isLoading={loading}>Logout</Button>
+            <Button colorScheme='orange' onClick={logoutHandler} isLoading={loading}>Logout</Button>
           </Flex>
         </Flex>
     </Box>

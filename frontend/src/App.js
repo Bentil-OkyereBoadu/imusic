@@ -8,6 +8,7 @@ import PublicMusicRoom from './components/musicRoom/PublicMusicRoom';
 import ChatProvider from './context/ChatProvider';
 import Session from './components/sessions/Session';
 import SessionProvider from './context/SessionProvider';
+import SessionPage from './components/sessions/SessionPage';
 
 function App() {
 
@@ -16,6 +17,9 @@ function App() {
       <SessionProvider>
         <ChatProvider>
         <Switch>
+        <Route path='/sessionspage'>
+            <SessionPage/>
+          </Route>
           <Route path='/session'>
             <Session/>
           </Route>
@@ -32,7 +36,9 @@ function App() {
             <Signup/>
           </Route>
           <Route path='/' exact>
-            <Home  /> 
+
+            <Home/> 
+
           </Route>
         </Switch>
         </ChatProvider>    

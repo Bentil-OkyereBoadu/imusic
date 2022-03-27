@@ -17,13 +17,13 @@ const Playlist = ({tracks, savePlaylist, removeTrack, addTrack, updateName}) => 
 
   return (
     <Flex flexDirection='column' alignItems='center' >
-        <Heading>Create a Playlist</Heading>
+        <Heading fontSize='2rem' p='0.4rem' bg='gray.300' color='white'>Playlist</Heading>
         <SearchBar 
             token={token}
             removeTrack={removeTrack}
             addTrack = {addTrack} />
         <Flex justifyContent='space-around' w='100%' margin='1em'>
-          <Input w='40%' bg='' placeholder='Playlist name' onChange={(e) => updateName(e.target.value)} />
+          <Input w='40%' placeholder='Playlist name'  onChange={handlePlaylistName} />
           <Button onClick={savePlaylist}>Save playlist</Button>
         </Flex>
         <Box h='55vh' w='100%'>

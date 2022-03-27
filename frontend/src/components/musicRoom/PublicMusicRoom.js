@@ -59,10 +59,10 @@ const PublicMusicRoom = () => {
     <Box overflowY='hidden' overflowX='hidden' position='fixed' w='100%'> 
     <Header data = {data}/>
     <Grid templateColumns='1fr 2fr' gap={2} w='100%' h='80%'>
-      <GridItem w='100%' h='100%' bg='blue.500'>
+      <GridItem w='100%' h='100%' bg='white' border='1px solid orange'>
         <Sessions/>
       </GridItem>
-      <GridItem w='100%' h='100%' bg='blue.300'>
+      <GridItem w='100%' h='100%' bg='white' border='1px solid orange'>
         <Playlist />
       </GridItem>
     </Grid>

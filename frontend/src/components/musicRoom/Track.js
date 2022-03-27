@@ -34,7 +34,7 @@ const Track = ({track, addTrack, removeTrack, isRemoval}) => {
             <Text>{track.name}</Text>
             <Text>{track.artists[0].name} || {track.album.name}</Text>
             <Flex>
-              {displayPlayButton()}
+              {/* {displayPlayButton()} */}
               {renderAction()}
             </Flex>
         </Flex>

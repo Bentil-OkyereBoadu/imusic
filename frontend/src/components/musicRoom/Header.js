@@ -24,7 +24,7 @@ const Header = () => {
           <Img marginLeft='5%' src={require('../../assets/logo.svg')}/>
           <Text w='30%' fontSize='2xl' color='orange'>Welcome {data.display_name} !</Text>
           <Flex justifyContent='center' w='20%'>
-            <Box m='10px 20px 0px' cursor='pointer'>   
+            <Box m='10px 20px 0px'>   
               <Avatar size="sm" name={data.display_name} />
             </Box>
             <Button colorScheme='orange' onClick={logoutHandler} isLoading={loading}>Logout</Button>

@@ -1,7 +1,8 @@
-import { Flex, Input, Popover, Button, PopoverCloseButton, PopoverContent, PopoverTrigger } from '@chakra-ui/react'
+import { Flex, Input, Popover, Box, PopoverCloseButton, PopoverContent, PopoverTrigger, InputGroup, InputRightElement, InputLeftElement } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import SearchResults from './SearchResults';
 import axios from 'axios';
+import { MdSearch } from 'react-icons/md';
 
 const SearchBar = ({token, addTrack, removeTrack}) => {
 
@@ -28,16 +29,26 @@ const SearchBar = ({token, addTrack, removeTrack}) => {
     }
 
   return (
-    <Flex marginTop='1em' justifyContent='space-around' w='80%'>
-        <Input color='black' bg='' w='70%' placeholder="Search for a Song, Album, or Artist" onChange={handleTermSearch}/>
+    <Box marginTop='1em' w='70%'>
         {/* initialFocusRef={initialFocusRef} */}
+        <InputGroup>
         <Popover
             placement='bottom'
             closeOnBlur={true}
         >
-            <PopoverTrigger>
-                <Button onClick={handleSearchTerm}>Search</Button>
-            </PopoverTrigger>
+            <InputRightElement
+                children={<PopoverTrigger>
+                    <Box  m='10px 20px 0px' color='white'>
+                    <MdSearch w='100%'
+                            h='100%' 
+                            onClick={handleSearchTerm}></MdSearch>
+                    </Box>
+                        </PopoverTrigger>}
+                cursor='pointer'
+            />
+            <Input color='white' mb='0.8em' ml='1em' placeholder="Search for a Song, Album, or Artist" onChange={handleTermSearch}/>
+        
+            
             <PopoverContent color='blue' bg='white' borderColor='blue.800' h="60vh">
                 <SearchResults tracks={searchItems} addTrack={addTrack} removeTrack={removeTrack}/>
                 
@@ -45,7 +56,8 @@ const SearchBar = ({token, addTrack, removeTrack}) => {
 
             </PopoverContent>
         </Popover>
-    </Flex>
+        </InputGroup>
+    </Box>
   )
 }
 

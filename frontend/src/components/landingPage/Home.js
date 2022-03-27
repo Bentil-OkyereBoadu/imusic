@@ -10,7 +10,8 @@ import './styles.css';
   const SCOPES = [ "user-read-currently-playing", 
                    "user-read-playback-state", 
                    "playlist-read-private", 
-                   "user-read-currently-playing" ]
+                   "user-read-currently-playing",
+                    "streaming" ]
   const SPACE_DELIMITER = "%20";
   const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 

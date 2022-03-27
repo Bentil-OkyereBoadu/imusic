@@ -24,9 +24,9 @@ function App() {
             <Session/>
           </Route>
           <Route path='/login'>
-              <Login/>           
+              <Login/>
           </Route>
-          <Route path='/music'>
+          <Route path='/music'> 
               <MusicRoom/>
           </Route>
           <Route path='/publicmusic'>
@@ -36,7 +36,9 @@ function App() {
             <Signup/>
           </Route>
           <Route path='/' exact>
+
             <Home/> 
+
           </Route>
         </Switch>
         </ChatProvider>    

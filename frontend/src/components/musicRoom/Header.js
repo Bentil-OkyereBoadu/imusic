@@ -1,15 +1,13 @@
 import { Avatar, Box, Button, Flex, Img, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
-import { SessionState } from '../../context/SessionProvider';
 
 
 const Header = () => {
 
   const [ loading, setLoading ] = useState(false)
   const history = useHistory()
-  const {data} = SessionState();
-
+  const user = JSON.parse(localStorage.getItem('userInfo'));
 
   const logoutHandler = () => {
     setLoading(true)

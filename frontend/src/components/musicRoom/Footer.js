@@ -19,12 +19,14 @@ const track = {
 
 const Footer = () => {
 
-  const [player, setPlayer] = useState();
-  const [is_paused, setPaused] = useState(false);
-  const [is_active, setActive] = useState(false);
-  const [current_track, setTrack] = useState(track);
-  
   const { token, playlistTracks } = SessionState();
+
+  const [player, setPlayer] = useState();
+  const [is_paused, setPaused] = useState(true);
+  const [is_active, setActive] = useState(false);
+  const [current_track, setTrack] = useState(...playlistTracks[0]);
+  const [trackIndex, setTrackIndex] = useState(0)
+  
 
   useEffect(() => {
 
@@ -75,11 +77,31 @@ const Footer = () => {
 }, []);
 
 
+const onPreviousButtonClick = () => {
+  let currentTrackIndex = trackIndex
+  let prevTrackIndex = currentTrackIndex - 1
+  if(prevTrackIndex < 0){
+      prevTrackIndex = playlistTracks.length - 1
+  }
+  setTrack(playlistTracks[prevTrackIndex])
+  setTrackIndex(prevTrackIndex)
+};
+
+const onNextButtonClick = () => {
+  let currentTrackIndex = trackIndex
+  let nextTrackIndex = currentTrackIndex + 1
+  if(nextTrackIndex > playlistTracks.length - 1){
+      nextTrackIndex = 0
+  }
+  setTrack(playlistTracks[nextTrackIndex])
+  setTrackIndex(nextTrackIndex)
+};
+
 
   return (
     <Flex backgroundColor='#ffa500' bottom='0px' h='10%' w='100%' padding='20px' position='fixed'>
         <Flex justifyContent='center' w='30%'>
-            <BsChevronBarLeft onClick={() => { player.previousTrack() }} style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
+            <BsChevronBarLeft onClick={() => { player.previousTrack(); onPreviousButtonClick() }} style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
             { is_paused? 
             (
               <BsPlayCircle onClick={() => { player.togglePlay() }} style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
@@ -87,7 +109,7 @@ const Footer = () => {
             (
               <BsPauseCircle style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
             )}
-            <BsChevronBarRight onClick={() => { player.nextTrack() }} style={{width:25, height:25, cursor:'pointer', color:'white'}}/>
+            <BsChevronBarRight onClick={() => { player.nextTrack(); onNextButtonClick() }} style={{width:25, height:25, cursor:'pointer', color:'white'}}/>
         </Flex>
         <Flex w='30%' flexDir='column'>
           <Text  color='white'>Now Playing: {current_track.name}</Text>

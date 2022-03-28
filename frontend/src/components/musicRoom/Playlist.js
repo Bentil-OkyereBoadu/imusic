@@ -38,7 +38,7 @@ const Playlist = () => {
     let userId;
     const { data } = await axios.get(USER_ENDPOINT, {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       }
     });
     userId = data.id;
@@ -158,7 +158,6 @@ const Playlist = () => {
       <Flex justifyContent='center' alignContent='space-between' bg='gray.500' w='100%'>
         <Heading fontSize='2rem' p='0.4rem'  color='white'>Playlist</Heading>
         <SearchBar 
-            token={token}
             removeTrack={removeTrack}
             addTrack = {addTrack} />
       </Flex>

@@ -24,7 +24,7 @@ const Footer = () => {
   const [player, setPlayer] = useState();
   const [is_paused, setPaused] = useState(true);
   const [is_active, setActive] = useState(false);
-  const [current_track, setTrack] = useState(...playlistTracks[0]);
+  const [current_track, setTrack] = useState({...playlistTracks[0]});
   const [trackIndex, setTrackIndex] = useState(0)
   
 
@@ -113,7 +113,7 @@ const onNextButtonClick = () => {
         </Flex>
         <Flex w='30%' flexDir='column'>
           <Text  color='white'>Now Playing: {current_track.name}</Text>
-          <Text  color='white'>Artist: {current_track.artists[0].name}</Text>
+          {/* <Text  color='white'>Artist: {current_track.artists[0].name}</Text> */}
         </Flex>
         <Flex w='30%' justifyContent='space-around'>
             <Button leftIcon={<BsShare/>} colorScheme='blue'>Share</Button>

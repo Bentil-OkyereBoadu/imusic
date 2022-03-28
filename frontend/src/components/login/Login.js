@@ -52,7 +52,8 @@ const Login = () => {
       const {data} = await axios.post("http://localhost:4000/api/user/login", { email, password }, config);
 
       if(data){
-          setUser(localStorage.setItem('userInfo', JSON.stringify(data)));
+          localStorage.setItem('userInfo', JSON.stringify(data));
+          setUser(JSON.parse(localStorage.getItem("userInfo")));
           toast({
           title: 'Login Successful',
           status: 'success',

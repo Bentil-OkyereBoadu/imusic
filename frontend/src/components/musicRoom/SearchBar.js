@@ -1,4 +1,4 @@
-import { Flex, Input, Popover, Box, PopoverCloseButton, PopoverContent, PopoverTrigger, InputGroup, InputRightElement, InputLeftElement } from '@chakra-ui/react'
+import { Input, Popover, Box, PopoverCloseButton, PopoverContent, PopoverTrigger, InputGroup, InputRightElement } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import SearchResults from './SearchResults';
 import axios from 'axios';

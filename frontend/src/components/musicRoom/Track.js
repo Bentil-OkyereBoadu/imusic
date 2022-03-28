@@ -6,9 +6,9 @@ const Track = ({track, addTrack, removeTrack, isRemoval}) => {
   
     const renderAction = () =>{
       if(isRemoval){
-        return <Button colorScheme='blue' onClick={remove}>-</Button>
+        return <Button colorScheme='orange' onClick={remove}>-</Button>
       } else {
-        return <Button colorScheme='blue' onClick={add}>+</Button>
+        return <Button colorScheme='orange' onClick={add}>+</Button>
       }
     }
 

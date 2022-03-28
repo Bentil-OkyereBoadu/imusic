@@ -36,9 +36,7 @@ function App() {
             <Signup/>
           </Route>
           <Route path='/' exact>
-
             <Home/> 
-
           </Route>
         </Switch>
         </ChatProvider>    

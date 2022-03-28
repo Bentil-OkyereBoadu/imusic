@@ -1,5 +1,5 @@
 import {  Box, Button, Flex, Heading, Input, useToast } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import TrackList from './TrackList';
 import SearchBar from './SearchBar';
 import axios from 'axios';
@@ -10,11 +10,10 @@ const PLAYLISTS_ENDPOINT = `https://api.spotify.com/v1/me/playlists`
 
 const Playlist = () => {
   const toast = useToast();
-  const {token, data} = SessionState();
+  const {token, data, playlistTracks, setPlaylistTracks} = SessionState();
  
 
   const [playlistName, setPlaylistName] = useState('')
-  const [playlistTracks, setPlaylistTracks] = useState([])
   const [playlistPrivacy, setPlaylistPrivacy] = useState(false)
 
 
@@ -38,7 +37,7 @@ const Playlist = () => {
     let userId;
     const { data } = await axios.get(USER_ENDPOINT, {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       }
     });
     userId = data.id;
@@ -158,7 +157,6 @@ const Playlist = () => {
       <Flex justifyContent='center' alignContent='space-between' bg='gray.500' w='100%'>
         <Heading fontSize='2rem' p='0.4rem'  color='white'>Playlist</Heading>
         <SearchBar 
-            token={token}
             removeTrack={removeTrack}
             addTrack = {addTrack} />
       </Flex>

@@ -15,9 +15,21 @@ const SessionProvider = ({children}) => {
     const [token, setToken] = useState('');
     const [data, setData] = useState();
     const [user, setUser] = useState();
+    const [playlistTracks, setPlaylistTracks] = useState([])
+
 
   return (
-    <SessionContext.Provider value={{session, setSession, token, setToken, data, setData, user, setUser}}>
+    <SessionContext.Provider value={
+      {session, 
+      setSession, 
+      token, 
+      setToken, 
+      data, 
+      setData, 
+      user, 
+      setUser, 
+      playlistTracks, 
+      setPlaylistTracks}}>
         {children}
     </SessionContext.Provider>
   )

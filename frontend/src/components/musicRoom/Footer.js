@@ -23,7 +23,8 @@ const Footer = () => {
   const [is_paused, setPaused] = useState(false);
   const [is_active, setActive] = useState(false);
   const [current_track, setTrack] = useState(track);
-  const { token } = SessionState();
+  
+  const { token, playlistTracks } = SessionState();
 
   useEffect(() => {
 

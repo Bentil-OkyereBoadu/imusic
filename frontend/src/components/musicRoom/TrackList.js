@@ -1,5 +1,5 @@
-import { Flex, Text } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { Flex } from '@chakra-ui/react'
+import React from 'react'
 import Track from './Track'
 
 const TrackList = ({ tracks, isRemoval, addTrack, removeTrack}) => {

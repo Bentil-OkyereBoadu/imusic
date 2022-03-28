@@ -2,8 +2,11 @@ import { Button, Flex, FormControl, Heading, Input, useToast } from '@chakra-ui/
 import axios from 'axios';
 import React, { useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom';
+import { ChatState } from '../../context/ChatProvider';
 
 const Signup = () => {
+
+    const {user, setUser} = ChatState();
     const [state, setState] = useState({
       name: '',
       email:'',
@@ -74,7 +77,8 @@ const Signup = () => {
           setLoading(false)
         }
         else {
-          localStorage.setItem('loggedinUser', JSON.stringify(data));
+          localStorage.setItem('userInfo', JSON.stringify(data));
+          setUser(JSON.parse(localStorage.getItem("userInfo")));
           toast({
           title: 'Account has been created',
           status: 'success',
@@ -100,6 +104,8 @@ const Signup = () => {
         setLoading(false);
       }
     }
+
+    console.log(user);
 
   return (
     <Flex justifyContent='center' alignContent='center' marginTop='10%'>

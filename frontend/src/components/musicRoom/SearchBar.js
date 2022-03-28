@@ -9,7 +9,7 @@ const SearchBar = ({addTrack, removeTrack}) => {
 
     const [term, setTerm] = useState('');
     const [searchItems, setSearchItems] = useState([])
-    const {token} = SessionState;
+    const {token} = SessionState();
     const handleTermSearch = (event) => {
         setTerm(event.target.value)
     }

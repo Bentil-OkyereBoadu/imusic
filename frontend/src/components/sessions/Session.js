@@ -36,26 +36,22 @@ const Session = () => {
 
         setToken(localStorage.getItem('accessToken'))
 
-        handleGetUser();
-
       } else{
         window.location = ('/');
         toast({
           title: 'Sign in to Spotify to use this service',
-          status: 'Energy',
+          status: 'warning',
           duration: 2000,
           isClosable: true,
           position: 'top'
         })
       }
+
+      getUser();
+      
     }, []);
 
-    // useEffect(() =>{
-    //   handleGetUser();
-    // },[]);
-  
-  
-    const handleGetUser = async () =>{
+    const getUser = async () =>{
   
       try{
         const {data} = await axios.get(USER_ENDPOINT, {
@@ -71,6 +67,8 @@ const Session = () => {
       }
     }
 
+    console.log(token);
+    
   return (
     <div className='home'>      
         <Flex  w='100%' h='100%' justifyContent='center'>

@@ -4,14 +4,13 @@ const app = express()
 const dotenv = require('dotenv')
 const cors = require('cors')
 const server = http.createServer(app)
-const querystring = require('query-string')
-// const {chats} = require('./data/data')
 const connectDB = require('./config/db')
 const userRoutes = require("./routes/userRoutes")
 const chatRoutes = require("./routes/chatRoutes")
 const messageRoutes = require("./routes/messageRoutes")
 const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 const morgan = require('morgan');
+const request = require('request')
 
 app.use(morgan('dev'))
 app.use(cors())
@@ -46,83 +45,65 @@ app.use('/api/chat', chatRoutes);
 app.use('/api/message', messageRoutes)
 
 /**Handle error */
-app.use(notFound)
-app.use(errorHandler)
-
-// app.get('/api/chat/:id', (req, res) => {
-//     const id = req.params.id;
-//     const singleChat = chats.find( chat => chat._id === id)
-//     res.send(singleChat);
-// })
-
+// app.use(notFound)
+// app.use(errorHandler)
 
 
 //spotify authentication
-app.get('/auth', (req, res) =>{
-    const state = generateRandomString(16);
-    const scope = 'user-read-private user-read-email';
-    res.redirect(`https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&response_type=token&state=${state}`, 302)
-})
-// querystring.stringify({
-//   response_type: 'code',
-//   client_id: client_id,
-//   scope: scope,
-//   redirect_uri: redirect_uri,
-//   state: state
-// }));
+app.get('/auth/login', (req, res) => {
 
-app.get('/callback', (req, res) => {
-    let access_token = req.query.access_token || null;
-    let expires_in = req.query.expires_in || null;
-    let token_type = req.query.token_type || null;
-
-    if (access_token === null) {
-        res.redirect('/#' + querystring.stringify({ 
-            error: 'state_mismatch'
-        }))
-    } else {
-        let authOptions = {
-            url: 'https://accounts.spotify.com/api/token',
-            form: {
-                access_token: access_token,
-                redirect_uri: redirect_uri,
-                grant_type: 'authorization_code',
-                expires_in: expires_in,
-                token_type: token_type,
-            },
-            headers: {
-                'Authorization' : 'Bearer ' + (new Buffer.from(`${client_id}:${client_secret}`).toString('base64'))
-            },
-            json: true
-        };
-        res.send(authOptions);
-    }
-})
-
-app.get('/refresh_token', (req, res) =>{
-    let refresh_token = req.query.refresh_token;
-    let authOptions = {
-        url: 'https://accounts.spotify.com/api/token',
-        headers: {
-            'Authorization' : 'Basic ' + (new Buffer.from(`${client_id}:${client_secret}`).toString('base64'))
-        },
-        form: {
-            grant_type: 'refresh_token',
-            refresh_token: refresh_token
-        },
-        json: true
-    };
-
-    req.post(authOptions, (error, response, body) => {
-        if (!error && response.statusCode === 200){
-            let access_token = body.access_token;
-
-            localStorage.setItem('refresh_token', res.send({
-                'access_token': access_token
-            }))
-        }
+    let scope = "streaming \
+                 user-read-email \
+                 user-read-private"
+  
+    let state = generateRandomString(16);
+  
+    const auth_query_parameters = new URLSearchParams({
+      response_type: "code",
+      client_id: client_id,
+      scope: scope,
+      redirect_uri: "http://localhost:4000/auth/callback",
+      state: state
     })
-})
+  
+    res.redirect('https://accounts.spotify.com/authorize/?' + auth_query_parameters.toString());
+  })
+
+  let access_token;
+
+  app.get('/auth/callback', (req, res) => {
+
+    const code = req.query.code;
+  
+    const authOptions = {
+      url: 'https://accounts.spotify.com/api/token',
+      form: {
+        code: code,
+        redirect_uri: "http://localhost:4000/auth/callback",
+        grant_type: 'authorization_code'
+      },
+      headers: {
+        'Authorization': 'Basic ' + (Buffer.from(client_id + ':' + client_secret).toString('base64')),
+        'Content-Type' : 'application/x-www-form-urlencoded'
+      },
+      json: true
+    };
+  
+    request.post(authOptions, function(error, response, body) {
+      if (!error && response.statusCode === 200) {
+        access_token = body.access_token;
+        res.redirect('http://localhost:3000/session')
+        // res.json({ access_token: access_token })
+      }
+    });
+  })
+
+  app.get('/auth/token', (req, res) => {
+    res.json({
+          access_token: access_token
+       })
+  })
+
 
  
 const PORT = process.env.PORT || 5000;

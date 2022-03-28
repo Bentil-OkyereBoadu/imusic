@@ -3,15 +3,20 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './styles.css';
 
-  const client_id ="ddc7d259bece4112b9df90559ea0e4ff";
+  // const client_id ="ddc7d259bece4112b9df90559ea0e4ff";
+  const client_id ="40e0e3786cb34441b74263af7dcb1200";
   const redirect_uri = 'http://localhost:3000/session';
 
   const OAUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-  const SCOPES = [ "user-read-currently-playing", 
+  const SCOPES = [ 
+                  "user-read-currently-playing", 
+                  "streaming" ,
                    "user-read-playback-state", 
                    "playlist-read-private", 
                    "user-read-currently-playing",
-                    "streaming" ]
+                   "user-read-email",
+                   "user-read-private",
+                  ]
   const SPACE_DELIMITER = "%20";
   const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 

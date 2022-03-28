@@ -22,7 +22,7 @@ const Footer = () => {
   const { token, playlistTracks } = SessionState();
 
   const [player, setPlayer] = useState();
-  const [is_paused, setPaused] = useState(true);
+  const [is_paused, setPaused] = useState(false);
   const [is_active, setActive] = useState(false);
   const [current_track, setTrack] = useState({...playlistTracks[0]});
   const [trackIndex, setTrackIndex] = useState(0)
@@ -41,7 +41,7 @@ const Footer = () => {
         const player = new window.Spotify.Player({
             name: 'iMusic Playback SDK',
             getOAuthToken: cb => { cb(token); },
-            volume: 0.5
+            volume: 1
         });
 
         setPlayer(player);
@@ -101,7 +101,7 @@ const onNextButtonClick = () => {
   return (
     <Flex backgroundColor='#ffa500' bottom='0px' h='10%' w='100%' padding='20px' position='fixed'>
         <Flex justifyContent='center' w='30%'>
-            <BsChevronBarLeft onClick={() => { player.previousTrack(); onPreviousButtonClick() }} style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
+            <BsChevronBarLeft onClick={() => { player.previousTrack(); }} style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
             { is_paused? 
             (
               <BsPlayCircle onClick={() => { player.togglePlay() }} style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
@@ -109,7 +109,7 @@ const onNextButtonClick = () => {
             (
               <BsPauseCircle style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
             )}
-            <BsChevronBarRight onClick={() => { player.nextTrack(); onNextButtonClick() }} style={{width:25, height:25, cursor:'pointer', color:'white'}}/>
+            <BsChevronBarRight onClick={() => { player.nextTrack(); }} style={{width:25, height:25, cursor:'pointer', color:'white'}}/>
         </Flex>
         <Flex w='30%' flexDir='column'>
           <Text  color='white'>Now Playing: {current_track.name}</Text>

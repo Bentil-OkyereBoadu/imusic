@@ -77,7 +77,7 @@ const Footer = () => {
 
 
   return (
-    <Flex backgroundColor='orange' bottom='0px' h='10%' w='100%' padding='20px' position='fixed'>
+    <Flex backgroundColor='#ffa500' bottom='0px' h='10%' w='100%' padding='20px' position='fixed'>
         <Flex justifyContent='center' w='30%'>
             <BsChevronBarLeft onClick={() => { player.previousTrack() }} style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
             { is_paused? 

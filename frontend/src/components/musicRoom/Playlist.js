@@ -17,7 +17,7 @@ export const spotifyApi = new SpotifyWebApi({
 
 const Playlist = () => {
   const toast = useToast();
-  const { token, data, playlistTracks, setPlaylistTracks } = SessionState();
+  const { token, playlistTracks, setPlaylistTracks } = SessionState();
 
   spotifyApi.setAccessToken(token);
 
@@ -38,7 +38,6 @@ const Playlist = () => {
   //   privatePlaylist: false,
   // });
 
-
   const handlePlaylistName = (e) => {
     setPlaylistName(e.target.value);
   };
@@ -57,17 +56,31 @@ const Playlist = () => {
         return data.body.id;
       })
       .then((id) => {
-       return spotifyApi.addTracksToPlaylist( id , trackURIs);
+        return spotifyApi.addTracksToPlaylist(id, trackURIs);
       })
-      .then(
-        function() {
-          console.log("Added tracks to playlist!");
-        })
-      .catch( err => {
-        console.log(err)
+      .then(function() {
+        toast({
+          title: "Added tracks to playlist!",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
       })
+      .catch((err) => {
+        toast({
+          title: "Could not add tracks",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+        console.log(err);
+      });
   };
-
+  
+  
+  //add track to playlist
   const addTrack = (track) => {
     let tracks = state.playlistTracks;
     if (tracks.find((savedTrack) => savedTrack.id === track.id)) {
@@ -77,6 +90,7 @@ const Playlist = () => {
     setPlaylistTracks(tracks);
   };
 
+    //remove track from playlist
   const removeTrack = (track) => {
     let tracks = state.playlistTracks;
     tracks = tracks.filter((currentTrack) => currentTrack.id !== track.id);

@@ -17,7 +17,6 @@ const getParamsFromSpotifyAuth = (hash) => {
   return paramsSplitUp;
 };
 
-
 const Session = () => {
   const { setToken, setData, token } = SessionState();
   spotifyApi.setAccessToken(token);
@@ -57,7 +56,6 @@ const Session = () => {
       }
     );
   }, []);
-
 
   return (
     <div className="home">

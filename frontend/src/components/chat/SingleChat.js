@@ -18,7 +18,7 @@ const SingleChat = ({fetchAgain, setfetchAgain}) => {
     const [ isTyping, setIsTyping ] =useState(false);
 
 
-    const { user, selectedChat, setSelectedChat} = ChatState();
+    const { user, selectedChat } = ChatState();
     const toast = useToast();
 
     const sendMessage = async (event) =>{

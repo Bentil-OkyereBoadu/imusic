@@ -8,7 +8,7 @@ import { ChatState } from '../../context/ChatProvider';
 const Login = () => {
 
   const history = useHistory()  
-  const {user, setUser} = ChatState();
+  const {setUser} = ChatState();
   const [state, setState] = useState({
     email: '',
     password:'', 

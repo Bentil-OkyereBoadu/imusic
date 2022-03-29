@@ -10,12 +10,11 @@ const chatRoutes = require("./routes/chatRoutes")
 const messageRoutes = require("./routes/messageRoutes")
 const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 const morgan = require('morgan');
-const request = require('request')
 
 app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json()) //for the server to accept JSON data
-dotenv.config()
+dotenv.config({ path:'../.env'})
 
 //connecting database
 connectDB()

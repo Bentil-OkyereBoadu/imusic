@@ -20,12 +20,12 @@ const Track = ({track, addTrack, removeTrack, isRemoval}) => {
       removeTrack(track);
     }
 
-    const displayPlayButton = () => {
-        let uri = `https://open.spotify.com/embed?uri=${track.uri}`;
-        return <Box> 
-                  <iframe src={uri} width="80%" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media" title="Song"></iframe>
-        </Box>
-    }
+    // const displayPlayButton = () => {
+    //     let uri = `https://open.spotify.com/embed?uri=${track.uri}`;
+    //     return <Box> 
+    //               <iframe src={uri} width="80%" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media" title="Song"></iframe>
+    //     </Box>
+    // }
 
 
   return (

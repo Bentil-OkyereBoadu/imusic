@@ -2,13 +2,9 @@ import { Box, Button, Flex, Heading, Input, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import TrackList from "./TrackList";
 import SearchBar from "./SearchBar";
-import axios from "axios";
 import { SessionState } from "../../context/SessionProvider";
 import SpotifyWebApi from "spotify-web-api-node";
 
-const USER_ENDPOINT = `https://api.spotify.com/v1/me`;
-// eslint-disable-next-line
-const PLAYLISTS_ENDPOINT = `https://api.spotify.com/v1/me/playlists`;
 
 export const spotifyApi = new SpotifyWebApi({
   client_id: "40e0e3786cb34441b74263af7dcb1200",
@@ -17,13 +13,12 @@ export const spotifyApi = new SpotifyWebApi({
 
 const Playlist = () => {
   const toast = useToast();
-  const { token, playlistTracks, setPlaylistTracks } = SessionState();
+  const { token, playlistTracks, setPlaylistTracks,setPlaylistID } = SessionState();
 
   spotifyApi.setAccessToken(token);
 
   const [playlistName, setPlaylistName] = useState("");
   const [playlistPrivacy] = useState(false);
-  const [playlistID, setPlaylistID] = useState();
 
   const state = {
     playlistName: playlistName,
@@ -117,12 +112,12 @@ const Playlist = () => {
           placeholder="Playlist name"
           onChange={handlePlaylistName}
         />
-        <Button onClick={addPlaylist}>Save playlist</Button>
+        <Button onClick={addPlaylist}>Save playlist to Spotify</Button>
       </Flex>
       <Box h="60vh" w="100%">
-        {playlistTracks && (
+        {state.playlistTracks && (
           <TrackList
-            tracks={playlistTracks}
+            tracks={state.playlistTracks}
             isRemoval={true}
             removeTrack={removeTrack}
             addTrack={addTrack}

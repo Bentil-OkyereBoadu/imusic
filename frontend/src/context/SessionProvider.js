@@ -16,6 +16,7 @@ const SessionProvider = ({children}) => {
     const [data, setData] = useState();
     const [user, setUser] = useState();
     const [playlistTracks, setPlaylistTracks] = useState([])
+    const [playlistID, setPlaylistID] = useState('');
 
 
   return (
@@ -29,7 +30,9 @@ const SessionProvider = ({children}) => {
       user, 
       setUser, 
       playlistTracks, 
-      setPlaylistTracks}}>
+      setPlaylistTracks,
+      playlistID,
+      setPlaylistID}}>
         {children}
     </SessionContext.Provider>
   )

@@ -11,6 +11,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { ChatState } from "../../context/ChatProvider";
+import '../styles.css'
 
 const Login = () => {
   const history = useHistory();
@@ -90,10 +91,11 @@ const Login = () => {
 
   return (
     <Flex
+      className="login"
       justifyContent="center"
       alignItems="center"
       alignContent="center"
-      marginTop="10%"
+      
     >
       <Flex
         w="40%"
@@ -103,20 +105,21 @@ const Login = () => {
         justifyContent="space-around"
         alignItems="center"
         alignContent="center"
-        bg="gray.100"
         p={3}
+        bg="#fff7f663"
         borderRadius="30px"
       >
         <FormControl width="80%">
-          <Heading>Login</Heading>
+          <Heading color='white'>Login</Heading>
           <br />
           <Input
             name="email"
             id="email"
             type="text"
             placeholder="Email"
-            _placeholder={{ opacity: 0.6, color: "orange" }}
+            _placeholder={{ color:'black' }}
             onChange={handleInputChange}
+            color='white'
           />
 
           <Input
@@ -125,8 +128,9 @@ const Login = () => {
             id="password"
             type="password"
             placeholder="Password"
-            _placeholder={{ opacity: 0.6, color: "orange" }}
+            _placeholder={{ color: "black" }}
             onChange={handleInputChange}
+            color='white'
           />
 
           <Button
@@ -139,8 +143,8 @@ const Login = () => {
             Log in
           </Button>
 
-          <Text fontSize="lg">Don't have an account yet? </Text>
-          <NavLink to="/signup" style={{ textDecoration: "underline" }}>
+          <Text fontSize="lg" color='white'>Don't have an account yet? </Text>
+          <NavLink to="/signup" style={{ textDecoration: "underline", color: 'white' }}>
             Sign up
           </NavLink>
         </FormControl>

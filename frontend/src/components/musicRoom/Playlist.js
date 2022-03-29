@@ -4,17 +4,26 @@ import TrackList from "./TrackList";
 import SearchBar from "./SearchBar";
 import axios from "axios";
 import { SessionState } from "../../context/SessionProvider";
+import SpotifyWebApi from "spotify-web-api-node";
 
 const USER_ENDPOINT = `https://api.spotify.com/v1/me`;
 // eslint-disable-next-line
 const PLAYLISTS_ENDPOINT = `https://api.spotify.com/v1/me/playlists`;
 
+export const spotifyApi = new SpotifyWebApi({
+  client_id: "40e0e3786cb34441b74263af7dcb1200",
+  redirect_uri: "http://localhost:3000/session",
+});
+
 const Playlist = () => {
   const toast = useToast();
   const { token, data, playlistTracks, setPlaylistTracks } = SessionState();
 
+  spotifyApi.setAccessToken(token);
+
   const [playlistName, setPlaylistName] = useState("");
   const [playlistPrivacy] = useState(false);
+  const [playlistID, setPlaylistID] = useState();
 
   const state = {
     playlistName: playlistName,
@@ -29,105 +38,34 @@ const Playlist = () => {
   //   privatePlaylist: false,
   // });
 
-  const findUserId = async () => {
-    let userId;
-    const { data } = await axios.get(USER_ENDPOINT, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    userId = data.id;
-    return userId;
-  };
-
-  // const handleGetPlaylists = async () => {
-  //   await axios.get(PLAYLISTS_ENDPOINT, {
-  //     headers: {
-  //       Authorization: "Bearer "+ token,
-  //     }
-  //   }).then((response) => {
-  //     setPlaylistTracks(response.data.items);
-  //   }).catch(error => {
-  //     console.log(error);
-  //   })
-  // }
 
   const handlePlaylistName = (e) => {
     setPlaylistName(e.target.value);
   };
 
-  // const clearPlaylist = () => {
-  //   state({
-  //     playlistTracks: [],
-  //     playlistName: '',
-  //   })
-  // }
-
-  const savePlaylistToSpotify = async (name, trackURIs) => {
-    let userId;
-    if (!name || !trackURIs) {
-      return;
-    } else {
-      data ? (userId = data.id) : (userId = await findUserId());
-      // let access_token = JSON.parse(localStorage.getItem('accessToken'));
-
-      try {
-        const { data } = await axios.post(
-          `https://api.spotify.com/v1/users/${userId}/playlists`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name: name }),
-          }
-        );
-        let playlistID = data.id;
-        let addTracks = addTracksToSpotify(playlistID, trackURIs, userId);
-        if (addTracks) {
-          toast({
-            title: "Playlist saved",
-            status: "Success",
-            duration: 2000,
-            isClosable: true,
-            position: "top",
-          });
-        }
-      } catch (error) {
-        toast({
-          title: "Error occured",
-          description: "Playlist was unable to save",
-          status: "error",
-          duration: 2000,
-          isClosable: true,
-          position: "top",
-        });
-      }
-    }
-  };
-
-  const addTracksToSpotify = async (playlistID, trackURIs, userId) => {
-    try {
-      await axios.post(
-        `https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ uris: trackURIs }),
-        }
-      );
-    } catch (error) {
-      console.log("could not add tracks to spotify!!");
-      console.log(error.message);
-    }
-  };
-
-  const savePlaylist = () => {
+  //create a public playlist
+  const addPlaylist = () => {
     let trackURIs = state.playlistTracks.map((track) => track.uri);
-    savePlaylistToSpotify(state.playlistName, trackURIs);
-    // .then(() => clearPlaylist());
+    spotifyApi
+      .createPlaylist(playlistName, {
+        description: "My description",
+        public: true,
+      })
+      .then(function(data) {
+        console.log("Created playlist!");
+        setPlaylistID(data.body.id);
+        return data.body.id;
+      })
+      .then((id) => {
+       return spotifyApi.addTracksToPlaylist( id , trackURIs);
+      })
+      .then(
+        function() {
+          console.log("Added tracks to playlist!");
+        })
+      .catch( err => {
+        console.log(err)
+      })
   };
 
   const addTrack = (track) => {
@@ -165,11 +103,11 @@ const Playlist = () => {
           placeholder="Playlist name"
           onChange={handlePlaylistName}
         />
-        <Button onClick={savePlaylist}>Save playlist</Button>
+        <Button onClick={addPlaylist}>Save playlist</Button>
       </Flex>
       <Box h="60vh" w="100%">
         {playlistTracks && (
-          <TrackList 
+          <TrackList
             tracks={playlistTracks}
             isRemoval={true}
             removeTrack={removeTrack}

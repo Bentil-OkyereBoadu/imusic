@@ -12,10 +12,14 @@ import './styles.css';
                   "user-read-currently-playing", 
                   "streaming" ,
                    "user-read-playback-state", 
+                   "user-modify-playback-state",
                    "playlist-read-private", 
-                   "user-read-currently-playing",
                    "user-read-email",
                    "user-read-private",
+                   "playlist-modify-public",
+                   "playlist-read-private",
+                   "playlist-modify-private",
+                   "app-remote-control"
                   ]
   const SPACE_DELIMITER = "%20";
   const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);

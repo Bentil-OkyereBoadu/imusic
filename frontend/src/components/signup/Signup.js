@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom';
 import { ChatState } from '../../context/ChatProvider';
+import '../styles.css'
 
 const Signup = () => {
 
@@ -108,10 +109,10 @@ const Signup = () => {
     console.log(user);
 
   return (
-    <Flex justifyContent='center' alignContent='center' marginTop='10%'>
-    <Flex w='40%' h='450px' textAlign='center' flexDirection='column' justifyContent='space-around' alignItems='center' alignContent='center' bg='gray.100' p={3} borderRadius='30px'>
+    <Flex justifyContent='center' alignContent='center' className='signup'>
+    <Flex w='40%' h='450px' textAlign='center' flexDirection='column' justifyContent='space-around' alignItems='center' alignContent='center' backgroundColor='#fff7f663'  p={3} borderRadius='30px' marginTop='10%'>
     <FormControl width='80%' >
-      <Heading>Sign Up</Heading>
+      <Heading color='white'>Sign Up</Heading>
       <br/>
       <Input 
         id='name'
@@ -119,8 +120,9 @@ const Signup = () => {
         value={state.name}
         name='name'
         placeholder='Username'
-        _placeholder={{opacity: 0.6, color: 'orange' }}
+        _placeholder={{ color: 'white' }}
         onChange={handleInputChange} 
+        color='white'
       />
       <Input marginTop='1.5rem'
         id='email'
@@ -128,8 +130,9 @@ const Signup = () => {
         value={state.email}
         name='email'
         placeholder='Email'
-        _placeholder={{opacity: 0.6, color: 'orange' }}
+        _placeholder={{color: 'white'}}
         onChange={handleInputChange} 
+        color='white'
       />
       <Input marginTop='1.5rem'
         id='password'
@@ -137,8 +140,9 @@ const Signup = () => {
         value={state.password}
         name='password'
         placeholder='Password'
-        _placeholder={{opacity: 0.6, color: 'orange' }}
+        _placeholder={{color: 'white' }}
         onChange={handleInputChange} 
+        color= 'white'
       />
 
       <Input marginTop='1.5rem'
@@ -147,8 +151,9 @@ const Signup = () => {
         value={state.confirmPassword}
         name='confirmPassword'
         placeholder='Confirm Password'
-        _placeholder={{opacity: 0.6, color: 'orange' }}
+        _placeholder={{color: 'white'}}
         onChange={handleInputChange} 
+        color= 'white'
       />
       <NavLink to='/music' ></NavLink>
         <Button marginTop='1.5rem'

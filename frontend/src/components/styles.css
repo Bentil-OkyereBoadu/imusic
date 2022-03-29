@@ -1,7 +1,28 @@
 .messages {
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    scrollbar-width: none;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.login {
+  /* linear-gradient(90deg, rgba(255,231,0,1) 0%, rgba(221,72,8,1) 100%),  */
+  background: url("../assets/signupBackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+  background-blend-mode: overlay;
+}
+
+.signup {
+  /* linear-gradient(90deg, rgba(255,231,0,1) 0%, rgba(221,72,8,1) 100%),  */
+  background: url("../assets/signupBackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+  background-blend-mode: overlay;
+}

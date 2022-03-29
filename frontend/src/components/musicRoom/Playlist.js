@@ -6,6 +6,7 @@ import axios from 'axios';
 import { SessionState } from '../../context/SessionProvider';
 
 const USER_ENDPOINT = `https://api.spotify.com/v1/me`;
+// eslint-disable-next-line
 const PLAYLISTS_ENDPOINT = `https://api.spotify.com/v1/me/playlists`
 
 const Playlist = () => {
@@ -14,7 +15,7 @@ const Playlist = () => {
  
 
   const [playlistName, setPlaylistName] = useState('')
-  const [playlistPrivacy, setPlaylistPrivacy] = useState(false)
+  const [playlistPrivacy] = useState(false)
 
 
   const state = {
@@ -44,17 +45,17 @@ const Playlist = () => {
     return userId;
   }
 
-  const handleGetPlaylists = async () => {
-    await axios.get(PLAYLISTS_ENDPOINT, {
-      headers: {
-        Authorization: "Bearer "+ token,
-      }
-    }).then((response) => {
-      setPlaylistTracks(response.data.items);
-    }).catch(error => {
-      console.log(error);
-    })
-  }
+  // const handleGetPlaylists = async () => {
+  //   await axios.get(PLAYLISTS_ENDPOINT, {
+  //     headers: {
+  //       Authorization: "Bearer "+ token,
+  //     }
+  //   }).then((response) => {
+  //     setPlaylistTracks(response.data.items);
+  //   }).catch(error => {
+  //     console.log(error);
+  //   })
+  // }
 
   const handlePlaylistName = (e) => {
     e.preventDefault();

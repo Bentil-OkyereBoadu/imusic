@@ -4,18 +4,9 @@ import { BsPlayCircle, BsPauseCircle, BsChevronBarLeft, BsChevronBarRight, BsSha
 import {IoPersonAddOutline} from 'react-icons/io5';
 import { NavLink } from 'react-router-dom';
 import { SessionState } from '../../context/SessionProvider';
+// eslint-disable-next-line 
+import axios from 'axios';
 
-const track = {
-  name: "",
-  album: {
-      images: [
-          { url: "" }
-      ]
-  },
-  artists: [
-      { name: "" }
-  ]
-}
 
 const Footer = () => {
 
@@ -23,10 +14,10 @@ const Footer = () => {
 
   const [player, setPlayer] = useState();
   const [is_paused, setPaused] = useState(false);
-  const [is_active, setActive] = useState(false);
+  const [ setActive] = useState(false);
   const [current_track, setTrack] = useState({...playlistTracks[0]});
   const [trackIndex, setTrackIndex] = useState(0)
-  
+  const [deviceId, setDeviceId] = useState('')
 
   useEffect(() => {
 
@@ -48,10 +39,11 @@ const Footer = () => {
 
         player.addListener('ready', ({ device_id }) => {
             console.log('Ready with Device ID', device_id);
+            setDeviceId(device_id);
         });
 
         player.addListener('not_ready', ({ device_id }) => {
-            console.log('Device ID has gone offline', device_id);
+            console.log('Device ID has gone offline', device_id);  
         });
 
 
@@ -75,6 +67,45 @@ const Footer = () => {
 
     };
 }, []);
+// let trackURIs = playlistTracks.map( track => track.uri);
+  // const requestUrl = `${is_paused? `https://api.spotify.com/v1/me/player/play`: `https://api.spotify.com/v1/me/player/pause`}`
+
+  // const playMusic = async () => {
+    // try{
+
+    //   const playback = await axios.put(`https://api.spotify.com/v1/me/player/play`,{
+    //    headers:{
+    //      "Content-Type": 'application/json',
+    //      Authorization: token,
+    //    },
+    //    body: JSON.stringify({uris: trackURIs})
+    //   });
+
+    //   console.log(playback)
+    // } catch(error){
+    //     console.log(error);
+    // }
+  // }
+
+  const playMusic = () => {
+    let trackURIs = playlistTracks.map( track => track.uri);
+    console.log(trackURIs);
+    return fetch(
+      `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify({
+          trackURIs
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+  }
+
+
 
 
 const onPreviousButtonClick = () => {
@@ -101,15 +132,15 @@ const onNextButtonClick = () => {
   return (
     <Flex backgroundColor='#ffa500' bottom='0px' h='10%' w='100%' padding='20px' position='fixed'>
         <Flex justifyContent='center' w='30%'>
-            <BsChevronBarLeft onClick={() => { player.previousTrack(); }} style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
+            <BsChevronBarLeft onClick={() => { player.previousTrack(); onPreviousButtonClick();}} style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
             { is_paused? 
             (
-              <BsPlayCircle onClick={() => { player.togglePlay() }} style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
+              <BsPlayCircle onClick={() => { player.togglePlay(); playMusic() }} style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
             ) :
             (
               <BsPauseCircle style={{width:25, height:25, cursor:'pointer', marginRight:'10px', color:'white'}}/>
             )}
-            <BsChevronBarRight onClick={() => { player.nextTrack(); }} style={{width:25, height:25, cursor:'pointer', color:'white'}}/>
+            <BsChevronBarRight onClick={() => { player.nextTrack(); onNextButtonClick(); }} style={{width:25, height:25, cursor:'pointer', color:'white'}}/>
         </Flex>
         <Flex w='30%' flexDir='column'>
           <Text  color='white'>Now Playing: {current_track.name}</Text>

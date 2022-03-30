@@ -5,7 +5,7 @@ import "./styles.css";
 
 // const client_id ="ddc7d259bece4112b9df90559ea0e4ff";
 const client_id = "40e0e3786cb34441b74263af7dcb1200";
-const redirect_uri = "http://localhost:3000/session";
+const redirect_uri = "https://imusique.netlify.app/session";
 
 const OAUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const SCOPES = [

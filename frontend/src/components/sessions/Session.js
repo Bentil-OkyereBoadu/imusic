@@ -50,12 +50,13 @@ const Session = () => {
       (data) => {
         setData(data.body);
         console.log("Some information about the authenticated user", data.body);
+
       },
       (err) => {
         console.log("Something went wrong!", err);
       }
     );
-  }, []);
+  });
 
   return (
     <div className="home">

@@ -58,10 +58,8 @@ const Footer = () => {
               color: "#fff",
               loaderColor: "#fff",
               sliderColor: "#1cb954",
-              trackArtistColor: "#ccc",
+              trackArtistColor: "#000",
               trackNameColor: "#fff",
-              height: "100%",
-              width: "100%",
             }}
             magnifySliderOnHover={true}
             play={true}

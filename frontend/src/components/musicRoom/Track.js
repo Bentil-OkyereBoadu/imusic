@@ -2,7 +2,9 @@ import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 
 const Track = ({ track, addTrack, removeTrack, isRemoval }) => {
+ 
   const renderAction = () => {
+   
     if (isRemoval) {
       return (
         <Button colorScheme="orange" onClick={remove}>
@@ -43,13 +45,12 @@ const Track = ({ track, addTrack, removeTrack, isRemoval }) => {
         borderRadius="0.7em"
         w="100%"
         border="2px solid orange"
-        alignItems='center'
+        alignItems="center"
       >
-
         <Flex flexDirection="column" color="orange">
           <Heading>{track.name}</Heading>
-          <Text >Artist: {track.artists[0].name}</Text>
-          <Text >Album: {track.album.name}</Text>
+          <Text>Artist: {track.artists[0].name}</Text>
+          <Text>Album: {track.album.name}</Text>
         </Flex>
 
         <Flex>

@@ -13,27 +13,27 @@ export const spotifyApi = new SpotifyWebApi({
 
 const Playlist = () => {
   const toast = useToast();
-  const { token, playlistTracks, setPlaylistTracks,setPlaylistID } = SessionState();
+  const { token, setPlaylistTracks,setPlaylistID } = SessionState();
 
   spotifyApi.setAccessToken(token);
 
   const [playlistName, setPlaylistName] = useState("");
-  const [playlistPrivacy] = useState(false);
+  
+  
+  // const state = {
+  //   playlistTracks: playlistTracks,
+  //   playlistName: playlistName,
+  //   playlistPrivacy: playlistPrivacy,
+  // };
 
-  const state = {
-    playlistName: playlistName,
-    playlistTracks: playlistTracks,
-    playlistPrivacy: playlistPrivacy,
-  };
-
-  // const [state, setState] = useState({
-  //   playlistTracks: [],
-  //   playlistName: '',
-  //   searchResults: [],
-  //   privatePlaylist: false,
-  // });
+  const [state, setState] = useState({
+    playlistTracks: [],
+    searchResults: [],
+    privatePlaylist: false,
+  });
 
   const handlePlaylistName = (e) => {
+    // setState({playlistName: e.target.value})
     setPlaylistName(e.target.value);
   };
 
@@ -82,14 +82,17 @@ const Playlist = () => {
       return;
     }
     tracks.push(track);
-    setPlaylistTracks(tracks);
+    // setPlaylistTracks(tracks);
+    setState({playlistTracks: tracks});
+    setPlaylistTracks(state.playlistTracks);
   };
 
     //remove track from playlist
   const removeTrack = (track) => {
     let tracks = state.playlistTracks;
     tracks = tracks.filter((currentTrack) => currentTrack.id !== track.id);
-    setPlaylistTracks(tracks);
+    setState({playlistTracks: tracks});
+    setPlaylistTracks(state.playlistTracks);
   };
 
   return (

@@ -20,7 +20,6 @@ const SCOPES = [
   "playlist-modify-public",
   "playlist-read-private",
   "playlist-modify-private",
-  
 ];
 const SPACE_DELIMITER = "%20";
 const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);

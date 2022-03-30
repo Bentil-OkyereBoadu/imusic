@@ -8,7 +8,7 @@ import SpotifyWebApi from "spotify-web-api-node";
 
 export const spotifyApi = new SpotifyWebApi({
   client_id: "40e0e3786cb34441b74263af7dcb1200",
-  redirect_uri: "http://localhost:3000/session",
+  redirect_uri: "https://imusique.netlify.app/session",
 });
 
 const Playlist = () => {

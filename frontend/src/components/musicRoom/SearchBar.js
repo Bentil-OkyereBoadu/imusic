@@ -67,10 +67,11 @@ const SearchBar = ({ addTrack, removeTrack }) => {
           />
 
           <PopoverContent
-            color="blue"
+            color="orange"
             bg="white"
-            borderColor="blue.800"
+            borderColor="orange"
             h="60vh"
+            w="35vw"
           >
             <SearchResults
               tracks={searchItems}

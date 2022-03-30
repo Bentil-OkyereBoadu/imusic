@@ -1,8 +1,6 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
-import React, { useCallback, useState } from "react";
-import {
-  BsShare,
-} from "react-icons/bs";
+import React, { useCallback } from "react";
+import { BsShare } from "react-icons/bs";
 import { IoPersonAddOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import { SessionState } from "../../context/SessionProvider";
@@ -13,8 +11,6 @@ const Footer = () => {
   const { token, playlistTracks } = SessionState();
   let trackURIs = playlistTracks.map((track) => track.uri);
   spotifyApi.setAccessToken(token);
-
-  const [isActive, setActive] = useState(false);
 
 
   // Get Information About The User's Current Playback State
@@ -37,7 +33,6 @@ const Footer = () => {
     console.log(state);
     console.groupEnd();
 
-    setActive(true);
   }, []);
 
   return (
@@ -47,33 +42,40 @@ const Footer = () => {
       h="10%"
       w="100%"
       position="fixed"
-      alignContent='space-between'
-      justifyContent='center'
+      alignContent="space-between"
+      justifyContent="center"
     >
       {trackURIs && (
-        <Box width="50%" height ="100%">
-        <SpotifyPlayer
-          token={token}
-          uris={trackURIs}
-          autoPlay={true}
-          callback={handleCallback}
-          styles={{
-            activeColor: "#fff",
-            bgColor: "#ffa500",
-            color: "#fff",
-            loaderColor: "#fff",
-            sliderColor: "#1cb954",
-            trackArtistColor: "#ccc",
-            trackNameColor: "#fff",
-            height: "100%",           
-          }}
-          magnifySliderOnHover={true}
-          play={true}
-        />
+        <Box width="50%" height="100%">
+          <SpotifyPlayer
+            token={token}
+            uris={trackURIs}
+            autoPlay={true}
+            callback={handleCallback}
+            styles={{
+              activeColor: "#fff",
+              bgColor: "#ffa500",
+              color: "#fff",
+              loaderColor: "#fff",
+              sliderColor: "#1cb954",
+              trackArtistColor: "#ccc",
+              trackNameColor: "#fff",
+              height: "100%",
+              width: "100%",
+            }}
+            magnifySliderOnHover={true}
+            play={true}
+          />
         </Box>
       )}
-      <Box w='20' h='100%'></Box>
-      <Flex w="30%" justifyContent="center" alignContent='space-around' p={1}>
+      <Box w="20%" h="100%"></Box>
+      <Flex
+        w="30%"
+        justifyContent="space-evenly"
+        alignContent="space-between"
+        alignItems="center"
+        p={1}
+      >
         <Button leftIcon={<BsShare />} colorScheme="blue">
           Share
         </Button>

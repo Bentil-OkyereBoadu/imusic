@@ -7,6 +7,7 @@ const server = http.createServer(app)
 const connectDB = require('./config/db')
 const userRoutes = require("./routes/userRoutes")
 const chatRoutes = require("./routes/chatRoutes")
+const musicSessionRoutes = require("./routes/musicSessionRoutes")
 const messageRoutes = require("./routes/messageRoutes")
 const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 const morgan = require('morgan');
@@ -20,10 +21,11 @@ dotenv.config({ path:'../.env'})
 connectDB()
 
 
-/**getting user routes */
+/**getting routes */
 app.use("/api/user", userRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/message', messageRoutes)
+app.use('/api/session', musicSessionRoutes);
 
 /**Handle error */
 app.use(notFound)

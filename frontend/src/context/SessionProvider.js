@@ -8,9 +8,9 @@ const SessionProvider = ({children}) => {
     const [session, setSession] = useState({
         name: '',
         creator: '',
-        playlist:'',
-        attendees: [],
-        id: '',
+        playlist: [],
+        activeUsers: [],
+        isPrivate: false,
     });
     const [token, setToken] = useState('');
     const [data, setData] = useState();

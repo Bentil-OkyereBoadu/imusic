@@ -31,8 +31,8 @@ const Home = () => {
     window.location = `${OAUTH_ENDPOINT}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;
   };
 
-  const navigateToSessionPage = () => {
-    history.push("/");
+  const joinSession = () => {
+    history.push("/join");
   };
 
   return (
@@ -78,7 +78,7 @@ const Home = () => {
               h="25%"
               fontSize="lg"
               borderRadius="30px"
-              onClick={navigateToSessionPage}
+              onClick={joinSession}
             >
               Join a session
             </Button>

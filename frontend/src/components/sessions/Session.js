@@ -1,6 +1,6 @@
 import { Button, Flex, Heading, Input, useToast } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { SessionState } from "../../context/SessionProvider";
 import { spotifyApi } from "../musicRoom/Playlist";
 
@@ -18,10 +18,12 @@ const getParamsFromSpotifyAuth = (hash) => {
 };
 
 const Session = () => {
-  const { setToken, setData, token } = SessionState();
+  const { setToken, setData, token, setPrivacy, sessionName, setSessionName } = SessionState();
+
   spotifyApi.setAccessToken(token);
 
   const toast = useToast();
+  const history = useHistory();
 
   useEffect(() => {
     if (window.location.hash) {
@@ -49,7 +51,6 @@ const Session = () => {
     spotifyApi.getMe().then(
       (data) => {
         setData(data.body);
-        console.log("Some information about the authenticated user", data.body);
 
       },
       (err) => {
@@ -57,6 +58,38 @@ const Session = () => {
       }
     );
   });
+
+ 
+
+  const onPublicClick = () => {
+    if(!sessionName){
+       toast({
+        title: "Add Session name to proceed",
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      }) 
+    } else{
+      history.push('/publicmusic')
+    }
+    
+  }
+
+  const onPrivateClick = () => {
+    setPrivacy(true);
+    if(!sessionName){
+      toast({
+        title: "Add Session name to proceed",
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      })
+    } else {
+      history.push('/login')
+    }
+  }
 
   return (
     <div className="home">
@@ -81,33 +114,32 @@ const Session = () => {
             w="70%"
             color="white"
             _placeholder={{ color: "white" }}
+            onChange={(e) => setSessionName(e.target.value) }
           ></Input>
-          <NavLink to="/publicmusic" style={{ width: "50%", height: "20%" }}>
             <Button
               bg="orange"
               color="white"
               size="md"
-              w="100%"
-              h="100%"
               fontSize="lg"
               borderRadius="30px"
+              width='50%'
+              height='20%'
+              onClick={onPublicClick}
             >
               Public
             </Button>
-          </NavLink>
-          <NavLink to="/login" style={{ width: "50%", height: "20%" }}>
             <Button
               bg="orange"
               color="white"
               size="md"
-              w="100%"
-              h="100%"
               fontSize="lg"
               borderRadius="30px"
+              width='50%'
+              height='20%'
+              onClick={onPrivateClick}
             >
               Private
             </Button>
-          </NavLink>
         </Flex>
       </Flex>
     </div>

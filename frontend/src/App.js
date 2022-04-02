@@ -9,6 +9,7 @@ import ChatProvider from './context/ChatProvider';
 import Session from './components/sessions/Session';
 import SessionProvider from './context/SessionProvider';
 import SessionPage from './components/sessions/SessionPage';
+import JoinSession from './components/joinSession/JoinSession';
 
 function App() {
 
@@ -19,6 +20,9 @@ function App() {
         <Switch>
         <Route path='/sessionspage'>
             <SessionPage/>
+          </Route>
+          <Route path='/join'>
+            <JoinSession/>
           </Route>
           <Route path='/session'>
             <Session/>

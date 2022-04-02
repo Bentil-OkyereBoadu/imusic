@@ -4,7 +4,7 @@ import TrackList from "./TrackList";
 import SearchBar from "./SearchBar";
 import { SessionState } from "../../context/SessionProvider";
 import SpotifyWebApi from "spotify-web-api-node";
-
+import axios from "axios";
 
 export const spotifyApi = new SpotifyWebApi({
   client_id: "40e0e3786cb34441b74263af7dcb1200",
@@ -13,18 +13,79 @@ export const spotifyApi = new SpotifyWebApi({
 
 const Playlist = () => {
   const toast = useToast();
-  const { token, setPlaylistTracks,setPlaylistID } = SessionState();
+  const {
+    token,
+    setPlaylistTracks,
+    setPlaylistID,
+    playlistTracks,
+    privacy,
+    sessionName,
+  } = SessionState();
 
   spotifyApi.setAccessToken(token);
 
   const [playlistName, setPlaylistName] = useState("");
-  
-  
-  // const state = {
-  //   playlistTracks: playlistTracks,
-  //   playlistName: playlistName,
-  //   playlistPrivacy: playlistPrivacy,
-  // };
+
+  const session = {
+    name: "",
+    creator: "",
+    playlist: [],
+    activeUsers: [],
+    isPrivate: false,
+  };
+
+  if (privacy === true) {
+    session.creator = JSON.parse(localStorage.getItem("userInfo"));
+  } else if (privacy === false) {
+    session.creator = {
+      _id: "6239a82e7c876ca0080f61eb",
+      name: "guest",
+      email: "guest@example.com",
+    };
+  }
+  session.activeUsers[0] = session.creator;
+  session.name = sessionName;
+  session.playlist = playlistTracks;
+  session.isPrivate = privacy;
+
+  const saveSession = async () => {
+    let name = session.name;
+    let activeUsers = session.activeUsers;
+    let playlist = session.playlist;
+    let isPrivate = session.isPrivate;
+    let creatorId = session.creator._id;
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      let { data } = await axios.post(
+        "http://localhost:4000/api/session",
+        { name, creatorId, playlist, activeUsers, isPrivate },
+        config
+      );
+      if (data) {
+        toast({
+          title: "Session saved",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Unable to save session",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+      console.log(error);
+    }
+  };
 
   const [state, setState] = useState({
     playlistTracks: [],
@@ -33,7 +94,6 @@ const Playlist = () => {
   });
 
   const handlePlaylistName = (e) => {
-    // setState({playlistName: e.target.value})
     setPlaylistName(e.target.value);
   };
 
@@ -73,8 +133,7 @@ const Playlist = () => {
         console.log(err);
       });
   };
-  
-  
+
   //add track to playlist
   const addTrack = (track) => {
     let tracks = state.playlistTracks;
@@ -83,15 +142,15 @@ const Playlist = () => {
     }
     tracks.push(track);
     // setPlaylistTracks(tracks);
-    setState({playlistTracks: tracks});
+    setState({ playlistTracks: tracks });
     setPlaylistTracks(state.playlistTracks);
   };
 
-    //remove track from playlist
+  //remove track from playlist
   const removeTrack = (track) => {
     let tracks = state.playlistTracks;
     tracks = tracks.filter((currentTrack) => currentTrack.id !== track.id);
-    setState({playlistTracks: tracks});
+    setState({ playlistTracks: tracks });
     setPlaylistTracks(state.playlistTracks);
   };
 
@@ -115,7 +174,12 @@ const Playlist = () => {
           placeholder="Playlist name"
           onChange={handlePlaylistName}
         />
-        <Button onClick={addPlaylist}>Save playlist to Spotify</Button>
+        <Button onClick={addPlaylist} colorScheme="green">
+          Save playlist to Spotify
+        </Button>
+        <Button onClick={saveSession} colorScheme="blue">
+          Save playlist to Session
+        </Button>
       </Flex>
       <Box h="60vh" w="100%">
         {state.playlistTracks && (

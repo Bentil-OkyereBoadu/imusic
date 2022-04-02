@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Flex, Img, Text } from '@chakra-ui/react'
+import { Avatar, Box, Button, Flex, Heading, Img, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { SessionState } from '../../context/SessionProvider'
@@ -9,7 +9,7 @@ const Header = () => {
   const [ loading, setLoading ] = useState(false)
   const history = useHistory()
   const user = JSON.parse(localStorage.getItem('userInfo'));
-  const {data} = SessionState();
+  const {data, sessionName} = SessionState();
 
   const logoutHandler = () => {
     setLoading(true)
@@ -22,7 +22,10 @@ const Header = () => {
     <Box w='100%' h='10%' p='0.6rem' textAlign='center' bg='white'>
         <Flex justifyContent='space-between'>  
           <Img marginLeft='5%' src={require('../../assets/logo1.svg')}/>
-          <Text w='30%' fontSize='2xl' color='orange'>Welcome {data? data.display_name: user.name} !</Text>
+          <Flex flexDirection='column' w='30%'>
+            <Heading  fontSize='3xl' color='orange'>{sessionName}</Heading>
+            <Text  fontSize='2xl' color='orange'>Welcome {data? data.display_name: user.name}!</Text>
+          </Flex>
           <Flex justifyContent='center' w='20%'>
             <Box m='10px 20px 0px'>   
               <Avatar size="sm" name={data? data.display_name: user.name}  />

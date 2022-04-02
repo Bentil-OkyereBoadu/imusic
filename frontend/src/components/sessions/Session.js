@@ -18,7 +18,8 @@ const getParamsFromSpotifyAuth = (hash) => {
 };
 
 const Session = () => {
-  const { setToken, setData, token, session, setSession } = SessionState();
+  const { setToken, setData, token, setPrivacy, sessionName, setSessionName } = SessionState();
+
   spotifyApi.setAccessToken(token);
 
   const toast = useToast();
@@ -50,7 +51,6 @@ const Session = () => {
     spotifyApi.getMe().then(
       (data) => {
         setData(data.body);
-        console.log("Some information about the authenticated user", data.body);
 
       },
       (err) => {
@@ -59,10 +59,10 @@ const Session = () => {
     );
   });
 
+ 
 
   const onPublicClick = () => {
-    setSession({isPrivate: false});
-    if(!session.name){
+    if(!sessionName){
        toast({
         title: "Add Session name to proceed",
         status: "warning",
@@ -77,8 +77,8 @@ const Session = () => {
   }
 
   const onPrivateClick = () => {
-    setSession({isPrivate: true});
-    if(!session.name){
+    setPrivacy(true);
+    if(!sessionName){
       toast({
         title: "Add Session name to proceed",
         status: "warning",
@@ -114,7 +114,7 @@ const Session = () => {
             w="70%"
             color="white"
             _placeholder={{ color: "white" }}
-            onChange={(e) => setSession({name: e.target.value})}
+            onChange={(e) => setSessionName(e.target.value) }
           ></Input>
             <Button
               bg="orange"

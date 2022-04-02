@@ -2,7 +2,7 @@ import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
 import {FaPlay} from 'react-icons/fa'
 
-const SingleSession = () => {
+const SingleSession = ({session}) => {
 
     const renderAction = () => {
         return <Button rightIcon={<FaPlay/>} colorScheme="orange">Join</Button>
@@ -21,11 +21,10 @@ const SingleSession = () => {
         alignItems="center"
       >
         <Flex flexDirection="column" color="orange">
-          <Heading>Session name</Heading>
-          <Text color="black">Creator</Text>
-          <Text color="black">Time created:</Text>
+          <Heading fontSize='1.5em'>{session.name}</Heading>
+          <Text color="black">Time created: {session.createdAt}</Text>
         </Flex>
-
+        <Text color='black' bgColor='orange.100' p='0.8em' borderRadius='40%'>{session.isPrivate? "Private": "Public"}</Text>
         <Flex>
           {renderAction()}
         </Flex>
@@ -33,5 +32,5 @@ const SingleSession = () => {
     </Box>
   )
 }
-
+ 
 export default SingleSession

@@ -12,7 +12,8 @@ const Footer = () => {
   let trackURIs = playlistTracks.map((track) => track.uri);
   spotifyApi.setAccessToken(token);
 
-
+ 
+ 
   // Get Information About The User's Current Playback State
   spotifyApi.getMyCurrentPlaybackState().then(
     function(data) {

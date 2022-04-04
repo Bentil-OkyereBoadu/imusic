@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
 import {FaPlay} from 'react-icons/fa'
+import moment from 'moment';
 
 const SingleSession = ({session}) => {
 
@@ -22,7 +23,7 @@ const SingleSession = ({session}) => {
       >
         <Flex flexDirection="column" color="orange">
           <Heading fontSize='1.5em'>{session.name}</Heading>
-          <Text color="black">Time created: {session.createdAt}</Text>
+          <Text color="black">Created: {moment(session.createdAt, "YYYYMMDD").fromNow()}</Text>
         </Flex>
         <Text color='black' bgColor='orange.100' p='0.8em' borderRadius='40%'>{session.isPrivate? "Private": "Public"}</Text>
         <Flex>

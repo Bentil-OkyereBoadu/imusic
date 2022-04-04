@@ -28,15 +28,9 @@ const Track = ({ track, addTrack, removeTrack, isRemoval }) => {
     removeTrack(track);
   };
 
-  // const displayPlayButton = () => {
-  //     let uri = `https://open.spotify.com/embed?uri=${track.uri}`;
-  //     return <Box>
-  //               <iframe src={uri} width="80%" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media" title="Song"></iframe>
-  //     </Box>
-  // }
 
   return (
-    <Box w="70%" margin="0.3em 0em">
+    <Box w="70%" margin="0.3em 0em" boxShadow='8px 5px 8px 0px rgba(0,0,0,0.35)'>
       <Flex
         flexDirection="row"
         bg="white"
@@ -54,7 +48,6 @@ const Track = ({ track, addTrack, removeTrack, isRemoval }) => {
         </Flex>
 
         <Flex>
-          {/* {displayPlayButton()} */}
           {renderAction()}
         </Flex>
       </Flex>

@@ -2,8 +2,9 @@ import {
   Button,
   Flex,
   FormControl,
-  Heading,
+  Text,
   Input,
+  Heading,
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
@@ -12,18 +13,16 @@ import { NavLink, useHistory } from "react-router-dom";
 import { ChatState } from "../../context/ChatProvider";
 import "../styles.css";
 
-const Signup = () => {
-  const { user, setUser } = ChatState();
+const JoinLogin = () => {
+  const history = useHistory();
+  const { setUser } = ChatState();
   const [state, setState] = useState({
-    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const [loading, setLoading] = useState(false);
   const toast = useToast();
-  const history = useHistory();
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -33,32 +32,14 @@ const Signup = () => {
     });
   };
 
-  let name = state.name;
-  let email = state.email;
-  let password = state.password;
+  const email = state.email;
+  const password = state.password;
 
   const handleSubmit = async () => {
     setLoading(true);
-    if (
-      !state.name ||
-      !state.email ||
-      !state.password ||
-      !state.confirmPassword
-    ) {
+    if (!email || !password) {
       toast({
         title: "Please fill all the fields",
-        status: "warning",
-        duration: 2000,
-        isClosable: true,
-        position: "bottom",
-      });
-      setLoading(false);
-      return;
-    }
-
-    if (state.password !== state.confirmPassword) {
-      toast({
-        title: "Passwords do not match",
         status: "warning",
         duration: 2000,
         isClosable: true,
@@ -76,31 +57,24 @@ const Signup = () => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:4000/api/user/",
-        { name, email, password },
+        "http://localhost:4000/api/user/login",
+        { email, password },
         config
       );
-      if (data === "user already exists") {
-        toast({
-          title: "User already exists",
-          status: "warning",
-          duration: 2000,
-          isClosable: true,
-          position: "bottom",
-        });
-        setLoading(false);
-      } else {
+
+      if (data) {
         localStorage.setItem("userInfo", JSON.stringify(data));
         setUser(JSON.parse(localStorage.getItem("userInfo")));
         toast({
-          title: "Account has been created",
+          title: "Login Successful",
           status: "success",
           duration: 2000,
           isClosable: true,
           position: "bottom",
         });
+
         setLoading(false);
-        history.push("/music");
+        history.push("/joinroom");
       }
     } catch (error) {
       toast({
@@ -115,10 +89,13 @@ const Signup = () => {
     }
   };
 
-  console.log(user);
-
   return (
-    <Flex justifyContent="center" alignContent="center" className="signup">
+    <Flex
+      className="login"
+      justifyContent="center"
+      alignItems="center"
+      alignContent="center"
+    >
       <Flex
         w="40%"
         h="450px"
@@ -127,72 +104,57 @@ const Signup = () => {
         justifyContent="space-around"
         alignItems="center"
         alignContent="center"
-        backgroundColor="#fff7f663"
         p={3}
+        bg="#fff7f663"
         borderRadius="30px"
-        marginTop="10%"
       >
         <FormControl width="80%">
-          <Heading color="white">Sign Up</Heading>
+          <Heading color="white">Login</Heading>
           <br />
           <Input
-            id="name"
-            type="text"
-            value={state.name}
-            name="name"
-            placeholder="Username"
-            _placeholder={{ color: "white" }}
-            onChange={handleInputChange}
-            color="white"
-          />
-          <Input
-            marginTop="1.5rem"
+            name="email"
             id="email"
             type="text"
-            value={state.email}
-            name="email"
             placeholder="Email"
-            _placeholder={{ color: "white" }}
-            onChange={handleInputChange}
-            color="white"
-          />
-          <Input
-            marginTop="1.5rem"
-            id="password"
-            type="password"
-            value={state.password}
-            name="password"
-            placeholder="Password"
-            _placeholder={{ color: "white" }}
+            _placeholder={{ color: "black" }}
             onChange={handleInputChange}
             color="white"
           />
 
           <Input
             marginTop="1.5rem"
-            id="confirmPassword"
+            name="password"
+            id="password"
             type="password"
-            value={state.confirmPassword}
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            _placeholder={{ color: "white" }}
+            placeholder="Password"
+            _placeholder={{ color: "black" }}
             onChange={handleInputChange}
             color="white"
           />
-          <NavLink to="/music"></NavLink>
+
           <Button
-            marginTop="1.5rem"
+            margin="1rem"
             size="md"
             colorScheme="orange"
-            isLoading={loading}
             onClick={handleSubmit}
+            isLoading={loading}
+          >
+            Log in
+          </Button>
+
+          <Text fontSize="lg" color="white">
+            Don't have an account yet?{" "}
+          </Text>
+          <NavLink
+            to="/signup"
+            style={{ textDecoration: "underline", color: "white" }}
           >
             Sign up
-          </Button>
+          </NavLink>
         </FormControl>
       </Flex>
     </Flex>
   );
 };
 
-export default Signup;
+export default JoinLogin;

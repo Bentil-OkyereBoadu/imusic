@@ -14,7 +14,6 @@ const Sessions = () => {
     try {
       let { data } = await axios.get("http://localhost:4000/api/session");
       setSessions(data);
-      console.log(data);
     } catch (error) {
       console.log(error);
     }

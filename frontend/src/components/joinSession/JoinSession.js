@@ -21,7 +21,7 @@ const getParamsFromSpotifyAuth = (hash) => {
 
 const JoinSession = () => {
 
-  const { setToken, setData, token, setPrivacy, sessionName, setSessionName } = SessionState();
+  const { setToken, setData, token } = SessionState();
 
   const spotifyApi = new SpotifyWebApi({
     client_id: "40e0e3786cb34441b74263af7dcb1200",

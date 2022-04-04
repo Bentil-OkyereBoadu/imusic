@@ -15,15 +15,15 @@ const SessionProvider = ({children}) => {
     const [ privacy, setPrivacy ] = useState(false)
     const [createdSessionId, setCreatedSessionId] = useState('')
 
-    const [sessionToJoin, setSessionToJoin] = useState();
+    const [selectedSession, setSelectedSession] = useState();
   
 
   return (
     <SessionContext.Provider value={{
       createdSessionId,
       setCreatedSessionId,
-      sessionToJoin,
-      setSessionToJoin, 
+      selectedSession,
+      setSelectedSession, 
       sessionName,
       setSessionName, 
       privacy,

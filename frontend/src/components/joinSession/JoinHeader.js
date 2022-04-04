@@ -9,10 +9,10 @@ const JoinHeader = () => {
     const [ loading, setLoading ] = useState(false)
     const history = useHistory()
     const user = JSON.parse(localStorage.getItem('userInfo'));
-    const {data, sessionName, sessionToJoin } = SessionState();
+    const {data, selectedSession} = SessionState();
   
     const leaveHandler = async () => {
-      let sessionId = sessionToJoin._id;
+      let sessionId = selectedSession._id;
       let userId = user._id;
       const config = {
         headers: {
@@ -39,7 +39,7 @@ const JoinHeader = () => {
             <Flex justifyContent='space-between'>  
               <Img marginLeft='5%' src={require('../../assets/logo1.svg')}/>
               <Flex flexDirection='column' w='30%'>
-                <Heading  fontSize='3xl' color='orange'>{sessionName}</Heading>
+                <Heading  fontSize='3xl' color='orange'>{selectedSession.name}</Heading>
                 <Text  fontSize='2xl' color='orange'>Welcome { data? data.display_name: user.name }!</Text>
               </Flex>
               <Flex justifyContent='center' w='20%'>

@@ -20,6 +20,7 @@ const Playlist = () => {
     playlistTracks,
     privacy,
     sessionName,
+    setCreatedSessionId,
   } = SessionState();
 
   spotifyApi.setAccessToken(token);
@@ -38,7 +39,7 @@ const Playlist = () => {
     session.creator = JSON.parse(localStorage.getItem("userInfo"));
   } else if (privacy === false) {
     session.creator = {
-      _id: "6239a82e7c876ca0080f61eb",
+      _id: "624abaae0598f8505502e934",
       name: "guest",
       email: "guest@example.com",
     };
@@ -74,7 +75,10 @@ const Playlist = () => {
           isClosable: true,
           position: "top",
         });
+        setCreatedSessionId(data._id);
       }
+      
+
     } catch (error) {
       toast({
         title: "Unable to save session",

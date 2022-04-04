@@ -10,6 +10,8 @@ import Session from './components/sessions/Session';
 import SessionProvider from './context/SessionProvider';
 import SessionPage from './components/sessions/SessionPage';
 import JoinSession from './components/joinSession/JoinSession';
+import JoinRoom from './components/joinSession/JoinRoom';
+import JoinLogin from './components/joinSession/Login';
 
 function App() {
 
@@ -38,6 +40,12 @@ function App() {
           </Route>
           <Route path='/signup'>
             <Signup/>
+          </Route>
+          <Route path='/joinroom/login'>
+            <JoinLogin/> 
+          </Route>
+          <Route path='/joinroom' exact>
+            <JoinRoom/> 
           </Route>
           <Route path='/' exact>
             <Home/> 

@@ -5,17 +5,18 @@ const {
   userJoinSession,
   userLeaveSession,
   fetchSession,
-  updatePlaylist
+  updatePlaylist,
+  getSessionById,
 } = require("../controllers/musicSessionControllers");
-const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
 router.route("/").post(createMusicSession);
 router.route("/").get(fetchSession);
-router.route("/:id/join").put(protect, userJoinSession);
-router.route("/:id/leave").put(protect, userLeaveSession);
-router.route("/:id/playlist").put(protect, updatePlaylist);
-router.route("/endSession").post( protect, endMusicSession);
+router.route("/:id").get(getSessionById);
+router.route("/:id/join").put(userJoinSession);
+router.route("/:id/leave").put(userLeaveSession);
+router.route("/:id/playlist").put(updatePlaylist);
+router.route("/endSession").post(endMusicSession);
 
 module.exports = router;

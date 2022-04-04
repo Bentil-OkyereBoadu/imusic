@@ -24,11 +24,11 @@ const Header = () => {
           <Img marginLeft='5%' src={require('../../assets/logo1.svg')}/>
           <Flex flexDirection='column' w='30%'>
             <Heading  fontSize='3xl' color='orange'>{sessionName}</Heading>
-            <Text  fontSize='2xl' color='orange'>Welcome {data? data.display_name: user.name}!</Text>
+            <Text  fontSize='2xl' color='orange'>Welcome { data? data.display_name: user.name }!</Text>
           </Flex>
           <Flex justifyContent='center' w='20%'>
             <Box m='10px 20px 0px'>   
-              <Avatar size="sm" name={data? data.display_name: user.name}  />
+              <Avatar size="sm" name={ data? data.display_name: user.name }  />
             </Box>
             <Button colorScheme='red' onClick={leaveHandler} isLoading={loading}>Leave</Button>
           </Flex>

@@ -1,7 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const User = require("../models/musicSessionModel");
 const MusicSession = require("../models/musicSessionModel");
-const generateToken = require("../config/generateToken");
 
 const createMusicSession = asyncHandler(async (req, res) => {
   const { name, creatorId, playlist, activeUsers, isPrivate } = req.body;
@@ -15,14 +13,14 @@ const createMusicSession = asyncHandler(async (req, res) => {
   });
 
   if (session) {
-    res.status(201).json({
+    res.status(201);
+    res.json({
       _id: session._id,
       name: session.name,
       creatorId: session.creatorId,
       playlist: session.playlist,
       activeUsers: session.activeUsers,
       isPrivate: session.isPrivate,
-      token: generateToken(session._id),
     });
   } else {
     res.status(400);
@@ -42,11 +40,22 @@ const fetchSession = asyncHandler(async (req, res) => {
   });
 });
 
+const getSessionById = asyncHandler(async (req, res) => {
+
+  try{
+    let result = await MusicSession.findOne({ _id: req.params.id})
+    res.send(result)
+  } catch(error){
+    console.log(error);
+    throw new Error("Invalid session ID or session ended")
+  }
+});
+
 const userJoinSession = asyncHandler(async (req, res) => {
   const { sessionId, userId } = req.body;
 
   try{
-   let result = await MusicSession.findOne({ _id: sessionId})
+   let result = await MusicSession.findOne({ _id: sessionId })
    result.activeUsers.push(userId);
    result.save();
    res.send("user joined session")
@@ -66,7 +75,7 @@ const userLeaveSession = asyncHandler(async (req, res) => {
       res.send("user left")
   } catch(error){
     console.log(error);
-    throw new Error("Could not join session")
+    throw new Error("Could not leave session")
   }
   
 });
@@ -103,5 +112,6 @@ module.exports = {
   userJoinSession,
   userLeaveSession,
   fetchSession,
+  getSessionById,
   updatePlaylist,
 };

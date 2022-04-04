@@ -1,4 +1,5 @@
 import { Avatar, Box, Button, Flex, Heading, Img, Text } from '@chakra-ui/react'
+import axios from 'axios';
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { SessionState } from '../../context/SessionProvider'
@@ -9,13 +10,29 @@ const Header = () => {
   const [ loading, setLoading ] = useState(false)
   const history = useHistory()
   const user = JSON.parse(localStorage.getItem('userInfo'));
-  const {data, sessionName} = SessionState();
+  const {data, sessionName, createdSessionId } = SessionState();
 
-  const leaveHandler = () => {
-    setLoading(true)
-    localStorage.clear();
-    setLoading(false)
-    history.push("/");
+  const leaveHandler = async () => {
+    
+    let userId = user._id;
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    try{
+      setLoading(true)
+      let {data} = await axios.put(`http://localhost:4000/api/session/${createdSessionId}/leave`, {userId}, config)
+      if( data === 'user left'){
+        localStorage.clear();
+        setLoading(false)
+        history.push("/");
+      }
+    }
+    catch(error){
+      console.log(error);
+    }
+    
   }
   
   return (

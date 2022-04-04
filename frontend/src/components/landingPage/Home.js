@@ -4,7 +4,8 @@ import { useHistory } from "react-router-dom";
 import "./styles.css";
 
 const client_id = "40e0e3786cb34441b74263af7dcb1200";
-const redirect_uri = "https://imusique.netlify.app/session";
+const redirect_uri = "http://localhost:3000/session";
+const joinredirect_uri = "http://localhost:3000/join";
 
 const OAUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const SCOPES = [
@@ -31,7 +32,8 @@ const Home = () => {
   };
 
   const joinSession = () => {
-    history.push("/join");
+    window.location = `${OAUTH_ENDPOINT}?client_id=${client_id}&redirect_uri=${joinredirect_uri}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;
+
   };
 
   return (

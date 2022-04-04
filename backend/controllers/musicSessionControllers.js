@@ -66,9 +66,9 @@ const userJoinSession = asyncHandler(async (req, res) => {
 });
 
 const userLeaveSession = asyncHandler(async (req, res) => {
-  const { sessionId, userId } = req.body;
+  const { userId } = req.body;
   try{
-    let result  = await MusicSession.findOne({ _id: sessionId });
+    let result  = await MusicSession.findOne({ _id: req.params.id });
     let index = result.activeUsers.findIndex(element => element === userId)
       result.activeUsers.splice(index, 1);
       result.save();
@@ -81,10 +81,10 @@ const userLeaveSession = asyncHandler(async (req, res) => {
 });
 
 const updatePlaylist = asyncHandler( async (req, res) => {
-    const { sessionId, playlist } = req.body;
+    const { playlist } = req.body;
 
     try{
-        let result = await MusicSession.findOne({ _id: sessionId})
+        let result = await MusicSession.findOne({ _id: req.params.id})
         result.activeUsers.push(playlist);
         result.save();
         res.send("playlist added")
@@ -95,10 +95,9 @@ const updatePlaylist = asyncHandler( async (req, res) => {
 })
 
 const endMusicSession = asyncHandler(async (req, res) => {
-  const { sessionId } = req.body;
-
+ 
   try{
-    await MusicSession.findByIdAndRemove(sessionId)
+    await MusicSession.findByIdAndRemove({ _id: req.params.id})
     res.send("session ended")
   } catch(error){
     console.log(error);

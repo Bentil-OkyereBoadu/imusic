@@ -1,5 +1,5 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Footer from './Footer'
 import Header from './Header'
 import Playlist from './Playlist'
@@ -7,7 +7,14 @@ import Sessions from './Sessions'
 
 
 const PublicMusicRoom = () => {
-    
+  useEffect(() => {
+    const guest = {
+      _id : '624abaae0598f8505502e934',
+      name: 'guest',
+      email: 'guest@example.com'
+    }
+    localStorage.setItem('userInfo', JSON.stringify(guest))
+  }, [])
   return (
     <Box overflowY='hidden' overflowX='hidden' position='fixed' w='100%'> 
     <Header/>

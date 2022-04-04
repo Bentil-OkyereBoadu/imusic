@@ -11,7 +11,7 @@ const Header = () => {
   const user = JSON.parse(localStorage.getItem('userInfo'));
   const {data, sessionName} = SessionState();
 
-  const logoutHandler = () => {
+  const leaveHandler = () => {
     setLoading(true)
     localStorage.clear();
     setLoading(false)
@@ -30,7 +30,7 @@ const Header = () => {
             <Box m='10px 20px 0px'>   
               <Avatar size="sm" name={data? data.display_name: user.name}  />
             </Box>
-            <Button colorScheme='red' onClick={logoutHandler} isLoading={loading}>Logout</Button>
+            <Button colorScheme='red' onClick={leaveHandler} isLoading={loading}>Leave</Button>
           </Flex>
         </Flex>
     </Box>

@@ -7,8 +7,8 @@ import { spotifyApi } from "../musicRoom/Playlist";
 import SpotifyPlayer from "react-spotify-web-playback";
 
 const JoinFooter = () => {
-  const { token, playlistTracks } = SessionState();
-  let trackURIs = playlistTracks.map((track) => track.uri);
+  const { token, selectedSession } = SessionState();
+  let trackURIs = selectedSession.playlist.map((track) => track.uri);
   spotifyApi.setAccessToken(token);
 
  

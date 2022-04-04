@@ -1,6 +1,5 @@
 import { Box, Button, Flex, Heading, Img, Text } from "@chakra-ui/react";
 import React from "react";
-import { useHistory } from "react-router-dom";
 import "./styles.css";
 
 const client_id = "40e0e3786cb34441b74263af7dcb1200";
@@ -25,7 +24,6 @@ const SPACE_DELIMITER = "%20";
 const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
 const Home = () => {
-  const history = useHistory();
 
   const spotifyLogin = () => {
     window.location = `${OAUTH_ENDPOINT}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;

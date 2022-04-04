@@ -52,10 +52,10 @@ const getSessionById = asyncHandler(async (req, res) => {
 });
 
 const userJoinSession = asyncHandler(async (req, res) => {
-  const { sessionId, userId } = req.body;
+  const { userId } = req.body;
 
   try{
-   let result = await MusicSession.findOne({ _id: sessionId })
+   let result = await MusicSession.findOne({ _id: req.params.id })
    result.activeUsers.push(userId);
    result.save();
    res.send("user joined session")

@@ -20,19 +20,19 @@
 * Registered users can chat with fellow registered users.
 
 ## Screenshots
-* Homepage
+**Homepage**
 ![screenshot](frontend/src/assets/imusic%20screenshots/homepage.JPG)
 
-* Create a session
+**Create a session**
 ![screenshot](frontend/src/assets/imusic%20screenshots/createsessionpage.JPG)
 
-* Public session created
+**Public session created**
 ![screenshot](frontend/src/assets/imusic%20screenshots/publicsessioncreated.JPG)
 
-* Active sessions
+**Active sessions**
 ![screenshot](frontend/src/assets/imusic%20screenshots/activesessions.JPG)
 
-*Join page
+**Join page**
 ![screenshot](frontend/src/assets/imusic%20screenshots/joinpage.JPG)
 
 
@@ -40,7 +40,7 @@
 
 👤 **Bentil Okyere Boadu**
 
-* Twitter: [@boadu\_koo](https://twitter.com/boadu\_koo)
+* Twitter: [@boadu_koo](https://twitter.com/boadu_koo)
 * Github: [@Bentil-OkyereBoadu](https://github.com/Bentil-OkyereBoadu)
 * LinkedIn: [@Bentil Okyere Boadu](https://linkedin.com/in/BentilOkyereBoadu)
 

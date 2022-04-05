@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Heading } from "@chakra-ui/react";
 import TrackList from "./TrackList";
 import Sessions from "../musicRoom/Sessions";
 import JoinHeader from "./JoinHeader";
@@ -45,7 +45,12 @@ const JoinRoom = () => {
           <Sessions />
         </GridItem>
         <GridItem w="100%" h="100%" border="1px solid orange">
+        <Heading fontSize="2rem" p="0.4rem" color="white" bg="gray.500" textAlign='center'>
+          Playlist
+        </Heading>
+        <Box h="70vh" w="100%">
           <TrackList tracks={tracks} />
+        </Box>
         </GridItem>
         <GridItem w="100%" h="100%" border="1px solid orange">
           <ChatPage/>

@@ -37,8 +37,11 @@ const Sessions = () => {
       };
   
       localStorage.setItem('userInfo', JSON.stringify(guest));
-    }
       history.push('/joinroom')
+    } else{
+     history.push('/joinroom/login')
+    }
+    
   }
 
   return (
@@ -62,7 +65,7 @@ const Sessions = () => {
         >
           {reversedArr ? (
             reversedArr.map((session) => {
-              return <SingleSession session={session} key={session._id} handleJoinClick={(e) =>handleJoinClick(session)}/>;
+              return <SingleSession session={session} key={session._id} handleJoinClick={() => handleJoinClick(session)}/>;
             })
           ) : (
             <ChatLoading />

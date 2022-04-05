@@ -174,7 +174,7 @@ const Playlist = () => {
 
       <Flex justifyContent="space-around" w="100%" margin="1em">
         <Input
-          w="40%"
+          w="30%"
           placeholder="Playlist name"
           onChange={handlePlaylistName}
         />

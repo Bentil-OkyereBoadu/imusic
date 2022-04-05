@@ -1,19 +1,23 @@
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack } from "@chakra-ui/react";
 import React, { useCallback } from "react";
 import { BsShare } from "react-icons/bs";
-import { IoPersonAddOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import { SessionState } from "../../context/SessionProvider";
 import { spotifyApi } from "./Playlist";
 import SpotifyPlayer from "react-spotify-web-playback";
+import { FaCopy, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { Simplesharer } from "simple-sharer";
 
 const Footer = () => {
-  const { token, playlistTracks } = SessionState();
+  const {
+    token,
+    playlistTracks,
+    createdSessionId,
+    sessionName,
+  } = SessionState();
   let trackURIs = playlistTracks.map((track) => track.uri);
   spotifyApi.setAccessToken(token);
 
- 
- 
   // Get Information About The User's Current Playback State
   spotifyApi.getMyCurrentPlaybackState().then(
     function(data) {
@@ -33,8 +37,13 @@ const Footer = () => {
     console.group(`RSWP: ${type}`);
     console.log(state);
     console.groupEnd();
-
   }, []);
+
+  const sharing = new Simplesharer();
+  sharing.url = `http://localhost:4000/api/session/${createdSessionId}/join`;
+  sharing.title = `Join ${sessionName} now and enjoy some good music`;
+  sharing.text = `Join ${sessionName} now and enjoy some good music`;
+
 
   return (
     <Flex
@@ -67,24 +76,37 @@ const Footer = () => {
           />
         </Box>
       )}
-      <Box w="20%" h="100%"></Box>
+      <Box w="10%" h="100%"></Box>
       <Flex
-        w="30%"
+        w="40%"
         justifyContent="space-evenly"
         alignContent="space-between"
         alignItems="center"
         p={1}
       >
-        <Button leftIcon={<BsShare />} colorScheme="blue">
-          Share
-        </Button>
-        <Button
-          rightIcon={<IoPersonAddOutline />}
-          colorScheme="blue"
-          color="white"
-        >
-          Invite friends
-        </Button>
+        <HStack>
+          <Button
+            colorScheme="facebook"
+            leftIcon={<BsShare />}
+            rightIcon={<FaFacebook />}
+            onClick={() => sharing.share("Facebook")}
+          ></Button>
+          <Button
+            colorScheme="twitter"
+            rightIcon={<FaTwitter />}
+            leftIcon={<BsShare />}
+            onClick={() => sharing.twitter()}
+          ></Button>
+          <Button
+            rightIcon={<FaWhatsapp />}
+            leftIcon={<BsShare />}
+            colorScheme="whatsapp"
+            onClick={() => sharing.whatsapp()}
+          ></Button>
+          <Button onClick={() => sharing.copy()} leftIcon={<FaCopy />}>
+            Copy link
+          </Button>
+        </HStack>
         <NavLink to="/">
           <Button colorScheme="red" color="white">
             End Session

@@ -97,7 +97,7 @@ const updatePlaylist = asyncHandler( async (req, res) => {
 const endMusicSession = asyncHandler(async (req, res) => {
  
   try{
-    await MusicSession.findByIdAndRemove({ _id: req.params.id})
+    await MusicSession.deleteOne({ _id: req.params.id})
     res.send("session ended")
   } catch(error){
     console.log(error);

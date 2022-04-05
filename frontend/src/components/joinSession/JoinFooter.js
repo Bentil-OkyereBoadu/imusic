@@ -27,6 +27,7 @@ const JoinFooter = () => {
     }
   );
 
+  //handle callback for spotify player
   const handleCallback = useCallback(({ type, ...state }) => {
     console.group(`RSWP: ${type}`);
     console.log(state);

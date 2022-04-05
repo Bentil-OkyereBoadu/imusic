@@ -1,12 +1,12 @@
-import { Box, Button, Flex, HStack } from "@chakra-ui/react";
-import React, { useCallback } from "react";
+import { Box, Button, Flex, HStack, useToast } from "@chakra-ui/react";
+import React, { useCallback, useState } from "react";
 import { BsShare } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
 import { SessionState } from "../../context/SessionProvider";
 import { spotifyApi } from "./Playlist";
 import SpotifyPlayer from "react-spotify-web-playback";
 import { FaCopy, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { Simplesharer } from "simple-sharer";
+import axios from "axios";
 
 const Footer = () => {
   const {
@@ -15,6 +15,9 @@ const Footer = () => {
     createdSessionId,
     sessionName,
   } = SessionState();
+
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
   let trackURIs = playlistTracks.map((track) => track.uri);
   spotifyApi.setAccessToken(token);
 
@@ -39,6 +42,42 @@ const Footer = () => {
     console.groupEnd();
   }, []);
 
+  const endSession =async () => {
+    // const config = {
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    // };
+
+    try{
+      setLoading(true);
+      let {data} = await axios.post(`http://localhost:4000/api/session/${createdSessionId}/endSession`)
+      if(data === 'session ended'){
+        localStorage.clear();
+        setLoading(false);
+        toast({
+          title: "Session Ended",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        })
+        window.location = '/';
+      }
+    } catch(error){
+      toast({
+        title: "Session not ended",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+      setLoading(false);
+      console.log(error);
+    }
+  }
+
+  //creating instance of sharer with parameters to display when share buttons are clicked.
   const sharing = new Simplesharer();
   sharing.url = `http://localhost:4000/api/session/${createdSessionId}/join`;
   sharing.title = `Join ${sessionName} now and enjoy some good music`;
@@ -107,11 +146,9 @@ const Footer = () => {
             Copy link
           </Button>
         </HStack>
-        <NavLink to="/">
-          <Button colorScheme="red" color="white">
+          <Button colorScheme="red" color="white" onClick={endSession} isLoading={loading}>
             End Session
           </Button>
-        </NavLink>
       </Flex>
     </Flex>
   );

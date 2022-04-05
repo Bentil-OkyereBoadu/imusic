@@ -2,7 +2,7 @@ import { Box, Button, Flex, Heading, Img, Text } from "@chakra-ui/react";
 import React from "react";
 import "./styles.css";
 
-const client_id = "40e0e3786cb34441b74263af7dcb1200";
+const client_id = "ddc7d259bece4112b9df90559ea0e4ff";
 const redirect_uri = "http://localhost:3000/session";
 const joinredirect_uri = "http://localhost:3000/join";
 

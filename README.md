@@ -42,7 +42,7 @@
 
 * Twitter: [@boadu\_koo](https://twitter.com/boadu\_koo)
 * Github: [@Bentil-OkyereBoadu](https://github.com/Bentil-OkyereBoadu)
-* LinkedIn: [@Bentil Okyere Boadu](https://linkedin.com/in/Bentil Okyere Boadu)
+* LinkedIn: [@Bentil Okyere Boadu](https://linkedin.com/in/BentilOkyereBoadu)
 
 ## Technologies used
 

@@ -17,6 +17,6 @@ router.route("/:id").get(getSessionById);
 router.route("/:id/join").put(userJoinSession);
 router.route("/:id/leave").put(userLeaveSession);
 router.route("/:id/playlist").put(updatePlaylist);
-router.route("/endSession").post(endMusicSession);
+router.route("/:id/endSession").post(endMusicSession);
 
 module.exports = router;

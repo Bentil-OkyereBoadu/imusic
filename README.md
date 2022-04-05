@@ -51,5 +51,6 @@
 * Express
 * Chakra-UI
 * Socket IO
+* MongoDB
 * Spotify Api for getting and streaming music.
 

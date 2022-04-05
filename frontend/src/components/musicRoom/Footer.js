@@ -42,7 +42,7 @@ const Footer = () => {
   const sharing = new Simplesharer();
   sharing.url = `http://localhost:4000/api/session/${createdSessionId}/join`;
   sharing.title = `Join ${sessionName} now and enjoy some good music`;
-  sharing.text = `Join ${selectedSession.name} now and enjoy some good music`;
+  sharing.text = `Join ${sessionName} now and enjoy some good music`;
 
 
   return (

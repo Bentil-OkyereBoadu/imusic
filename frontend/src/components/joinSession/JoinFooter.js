@@ -35,7 +35,7 @@ const JoinFooter = () => {
   }, []);
 
   const sharing = new Simplesharer();
-  sharing.url = `http://localhost:4000/api/session/${selectedSession._id}/join`;
+  sharing.url = `https://imusic-three.vercel.app/api/session/${selectedSession._id}/join`;
   sharing.title = `Join ${selectedSession.name} now and enjoy some good music`;
   sharing.text = `Join ${selectedSession.name} now and enjoy some good music`;
 

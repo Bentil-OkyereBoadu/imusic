@@ -7,10 +7,10 @@ import {
   Heading,
   useToast,
 } from "@chakra-ui/react";
-import axios from "axios";
 import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { ChatState } from "../../context/ChatProvider";
+import Api from "../../services/api";
 import "../styles.css";
 
 const JoinLogin = () => {
@@ -50,16 +50,9 @@ const JoinLogin = () => {
     }
 
     try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-
-      const { data } = await axios.post(
-        "http://localhost:4000/api/user/login",
-        { email, password },
-        config
+      const { data } = await Api().post(
+        "/api/user/login",
+        { email, password }
       );
 
       if (data) {

@@ -4,7 +4,7 @@ import TrackList from "./TrackList";
 import SearchBar from "./SearchBar";
 import { SessionState } from "../../context/SessionProvider";
 import SpotifyApi from "../../services/SpotifyApi";
-import axios from "axios";
+import Api from "../../services/api";
 
 const Playlist = () => {
   const toast = useToast();
@@ -57,8 +57,8 @@ const Playlist = () => {
         },
       };
 
-      let { data } = await axios.post(
-        "http://localhost:4000/api/session",
+      let { data } = await Api().post(
+        `/api/session`,
         { name, creatorId, playlist, activeUsers, isPrivate },
         config
       );

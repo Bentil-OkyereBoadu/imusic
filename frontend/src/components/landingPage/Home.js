@@ -3,8 +3,8 @@ import React from "react";
 import "./styles.css";
 
 const client_id = "ddc7d259bece4112b9df90559ea0e4ff";
-const redirect_uri = "http://localhost:3000/session";
-const joinredirect_uri = "http://localhost:3000/join";
+const redirect_uri = process.env.NODE_ENV === 'development'? "http://localhost:3000/session" : 'https://imusique.netlify.app/session';
+const joinredirect_uri = process.env.NODE_ENV === 'development'? "http://localhost:3000/join": 'https://imusique.netlify.app/join';
 
 const OAUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const SCOPES = [

@@ -6,7 +6,6 @@ import {
   Input,
   useToast,
 } from "@chakra-ui/react";
-import axios from "axios";
 import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { ChatState } from "../../context/ChatProvider";
@@ -70,18 +69,7 @@ const Signup = () => {
     }
 
     try {
-      // const config = {
-      //   headers: {
-      //     "Content-type": "application/json",
-      //   },
-      // };
-
       const { data } = await Api().post(`/api/user`, { name, email, password })
-      // const { data } = await axios.post(
-      //   "http://localhost:4000/api/user/",
-      //   { name, email, password },
-      //   config
-      // );
       if (data === "user already exists") {
         toast({
           title: "User already exists",

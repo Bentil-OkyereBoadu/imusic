@@ -2,9 +2,9 @@ import { Box, Flex, Heading } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import SingleSession from "../sessions/SingleSession";
 import ChatLoading from "../chat/ChatLoading";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { SessionState } from "../../context/SessionProvider";
+import Api from "../../services/api";
 
 const Sessions = () => {
   const [sessions, setSessions] = useState([]);
@@ -19,7 +19,7 @@ const Sessions = () => {
 
   const fetchAllSessions = async () => {
     try {
-      let { data } = await axios.get("http://localhost:4000/api/session");
+      let { data } = await Api().get(`/api/session`);
       setSessions(data);
     } catch (error) {
       console.log(error);

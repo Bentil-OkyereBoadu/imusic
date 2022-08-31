@@ -7,6 +7,7 @@ import SpotifyPlayer from "react-spotify-web-playback";
 import { FaCopy, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { Simplesharer } from "simple-sharer";
 import axios from "axios";
+import Api from "../../services/api";
 
 const Footer = () => {
   const {
@@ -43,15 +44,10 @@ const Footer = () => {
   }, []);
 
   const endSession =async () => {
-    // const config = {
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    // };
-
+   
     try{
       setLoading(true);
-      let {data} = await axios.post(`http://localhost:4000/api/session/${createdSessionId}/endSession`)
+      let {data} = await Api().post(`/api/session/${createdSessionId}/endSession`)
       if(data === 'session ended'){
         localStorage.clear();
         setLoading(false);
@@ -79,7 +75,7 @@ const Footer = () => {
 
   //creating instance of sharer with parameters to display when share buttons are clicked.
   const sharing = new Simplesharer();
-  sharing.url = `http://localhost:4000/api/session/${createdSessionId}/join`;
+  sharing.url = `https://imusic-three.vercel.app/api/session/${createdSessionId}/join`;
   sharing.title = `Join ${sessionName} now and enjoy some good music`;
   sharing.text = `Join ${sessionName} now and enjoy some good music`;
 

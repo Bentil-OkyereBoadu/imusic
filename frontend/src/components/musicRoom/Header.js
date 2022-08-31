@@ -1,8 +1,8 @@
 import { Avatar, Box, Button, Flex, Heading, Img, Text } from '@chakra-ui/react'
-import axios from 'axios';
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { SessionState } from '../../context/SessionProvider'
+import Api from '../../services/api';
 
 
 const Header = () => {
@@ -15,14 +15,10 @@ const Header = () => {
   const leaveHandler = async () => {
     
     let userId = user._id;
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
+    
     try{
       setLoading(true)
-      let {data} = await axios.put(`http://localhost:4000/api/session/${createdSessionId}/leave`, {userId}, config)
+      let {data} = await Api().put(`/api/session/${createdSessionId}/leave`, {userId})
       if( data === 'user left'){
         localStorage.clear();
         setLoading(false)

@@ -16,6 +16,9 @@ const SearchBox = () => {
     const [loading, setLoading] = useState(false);
     const [loadingChat, setLoadingChat] = useState();
 
+    const url = process.env.NODE_ENV === 'development'? process.env.DEV_BACKEND : process.env.PROD_BACKEND
+
+
     const handleSearch = async () => {
 
         try{
@@ -27,7 +30,7 @@ const SearchBox = () => {
                 }
             }
 
-            const {data} = await axios.get(`http://localhost:4000/api/user?search=${search}`, config);
+            const {data} = await axios.get(`${url}/api/user?search=${search}`, config);
 
             setLoading(false);
             setSearchResult(data); 
@@ -54,7 +57,7 @@ const SearchBox = () => {
                 }
             }
 
-            const { data } = await axios.post('http://localhost:4000/api/chat', {userId}, config); 
+            const { data } = await axios.post(`${url}/api/chat`, {userId}, config); 
             if(!chats.find( (chat) => chat._id === data._id)){
                 setChats([data, ...chats]);
             }

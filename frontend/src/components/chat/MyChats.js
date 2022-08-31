@@ -26,6 +26,7 @@ const MyChats = ({fetchAgain, setFetchAgain}) => {
     const {user,selectedChat, setSelectedChat, chats, setChats} = ChatState();
     const toast = useToast();
 
+    const url = process.env.NODE_ENV === 'development'? process.env.DEV_BACKEND : process.env.PROD_BACKEND
     
     //fetching all chats
     const fetchChats = async () =>{
@@ -36,7 +37,7 @@ const MyChats = ({fetchAgain, setFetchAgain}) => {
                 }
             }
 
-            const { data } = await axios.get("http://localhost:4000/api/chat", config);
+            const { data } = await axios.get(`${url}/api/chat`, config);
             
             setChats(data);
 

@@ -2,25 +2,13 @@ import { Button, Flex, Heading, Input, useToast } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { SessionState } from "../../context/SessionProvider";
-import { spotifyApi } from "../musicRoom/Playlist";
-
-const getParamsFromSpotifyAuth = (hash) => {
-  const stringAfterHashtag = hash.substring(1);
-  const paramsInUrl = stringAfterHashtag.split("&");
-
-  const paramsSplitUp = paramsInUrl.reduce((accumulator, currentValue) => {
-    const [key, value] = currentValue.split("=");
-    accumulator[key] = value;
-    return accumulator;
-  }, {});
-
-  return paramsSplitUp;
-};
+import SpotifyApi from "../../services/SpotifyApi";
+import getParamsFromSpotifyAuth from "../../utils/GetParamsFromSpotifyAuth";
 
 const Session = () => {
   const { setToken, setData, token, setPrivacy, sessionName, setSessionName } = SessionState();
 
-  spotifyApi.setAccessToken(token);
+  SpotifyApi.setAccessToken(token);
 
   const toast = useToast();
   const history = useHistory();
@@ -48,7 +36,7 @@ const Session = () => {
     }
 
     // Get the authenticated user
-    spotifyApi.getMe().then(
+    SpotifyApi.getMe().then(
       (data) => {
         setData(data.body);
 

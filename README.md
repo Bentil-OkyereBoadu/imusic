@@ -6,7 +6,7 @@
 </p>
 
 ### Description
-> A collaborative music listening application where users from around the world can come together to have fun listening to music right from the comfort of their homes while the interact with each other.
+> A collaborative music listening application where users from around the world can come together to have fun listening to music right from the comfort of their homes while they interact with each other.
 
 ### 🏠 [Homepage](https://imusique.netlify.app/)
 

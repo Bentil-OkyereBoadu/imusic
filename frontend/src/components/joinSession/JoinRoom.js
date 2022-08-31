@@ -7,6 +7,7 @@ import JoinFooter from "./JoinFooter";
 import { SessionState } from "../../context/SessionProvider";
 import axios from "axios";
 import ChatPage from "../chat/ChatPage";
+import Api from "../../services/api";
 
 const JoinRoom = () => {
 
@@ -21,14 +22,15 @@ const JoinRoom = () => {
   const joinHandler = async () => {
     let sessionId = selectedSession._id;
     let userId = user._id;
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    // };
 
     try{
-      await axios.put(`http://localhost:4000/api/session/${sessionId}/join`, {userId}, config)
+      await Api().put(`/session/${sessionId}/join`, {userId})
+      // await axios.put(`http://localhost:4000/api/session/${sessionId}/join`, {userId}, config)
     }
     catch(error){
       console.log(error);

@@ -2,7 +2,7 @@ import { Box, Button, Flex, HStack, useToast } from "@chakra-ui/react";
 import React, { useCallback, useState } from "react";
 import { BsShare } from "react-icons/bs";
 import { SessionState } from "../../context/SessionProvider";
-import { spotifyApi } from "./Playlist";
+import SpotifyApi from "../../services/SpotifyApi";
 import SpotifyPlayer from "react-spotify-web-playback";
 import { FaCopy, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { Simplesharer } from "simple-sharer";
@@ -19,10 +19,10 @@ const Footer = () => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   let trackURIs = playlistTracks.map((track) => track.uri);
-  spotifyApi.setAccessToken(token);
+  SpotifyApi.setAccessToken(token);
 
   // Get Information About The User's Current Playback State
-  spotifyApi.getMyCurrentPlaybackState().then(
+  SpotifyApi.getMyCurrentPlaybackState().then(
     function(data) {
       // Output items
       if (data.body && data.body.is_playing) {

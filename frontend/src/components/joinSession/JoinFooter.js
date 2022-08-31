@@ -2,7 +2,7 @@ import { Box, Button, Flex, HStack } from "@chakra-ui/react";
 import React, { useCallback } from "react";
 import { BsShare } from "react-icons/bs";
 import { SessionState } from "../../context/SessionProvider";
-import { spotifyApi } from "../musicRoom/Playlist";
+import SpotifyApi from "../../services/SpotifyApi";
 import SpotifyPlayer from "react-spotify-web-playback";
 import { FaCopy, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { Simplesharer } from "simple-sharer";
@@ -10,10 +10,10 @@ import { Simplesharer } from "simple-sharer";
 const JoinFooter = () => {
   const { token, selectedSession } = SessionState();
   let trackURIs = selectedSession.playlist.map((track) => track.uri);
-  spotifyApi.setAccessToken(token);
+  SpotifyApi.setAccessToken(token);
 
   // Get Information About The User's Current Playback State
-  spotifyApi.getMyCurrentPlaybackState().then(
+  SpotifyApi.getMyCurrentPlaybackState().then(
     function(data) {
       // Output items
       if (data.body && data.body.is_playing) {

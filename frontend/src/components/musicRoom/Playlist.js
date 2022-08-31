@@ -3,13 +3,8 @@ import React, { useState } from "react";
 import TrackList from "./TrackList";
 import SearchBar from "./SearchBar";
 import { SessionState } from "../../context/SessionProvider";
-import SpotifyWebApi from "spotify-web-api-node";
+import SpotifyApi from "../../services/SpotifyApi";
 import axios from "axios";
-
-export const spotifyApi = new SpotifyWebApi({
-  client_id: "ddc7d259bece4112b9df90559ea0e4ff",
-  redirect_uri: "http://localhost:3000/session",
-});
 
 const Playlist = () => {
   const toast = useToast();
@@ -23,7 +18,7 @@ const Playlist = () => {
     setCreatedSessionId,
   } = SessionState();
 
-  spotifyApi.setAccessToken(token);
+  SpotifyApi.setAccessToken(token);
 
   const [playlistName, setPlaylistName] = useState("");
 
@@ -104,7 +99,7 @@ const Playlist = () => {
   //create a public playlist
   const addPlaylist = () => {
     let trackURIs = state.playlistTracks.map((track) => track.uri);
-    spotifyApi
+    SpotifyApi
       .createPlaylist(playlistName, {
         description: "My description",
         public: true,
@@ -115,7 +110,7 @@ const Playlist = () => {
         return data.body.id;
       })
       .then((id) => {
-        return spotifyApi.addTracksToPlaylist(id, trackURIs);
+        return SpotifyApi.addTracksToPlaylist(id, trackURIs);
       })
       .then(function() {
         toast({

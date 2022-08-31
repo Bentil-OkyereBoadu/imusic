@@ -1,34 +1,16 @@
 import { useToast } from '@chakra-ui/react';
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
-import SpotifyWebApi from 'spotify-web-api-node';
+import SpotifyApi from '../../services/SpotifyApi';
 import { SessionState } from '../../context/SessionProvider';
 import Sessions from '../musicRoom/Sessions'
-
-
-const getParamsFromSpotifyAuth = (hash) => {
-  const stringAfterHashtag = hash.substring(1);
-  const paramsInUrl = stringAfterHashtag.split("&");
-
-  const paramsSplitUp = paramsInUrl.reduce((accumulator, currentValue) => {
-    const [key, value] = currentValue.split("=");
-    accumulator[key] = value;
-    return accumulator;
-  }, {});
-
-  return paramsSplitUp;
-};
+import getParamsFromSpotifyAuth from '../../utils/GetParamsFromSpotifyAuth';
 
 const JoinSession = () => {
 
   const { setToken, setData, token } = SessionState();
 
-  const spotifyApi = new SpotifyWebApi({
-    client_id: "40e0e3786cb34441b74263af7dcb1200",
-    redirect_uri: "http://localhost:3000/join",
-  });
-
-  spotifyApi.setAccessToken(token);
+  SpotifyApi.setAccessToken(token);
 
   const toast = useToast();
   const history = useHistory();
@@ -56,7 +38,7 @@ const JoinSession = () => {
     }
 
     // Get the authenticated user
-    spotifyApi.getMe().then(
+    SpotifyApi.getMe().then(
       (data) => {
         setData(data.body);
       },

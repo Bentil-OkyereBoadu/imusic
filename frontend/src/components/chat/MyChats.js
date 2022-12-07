@@ -15,6 +15,7 @@ import {
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { ChatState } from '../../context/ChatProvider';
+import config from '../../public/config';
 import ChatBox from './ChatBox';
 import ChatLoading from './ChatLoading';
 import { getSender } from './config/ChatLogics';
@@ -26,7 +27,7 @@ const MyChats = ({fetchAgain, setFetchAgain}) => {
     const {user,selectedChat, setSelectedChat, chats, setChats} = ChatState();
     const toast = useToast();
 
-    const url = process.env.NODE_ENV === 'development'? process.env.DEV_BACKEND : process.env.PROD_BACKEND
+    const url = config.api
     
     //fetching all chats
     const fetchChats = async () =>{

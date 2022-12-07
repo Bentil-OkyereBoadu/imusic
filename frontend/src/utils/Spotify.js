@@ -6,9 +6,9 @@ require('dotenv').config({ path: '../.env'});
 const app = express();
 
 //getting client id and redirect uri from env
-const client_id = process.env.CLIENT_ID;
-const client_secret = process.env.CLIENT_SECRET;
-const redirect_uri = process.env.REDIRECT_URI;
+const client_id = process.env.REACT_APP_CLIENT_ID;
+const client_secret = process.env.REACT_APP_CLIENT_SECRET;
+const redirect_uri = process.env.REACT_APP_REDIRECT_URI;
 
 //generate random string (hash) as code verifier
 const generateRandomString = (length) => {

@@ -4,12 +4,13 @@ import React, { useEffect, useState } from "react";
 import { ChatState } from "../../context/ChatProvider";
 import ScrollableChat from "./ScrollableChat";
 import io from "socket.io-client";
+import config from "../../public/config";
 
-const ENDPOINT = process.env.NODE_ENV === 'development'? process.env.DEV_BACKEND : process.env.PROD_BACKEND
+const ENDPOINT = config.api
 
 let socket, selectedChatCompare;
 
-const SingleChat = ({ _fetchAgain, _setfetchAgain }) => {
+const SingleChat = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState();
@@ -108,8 +109,7 @@ const SingleChat = ({ _fetchAgain, _setfetchAgain }) => {
       if (
         !selectedChatCompare ||
         selectedChatCompare._id !== newMessage.chat._id
-      ) {
-      } else {
+      ) {} else {
         setMessages([...messages, newMessage]);
       }
     });

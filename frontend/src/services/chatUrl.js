@@ -1,3 +1,3 @@
-const chatUrl = () =>  process.env.NODE_ENV === 'development'? process.env.DEV_BACKEND : process.env.PROD_BACKEND;
+const chatUrl = () =>  process.env.REACT_APP_NODE_ENV === 'development'? process.env.REACT_APP_DEV_BACKEND : process.env.REACT_APP_PROD_BACKEND;
 
-export default chatUrl;
+module.exports =  chatUrl;

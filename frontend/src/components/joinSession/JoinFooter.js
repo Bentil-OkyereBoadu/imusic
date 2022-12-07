@@ -6,6 +6,7 @@ import SpotifyApi from "../../services/SpotifyApi";
 import SpotifyPlayer from "react-spotify-web-playback";
 import { FaCopy, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { Simplesharer } from "simple-sharer";
+import config from "../../public/config";
 
 const JoinFooter = () => {
   const { token, selectedSession } = SessionState();
@@ -35,7 +36,7 @@ const JoinFooter = () => {
   }, []);
 
   const sharing = new Simplesharer();
-  sharing.url = `https://imusic-three.vercel.app/api/session/${selectedSession._id}/join`;
+  sharing.url = `${config.productionUrl}/api/session/${selectedSession._id}/join`;
   sharing.title = `Join ${selectedSession.name} now and enjoy some good music`;
   sharing.text = `Join ${selectedSession.name} now and enjoy some good music`;
 

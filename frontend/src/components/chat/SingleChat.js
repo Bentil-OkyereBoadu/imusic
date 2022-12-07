@@ -4,11 +4,13 @@ import React, { useEffect, useState } from "react";
 import { ChatState } from "../../context/ChatProvider";
 import ScrollableChat from "./ScrollableChat";
 import io from "socket.io-client";
+import config from "../../public/config";
 
-const ENDPOINT = "http://localhost:4000";
+const ENDPOINT = config.api
+
 let socket, selectedChatCompare;
 
-const SingleChat = ({ fetchAgain, setfetchAgain }) => {
+const SingleChat = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState();
@@ -31,7 +33,7 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
         };
         setNewMessage("");
         const { data } = await axios.post(
-          "http://localhost:4000/api/message",
+          `${ENDPOINT}/api/message`,
           {
             content: newMessage,
             chatId: selectedChat,
@@ -70,7 +72,7 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
       setLoading(true);
 
       const { data } = await axios.get(
-        `http://localhost:4000/api/message/${selectedChat._id}`,
+        `${ENDPOINT}/api/message/${selectedChat._id}`,
         config
       );
 
@@ -107,8 +109,7 @@ const SingleChat = ({ fetchAgain, setfetchAgain }) => {
       if (
         !selectedChatCompare ||
         selectedChatCompare._id !== newMessage.chat._id
-      ) {
-      } else {
+      ) {} else {
         setMessages([...messages, newMessage]);
       }
     });

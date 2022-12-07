@@ -15,6 +15,7 @@ import {
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { ChatState } from '../../context/ChatProvider';
+import config from '../../public/config';
 import ChatBox from './ChatBox';
 import ChatLoading from './ChatLoading';
 import { getSender } from './config/ChatLogics';
@@ -26,6 +27,7 @@ const MyChats = ({fetchAgain, setFetchAgain}) => {
     const {user,selectedChat, setSelectedChat, chats, setChats} = ChatState();
     const toast = useToast();
 
+    const url = config.api
     
     //fetching all chats
     const fetchChats = async () =>{
@@ -36,7 +38,7 @@ const MyChats = ({fetchAgain, setFetchAgain}) => {
                 }
             }
 
-            const { data } = await axios.get("http://localhost:4000/api/chat", config);
+            const { data } = await axios.get(`${url}/api/chat`, config);
             
             setChats(data);
 

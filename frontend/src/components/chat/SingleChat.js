@@ -33,7 +33,7 @@ const SingleChat = () => {
         };
         setNewMessage("");
         const { data } = await axios.post(
-          `${ENDPOINT}/api/message`,
+          `${ENDPOINT}api/message`,
           {
             content: newMessage,
             chatId: selectedChat,
@@ -72,7 +72,7 @@ const SingleChat = () => {
       setLoading(true);
 
       const { data } = await axios.get(
-        `${ENDPOINT}/api/message/${selectedChat._id}`,
+        `${ENDPOINT}api/message/${selectedChat._id}`,
         config
       );
 

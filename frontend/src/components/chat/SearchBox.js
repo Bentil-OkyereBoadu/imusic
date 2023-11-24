@@ -31,7 +31,7 @@ const SearchBox = () => {
                 }
             }
 
-            const {data} = await axios.get(`${url}/api/user?search=${search}`, config);
+            const {data} = await axios.get(`${url}api/user?search=${search}`, config);
 
             setLoading(false);
             setSearchResult(data); 
@@ -58,7 +58,7 @@ const SearchBox = () => {
                 }
             }
 
-            const { data } = await axios.post(`${url}/api/chat`, {userId}, config); 
+            const { data } = await axios.post(`${url}api/chat`, {userId}, config); 
             if(!chats.find( (chat) => chat._id === data._id)){
                 setChats([data, ...chats]);
             }

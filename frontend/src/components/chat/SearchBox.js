@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { ChatState } from '../../context/ChatProvider';
 import ChatLoading from './ChatLoading';
 import UserListItem from './UserListItem';
+import config from "../../public/config";
 
 const SearchBox = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -16,7 +17,7 @@ const SearchBox = () => {
     const [loading, setLoading] = useState(false);
     const [loadingChat, setLoadingChat] = useState();
 
-    const url = process.env.NODE_ENV === 'development'? process.env.DEV_BACKEND : process.env.PROD_BACKEND
+    const url = config.api;
 
 
     const handleSearch = async () => {
